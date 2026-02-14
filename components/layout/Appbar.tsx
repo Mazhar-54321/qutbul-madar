@@ -14,6 +14,7 @@ import LanguageSwitcher from "../shared/LanguageSwitcher";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useLocale, useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 // Remove: import { isRtlLocale } from "@/i18n";  ← no longer needed here
 

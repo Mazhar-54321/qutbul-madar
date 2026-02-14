@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/accordion";
 import LanguageSwitcher from "../shared/LanguageSwitcher";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 

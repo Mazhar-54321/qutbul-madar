@@ -1,6 +1,8 @@
 // src/i18n/routing.ts
 
-export const routing = {
-  locales: ["en", "ur", "ur-Latn", "hi"] as const,
-  defaultLocale: "en" as const,
-} satisfies { locales: readonly string[]; defaultLocale: string };
+import { defineRouting } from "next-intl/routing";
+
+export const routing = defineRouting({
+  locales: ["en", "ur", "ur-Latn", "hi"],
+  defaultLocale: "en",
+});

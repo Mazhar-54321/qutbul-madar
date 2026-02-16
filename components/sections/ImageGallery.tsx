@@ -44,7 +44,13 @@ export default function ImageGallerySection({ images, t }: ImageGalleryProps) {
           </h2>
           <div className="w-40 h-1 mx-auto bg-gradient-to-r from-transparent via-chart-2/80 to-transparent rounded-full" />
         </motion.div>
-
+        <div className="absolute inset-0 -z-10">
+          <motion.div
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 10, repeat: Infinity }}
+            className="absolute top-1/3 left-1/2 w-[600px] h-[600px] bg-chart-2/20 blur-[180px] rounded-full -translate-x-1/2"
+          />
+        </div>
         <Swiper
           modules={[
             Navigation,
@@ -55,13 +61,14 @@ export default function ImageGallerySection({ images, t }: ImageGalleryProps) {
           ]}
           effect="coverflow"
           coverflowEffect={{
-            rotate: 38, // Softer, more realistic tilt
+            rotate: 45,
             stretch: 0,
-            depth: 280, // Deeper 3D feel
-            modifier: 1.6, // Stronger curve & separation
-            slideShadows: true,
-            scale: 0.82, // Slightly smaller sides for focus on center
+            depth: 400,
+            modifier: 1.8,
+            slideShadows: false,
+            scale: 0.75,
           }}
+          autoHeight={true}
           grabCursor={true}
           centeredSlides={true}
           slidesPerView={1.4} // Show partial previews — feels expansive
@@ -84,30 +91,37 @@ export default function ImageGallerySection({ images, t }: ImageGalleryProps) {
         >
           {images.map((image, index) => (
             <SwiperSlide key={index} className="!h-auto group">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl transition-all duration-700 group-hover:scale-[1.02]">
-                <Image
-                  src={image.original}
-                  alt={image.thumbnail}
-                  width={1200}
-                  height={800} // Adjust to your avg image ratio
-                  className="w-full h-auto object-contain transition-transform duration-1000 group-hover:scale-105"
-                  sizes="(max-width: 768px) 90vw, 70vw"
-                  //   priority={index < 3}
-                  loading="lazy"
-                  //   placeholder="blur" // If you have blurDataURL or static imports
-                />
+              <motion.div
+                animate={{ y: [0, -12, 0] }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="relative rounded-2xl overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.5)] transition-all duration-700 group-hover:scale-[2] mt-25"
+              >
+                <div className="relative w-full aspect-[3/2] rounded-2xl overflow-hidden">
+                  <Image
+                    src={image.original}
+                    alt={image.thumbnail}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 90vw, 70vw"
+                    priority={index === 0}
+                  />
+                </div>
 
                 {/* Subtle glow overlay on hover/active */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                 {/* Reflection (via pseudo-element) */}
                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent opacity-60 blur-sm scale-y-[-1] origin-bottom pointer-events-none" />
-              </div>
+              </motion.div>
 
               {/* Optional caption below reflection */}
               {image.thumbnail && (
-                <p className="text-center mt-6 text-lg font-medium text-white/80 opacity-0 group-[.swiper-slide-active]:opacity-100 transition-opacity duration-700">
-                  {image.thumbnail}
+                <p className="text-center mt-6 text-lg font-medium text-chart-1/80 opacity-0 group-[.swiper-slide-active]:opacity-100 transition-opacity duration-700">
+                  {index + 1}/{images.length}
                 </p>
               )}
             </SwiperSlide>

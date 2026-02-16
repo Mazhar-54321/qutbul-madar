@@ -114,7 +114,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${inter.variable} ${notoUrdu.variable} ${scheherazade.variable}`}
+      className={`${inter.variable} ${scheherazade.variable} ${notoUrdu.variable} `}
       suppressHydrationWarning
     >
       <body suppressHydrationWarning>

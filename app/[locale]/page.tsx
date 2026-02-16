@@ -52,6 +52,7 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import { useRef, useState } from "react";
+import ImageGallerySection from "@/components/sections/ImageGallery";
 
 export default function Home() {
   const t = useTranslations();
@@ -397,49 +398,7 @@ export default function Home() {
       </section>
 
       {/* ================= IMAGE GALLERY WITH REVEAL ================= */}
-      <div className="w-full max-w-5xl mx-auto px-4 py-8">
-        <Swiper
-          modules={[Navigation, Pagination, Autoplay, EffectCoverflow]} // Add EffectCoverflow
-          effect="coverflow"
-          coverflowEffect={{
-            rotate: 50, // How much rotation (higher = more dramatic)
-            stretch: 0, // Space between slides
-            depth: 200, // 3D depth (higher = more "pop out")
-            modifier: 1, // Strength of effect
-            slideShadows: true, // Nice shadows for realism
-            scale: 0.9, // Slightly smaller non-active slides
-          }}
-          grabCursor={true} // Shows hand cursor on drag – feels interactive
-          centeredSlides={true} // Centers the active slide
-          slidesPerView={"auto"} // Or 1.5–2 for partial side previews
-          spaceBetween={30}
-          navigation
-          pagination={{ clickable: true }}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          loop={true}
-          speed={800}
-          className="my-swiper rounded-2xl overflow-hidden shadow-2xl"
-        >
-          {images.map((image, index) => (
-            <SwiperSlide key={index}>
-              <div className="relative w-full aspect-[4/3] md:aspect-[16/9]">
-                <Image
-                  src={image.original}
-                  alt={image.thumbnail}
-                  fill
-                  className="object-contain"
-                  priority={index === 0} // load first image eagerly
-                  sizes="(max-width: 768px) 100vw, 90vw"
-                />
-                {/* Optional overlay text */}
-                {/* <div className="absolute inset-0 flex items-center justify-center bg-black/30 text-white text-3xl md:text-5xl font-bold">
-                  {image.thumbnail}
-                </div> */}
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      <ImageGallerySection images={images} t={t} />
     </div>
   );
 }

@@ -1,0 +1,47 @@
+.fancy-coverflow-swiper {
+  --swiper-navigation-color: rgba(255, 255, 255, 0.9);
+  --swiper-pagination-color: rgba(255, 255, 255, 0.9);
+  --swiper-pagination-bullet-inactive-color: rgba(255, 255, 255, 0.4);
+  --swiper-pagination-bullet-inactive-opacity: 1;
+  --swiper-pagination-bullet-size: 12px;
+  --swiper-pagination-bullet-horizontal-gap: 8px;
+}
+
+.fancy-coverflow-swiper .swiper-slide-shadow-left,
+.fancy-coverflow-swiper .swiper-slide-shadow-right {
+  opacity: 0.5 !important; /* Softer, more realistic shadows */
+  background: linear-gradient(to right, rgba(0,0,0,0.6), transparent);
+}
+
+.fancy-coverflow-swiper .swiper-slide-active .group {
+  filter: brightness(1.08) contrast(1.05); /* Subtle pop for active slide */
+  box-shadow: 0 30px 60px -15px rgba(0,0,0,0.7), 0 0 40px rgba(var(--chart-2), 0.25);
+  transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.fancy-coverflow-swiper .swiper-button-next,
+.fancy-coverflow-swiper .swiper-button-prev {
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  transition: all 0.4s;
+}
+
+.fancy-coverflow-swiper .swiper-button-next:hover,
+.fancy-coverflow-swiper .swiper-button-prev:hover {
+  background: rgba(0,0,0,0.7);
+  transform: scale(1.15);
+}
+
+/* Reflection enhancement */
+.fancy-coverflow-swiper .swiper-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.4));
+  opacity: 0.35;
+  pointer-events: none;
+  border-radius: 1.5rem;
+}

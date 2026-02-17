@@ -11,6 +11,10 @@ const images = [
   { src: "/images/image2.webp", thumbnail: "/thumb2.jpg" },
   { src: "/images/image3.webp", thumbnail: "/thumb1.jpg" },
   { src: "/images/image4.webp", thumbnail: "/thumb2.jpg" },
+  { src: "/images/image5.webp", thumbnail: "/thumb2.jpg" },
+  { src: "/images/image6.webp", thumbnail: "/thumb2.jpg" },
+  { src: "/images/image7.webp", thumbnail: "/thumb2.jpg" },
+  { src: "/images/image8.webp", thumbnail: "/thumb2.jpg" },
 ];
 
 const Gallery = ({ t }: any) => {
@@ -51,12 +55,12 @@ const Gallery = ({ t }: any) => {
         <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6">
           {t("image-gallery")}
         </h2>
-        <Separator className="w-32 h-1.5 mx-auto bg-gradient-to-r from-transparent via-chart-2 to-transparent" />
+        <Separator className="w-32 h-1.5 mx-auto bg-gradient-to-r from-transparent via-chart-3 to-transparent" />
       </motion.div>
 
       {/* Grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
-        {images.map((image, i) => (
+        {images.slice(0, 6).map((image, i) => (
           <motion.div
             key={i}
             whileHover={{ scale: 1.05 }}

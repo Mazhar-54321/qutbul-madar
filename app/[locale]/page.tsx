@@ -240,6 +240,13 @@ export default function Home() {
             >
               {t("introduction")}
             </motion.p>
+            <Link
+              href="/history"
+              className="group relative inline-flex items-center gap-2 px-8 py-3 text-lg font-medium text-white rounded-lg bg-gradient-to-r from-primary via-chart-2 to-chart-3 transition-all duration-500 shadow-lg hover:shadow-xl hover:scale-105"
+            >
+              {t("readMore")}
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
           </motion.div>
         </div>
       </section>

@@ -400,7 +400,9 @@ export default function Home() {
 
       {/* ================= IMAGE GALLERY WITH REVEAL ================= */}
       {/* <ImageGallerySection images={images} t={t} /> */}
-      <Gallery t={t} />
+      <section className="bg-chart-3/5">
+        <Gallery t={t} />
+      </section>
     </div>
   );
 }

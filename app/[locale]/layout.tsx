@@ -33,10 +33,11 @@ const scheherazade = Scheherazade_New({
 
 // Locale configuration
 const SUPPORTED_LOCALES = routing.locales;
-const RTL_LOCALES = ["ur", "ur-Latn", "ar", "fa", "he"] as const;
+const RTL_LOCALES = ["ur", "ar"] as const;
 
 // Type-safe locale check
 function isRTLLocale(locale: string): boolean {
+  console.log(RTL_LOCALES.includes(locale as any), "check");
   return RTL_LOCALES.includes(locale as any);
 }
 

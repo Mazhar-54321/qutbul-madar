@@ -53,6 +53,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useRef, useState } from "react";
 import ImageGallerySection from "@/components/sections/ImageGallery";
+import Gallery from "@/components/sections/Gallery";
 
 export default function Home() {
   const t = useTranslations();
@@ -398,7 +399,8 @@ export default function Home() {
       </section>
 
       {/* ================= IMAGE GALLERY WITH REVEAL ================= */}
-      <ImageGallerySection images={images} t={t} />
+      {/* <ImageGallerySection images={images} t={t} /> */}
+      <Gallery t={t} />
     </div>
   );
 }

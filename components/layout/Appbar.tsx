@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDown, Menu } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -98,8 +98,8 @@ export default function AppBar() {
   };
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 h-16 border-b bg-background/80 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
+    <header className="fixed top-0 inset-x-0 z-50 border-b bg-background/80 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 relative">
         {/* Logo - stays left in LTR, right in RTL automatically via flex justify-between */}
         <Link href="/" className="text-xl font-bold">
           MyBrand
@@ -170,95 +170,116 @@ export default function AppBar() {
           <LanguageSwitcher />
         </div>
 
-        {/* ================= MOBILE MENU ================= */}
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden">
-              <Menu className="h-5 w-5" />
-            </Button>
-          </SheetTrigger>
-
-          <SheetContent
-            side={isRtl ? "left" : "right"}
-            className="p-0 w-[280px] border-none bg-background/95 backdrop-blur-lg"
+        {/* ================= PREMIUM DROPDOWN MOBILE MENU ================= */}
+        <div className="relative md:hidden">
+          <Button
+            variant="ghost"
+            onClick={() => setOpenMenu(openMenu === "mobile" ? null : "mobile")}
+            className="h-14 w-14 p-0 flex items-center justify-center relative"
           >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key="mobile-menu"
-                custom={isRtl}
-                variants={sheetVariants as any}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="flex h-full flex-col px-6 py-6"
-              >
-                {/* Inner content with stagger animation */}
+            <AnimatePresence mode="wait" initial={false}>
+              {openMenu === "mobile" ? (
                 <motion.div
-                  variants={innerVariants as any}
-                  initial="hidden"
-                  animate="visible"
-                  className="flex flex-col h-full"
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  {/* Mobile Nav */}
-                  <Accordion type="single" collapsible className="w-full">
-                    {navItems.map((item) =>
-                      item.children ? (
-                        <motion.div
-                          key={item.label}
-                          variants={innerVariants as any}
+                  <X className="h-9 w-9 shrink-0" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="h-9 w-9 shrink-0" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </Button>
+
+          <AnimatePresence>
+            {openMenu === "mobile" && (
+              <motion.div
+                initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                transition={{ duration: 0.25 }}
+                className="
+  fixed left-0 top-16
+  w-screen
+  bg-white
+  border-t border-neutral-800
+  shadow-[0_25px_60px_rgba(0,0,0,0.6)]
+  px-6 py-8
+  z-50
+"
+              >
+                <div className="flex flex-col gap-3">
+                  {navItems.map((item) =>
+                    !item.children ? (
+                      <Link
+                        key={item.label}
+                        href={item.href!}
+                        onClick={() => setOpenMenu(null)}
+                        className="
+                  py-2 px-3 rounded-xl
+                  text-sm font-medium
+                 text-neutral-700
+hover:text-black
+hover:bg-black/5
+
+                  transition
+                "
+                      >
+                        {t(item.label)}
+                      </Link>
+                    ) : (
+                      <Accordion key={item.label} type="single" collapsible>
+                        <AccordionItem
+                          value={item.label}
+                          className="border-none"
                         >
-                          <AccordionItem
-                            value={item.label}
-                            className="border-none"
-                          >
-                            <AccordionTrigger className="py-3 text-base font-medium">
-                              {t(item.label)}
-                            </AccordionTrigger>
-                            <AccordionContent className="ps-4">
-                              <div className="flex flex-col gap-3 pt-2">
-                                {item.children.map((child) => (
-                                  <Link
-                                    key={child.href}
-                                    href={child.href}
-                                    className="text-sm text-muted-foreground hover:text-foreground"
-                                  >
-                                    {t(child.label)}
-                                  </Link>
-                                ))}
-                              </div>
-                            </AccordionContent>
-                          </AccordionItem>
-                        </motion.div>
-                      ) : (
-                        <motion.div
-                          key={item.label}
-                          variants={innerVariants as any}
-                        >
-                          <Link
-                            href={item.href!}
-                            className="block py-3 text-base font-medium"
+                          <AccordionTrigger
+                            className="py-2 px-3 rounded-xl  text-neutral-700
+hover:text-black
+hover:bg-black/5 transition"
                           >
                             {t(item.label)}
-                          </Link>
-                        </motion.div>
-                      ),
-                    )}
-                  </Accordion>
+                          </AccordionTrigger>
+                          <AccordionContent className="pl-4 pt-2">
+                            <div className="flex flex-col gap-2">
+                              {item.children.map((child) => (
+                                <Link
+                                  key={child.href}
+                                  href={child.href}
+                                  onClick={() => setOpenMenu(null)}
+                                  className="text-sm  text-neutral-500
+hover:text-black
+hover:bg-black/5 transition"
+                                >
+                                  {t(child.label)}
+                                </Link>
+                              ))}
+                            </div>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
+                    ),
+                  )}
+                </div>
 
-                  <div className="flex-1" />
-
-                  {/* Mobile Language */}
-                  <motion.div
-                    variants={innerVariants as any}
-                    className="pt-5 border-t"
-                  >
-                    <LanguageSwitcher />
-                  </motion.div>
-                </motion.div>
+                <div className="mt-4 pt-4 border-t border-white/10">
+                  <LanguageSwitcher />
+                </div>
               </motion.div>
-            </AnimatePresence>
-          </SheetContent>
-        </Sheet>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </header>
   );

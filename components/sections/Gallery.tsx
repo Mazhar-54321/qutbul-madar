@@ -59,12 +59,27 @@ const Gallery = ({ t }: any) => {
       </motion.div>
 
       {/* Grid */}
-      <div className="grid  md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
+      <div
+        className="
+  mt-20
+  flex gap-6 overflow-x-auto snap-x snap-mandatory
+  md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible
+"
+      >
         {images.slice(0, 6).map((image, i) => (
           <motion.div
             key={i}
             whileHover={{ scale: 1.05 }}
-            className="relative w-full h-[300px] overflow-hidden rounded-xl cursor-pointer group"
+            className="
+  relative 
+  min-w-[85%] sm:min-w-[70%] md:min-w-0
+  h-[260px] md:h-[300px]
+  overflow-hidden 
+  rounded-sm 
+  cursor-pointer 
+  group
+  snap-center
+"
             onClick={() => {
               setShowImage("");
               setGalleryImage(image.src);
@@ -86,7 +101,7 @@ const Gallery = ({ t }: any) => {
       <AnimatePresence>
         {showImage !== "hidden" && (
           <motion.div
-            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+            className="fixed inset-0 z-50 bg-black/95 flex items-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -101,51 +116,66 @@ const Gallery = ({ t }: any) => {
             {/* Close Button */}
             <button
               onClick={() => setShowImage("hidden")}
-              className="cursor-pointer absolute top-6 right-6 md:top-10 md:right-10 z-50 bg-white p-3 rounded-full transition"
+              className="absolute top-6 right-6 z-50 bg-white p-3 rounded-full"
             >
-              <X className="w-6 h-6 md:w-8 md:h-8 text-black" />
+              <X className="w-6 h-6 text-black" />
             </button>
 
             {/* Counter */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50 bg-white/20 backdrop-blur-md px-4 py-1 rounded-full text-white text-sm md:text-base font-medium">
+            <div className="absolute hidden top-4 left-1/2 -translate-x-1/2 z-50 bg-white/20 backdrop-blur-md px-4 py-1 rounded-full text-white text-sm font-medium">
               {index + 1} / {images.length}
             </div>
 
-            {/* LEFT ARROW */}
+            {/* LEFT ARROW (Desktop Only) */}
             <button
               onClick={prevImage}
-              className="absolute left-4 md:left-10 z-50 bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-full transition"
+              className="hidden md:block absolute left-10 z-50 bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-full"
             >
-              <ChevronLeft className="w-8 h-8 md:w-10 md:h-10 text-white" />
+              <ChevronLeft className="w-10 h-10 text-white" />
             </button>
 
-            {/* IMAGE with animation */}
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9, y: 40 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 40 }}
-              transition={{ duration: 0.4 }}
-              className="relative w-full max-w-5xl px-4 z-40"
-            >
-              <div className="relative w-full aspect-[16/9]">
-                <Image
-                  src={galleryImage}
-                  alt="Gallery Image"
-                  fill
-                  className="object-contain rounded-3xl"
-                  sizes="100vw"
-                  priority
-                />
+            {/* IMAGE SLIDER */}
+            <div className="w-full z-40">
+              <div
+                className="
+            flex gap-6 overflow-x-auto snap-x snap-mandatory
+            px-6
+            md:overflow-visible md:flex md:justify-center
+          "
+              >
+                {images.map((img, i) => (
+                  <div
+                    key={i}
+                    className="
+                relative
+                min-w-[95%]
+                min-h-[50%]
+                sm:min-w-[75%]
+                md:min-w-0
+                snap-center
+              "
+                  >
+                    <div className="relative w-full aspect-[16/9]">
+                      <Image
+                        src={img.src}
+                        alt="Gallery Image"
+                        fill
+                        className="object-cover rounded-sm"
+                        sizes="100vw"
+                        priority={i === index}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
-            </motion.div>
+            </div>
 
-            {/* RIGHT ARROW */}
+            {/* RIGHT ARROW (Desktop Only) */}
             <button
               onClick={nextImage}
-              className="absolute right-4 md:right-10 z-50 bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-full transition"
+              className="hidden md:block absolute right-10 z-50 bg-white/10 hover:bg-white/20 backdrop-blur-md p-3 rounded-full"
             >
-              <ChevronRight className="w-8 h-8 md:w-10 md:h-10 text-white" />
+              <ChevronRight className="w-10 h-10 text-white" />
             </button>
           </motion.div>
         )}

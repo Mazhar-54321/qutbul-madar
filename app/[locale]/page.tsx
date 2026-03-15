@@ -1,415 +1,1052 @@
 "use client";
 
-import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { useTranslations, useLocale } from "next-intl";
-import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
-  Autoplay,
-  EffectFade,
-  EffectCoverflow,
-} from "swiper/modules";
-
-// Import Swiper styles (you can import more like 'swiper/css/effect-fade')
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/effect-fade";
-
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/effect-coverflow";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import {
-  Sparkles,
-  HeartHandshake,
-  BookOpen,
-  Users,
-  Landmark,
-  PhoneCall,
-  Zap,
-  ChevronRight,
-  ChevronDown,
-  Star,
-} from "lucide-react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { cn } from "@/lib/utils";
 import { useRef, useState } from "react";
-import ImageGallerySection from "@/components/sections/ImageGallery";
-import Gallery from "@/components/sections/Gallery";
+import { useScroll, useTransform } from "framer-motion";
+import { ChevronRight, ArrowDown, X, Phone } from "lucide-react";
 
+// ─── animation ────────────────────────────────────────────────────────────────
+const fade = {
+  hidden: { opacity: 0, y: 18 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.09 } } };
+
+// ─── theme tokens ─────────────────────────────────────────────────────────────
+const C = {
+  dark: "#1a3d2b", // deep forest green — headings, nav
+  mid: "#2d7a4f", // medium green — accents, buttons
+  light: "#4aa06a", // light green — hover states
+  cream: "#f7f4ee", // warm cream — page bg
+  cream2: "#ede9e0", // slightly darker cream — card bg, borders
+  cream3: "#e0d8c8", // border color
+  text: "#2a2a1e", // near-black warm — body text
+  muted: "#6b7c6e", // muted green-grey — descriptions
+  white: "#ffffff",
+};
+
+// ─── lightbox ─────────────────────────────────────────────────────────────────
+function Lightbox({
+  src,
+  label,
+  onClose,
+}: {
+  src: string;
+  label: string;
+  onClose: () => void;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[999] bg-black/90 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 border border-white/20
+                   flex items-center justify-center text-white/70 hover:text-white transition-colors"
+      >
+        <X className="w-4 h-4" />
+      </button>
+      <motion.div
+        initial={{ scale: 0.93 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.28 }}
+        className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <Image src={src} alt={label} fill className="object-cover" />
+        <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent p-6">
+          <p className="text-white text-sm font-medium">{label}</p>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// ─── section label component ──────────────────────────────────────────────────
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center gap-3 mb-5">
+      <span
+        className="text-[10px] font-bold tracking-[0.18em] uppercase"
+        style={{ color: C.mid }}
+      >
+        {children}
+      </span>
+      <div className="flex-1 h-px" style={{ background: C.cream3 }} />
+    </div>
+  );
+}
+
+// ─── page ─────────────────────────────────────────────────────────────────────
 export default function Home() {
   const t = useTranslations();
   const locale = useLocale();
-  const isRtl = ["ur", "ar", "fa", "he"].includes(locale);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const isRtl = ["ur", "ar"].includes(locale);
+  const [lightbox, setLightbox] = useState<{
+    src: string;
+    label: string;
+  } | null>(null);
 
-  const [showAllImages, setShowAllImages] = useState(false);
-  const galleryImages = [
-    "/images/image1.webp",
-    "/images/image2.webp",
-    "/images/image3.webp",
-    "/images/image4.webp",
-    "/images/image5.webp",
-    "/images/image6.webp",
-    "/images/image7.webp",
-    "/images/image8.webp",
-    "/images/image9.webp",
-    "/images/image10.webp",
-    "/images/image11.webp",
-    "/images/image12.webp",
-    "/images/image13.webp",
-    "/images/image14.webp",
-    "/images/image15.webp",
-    "/images/image16.webp",
-    "/images/image17.webp",
-    "/images/image18.webp",
-    "/images/image19.webp",
-    "/images/image20.webp",
-  ];
-  const images = [
-    { original: "/images/image1.webp", thumbnail: "/thumb1.jpg" },
-    { original: "/images/image2.webp", thumbnail: "/thumb2.jpg" },
-    { original: "/images/image3.webp", thumbnail: "/thumb1.jpg" },
-    { original: "/images/image4.webp", thumbnail: "/thumb2.jpg" },
-  ];
-  const displayedImages = showAllImages
-    ? galleryImages
-    : galleryImages.slice(0, 6);
+  const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: heroRef,
     offset: ["start start", "end start"],
   });
-
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   const sections = t.raw("sections") as Array<{
     title: string;
     description: string;
   }>;
-
   const services = t.raw("services") as Array<{ title: string }>;
-
-  const featureIcons = [
-    <Zap key="1" className="w-8 h-8" />,
-    <HeartHandshake key="2" className="w-8 h-8" />,
-    <BookOpen key="3" className="w-8 h-8" />,
-    <Users key="4" className="w-8 h-8" />,
-    <Landmark key="5" className="w-8 h-8" />,
-    <PhoneCall key="6" className="w-8 h-8" />,
+  const articles = t.raw("articles") as Array<{
+    title: string;
+    description: string;
+  }>;
+  const loc = (href: string) => `/${locale}${href}`;
+  const servicesLinks = [
+    "mazar-shareef-chadar-poshi",
+    "langar-bhandara",
+    "dargah-mannat",
   ];
 
   return (
     <div
-      ref={containerRef}
-      className="relative bg-background min-h-screen overflow-x-hidden"
+      className="min-h-screen overflow-x-hidden"
+      style={{ background: C.cream, color: C.text }}
+      dir={isRtl ? "rtl" : "ltr"}
     >
-      {/* ================= HERO SECTION WITH PARALLAX ================= */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Animated background */}
-        <motion.div style={{ y: heroY }} className="absolute inset-0">
-          <Image
-            src="/images/qutbul-madar-main.webp"
-            alt={t("heroImageAlt")}
-            fill
-            priority
-            className="object-cover brightness-75 scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
-
-          {/* Animated particles */}
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(20)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 bg-white/20 rounded-full"
-                initial={{
-                  x:
-                    typeof window !== "undefined"
-                      ? Math.random() * window.innerWidth
-                      : 0,
-                  y:
-                    typeof window !== "undefined"
-                      ? Math.random() * window.innerHeight
-                      : 0,
-                }}
-                animate={{
-                  y: [null, -100],
-                  opacity: [0, 1, 0],
-                }}
-                transition={{
-                  duration: 3 + Math.random() * 2,
-                  repeat: Infinity,
-                  delay: Math.random() * 2,
-                }}
-              />
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Hero content */}
-        <motion.div
-          style={{ opacity: heroOpacity }}
-          className="relative z-10 px-6 text-center max-w-6xl mx-auto"
+      {/* ══════════════════════════════ HERO ══════════════════════════════ */}
+      <section
+        ref={heroRef}
+        className="relative min-h-screen grid lg:grid-cols-2 overflow-hidden"
+      >
+        {/* LEFT — dark green panel */}
+        <div
+          className="relative flex flex-col justify-end p-8 lg:p-16 min-h-[60vh] lg:min-h-screen"
+          style={{ background: C.dark }}
         >
-          {/* Decorative stars */}
+          {/* Background image with overlay */}
           <motion.div
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="flex justify-center gap-4 mb-8"
+            style={{ y: heroY }}
+            className="absolute inset-0 will-change-transform"
           >
-            <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" />
-            <Star className="w-8 h-8 text-yellow-400 fill-yellow-400" />
-            <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" />
+            <Image
+              src="/images/image2.webp"
+              alt="Dargah"
+              fill
+              priority
+              className="object-cover object-center opacity-20"
+              sizes="50vw"
+            />
           </motion.div>
+          {/* Geometric pattern overlay — Islamic star motif using CSS */}
+          <div
+            className="absolute inset-0 opacity-5"
+            style={{
+              backgroundImage: `radial-gradient(circle at 25% 25%, #2d7a4f 1px, transparent 1px),
+                                radial-gradient(circle at 75% 75%, #2d7a4f 1px, transparent 1px)`,
+              backgroundSize: "40px 40px",
+            }}
+          />
 
-          <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="text-6xl sm:text-8xl lg:text-9xl font-extrabold tracking-tight text-white drop-shadow-2xl leading-tight mb-6"
-          >
-            {t("heroTitle")}
-          </motion.h1>
-        </motion.div>
-
-        {/* Animated scroll indicator */}
-        <motion.div
-          animate={{ y: [0, 15, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-12 left-1/2 transform -translate-x-1/2"
-        >
-          <div className="flex flex-col items-center gap-2 text-white/70">
-            <ChevronDown className="w-8 h-8" />
-          </div>
-        </motion.div>
-      </section>
-
-      {/* ================= INTRODUCTION WITH REVEAL ANIMATION ================= */}
-      <section className="relative py-32 md:py-40 bg-muted/5 overflow-hidden">
-        {/* Decorative background element */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-chart-1 rounded-full blur-3xl" />
-        </div>
-
-        <div className="container mx-auto px-6 lg:px-12 relative">
           <motion.div
-            initial={{ opacity: 0, y: 80 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="max-w-5xl mx-auto text-center"
+            style={{ opacity: heroOpacity }}
+            className="relative z-10"
           >
-            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-12 text-foreground leading-[1.1] relative inline-block">
-              {t("introTitle")}
-              <motion.div
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-                className="absolute -bottom-4 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent"
-              />
-            </h2>
+            {/* Eyebrow */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.15 }}
+              className="flex items-center gap-3 mb-8"
+            >
+              <div className="w-8 h-px" style={{ background: C.mid }} />
+              <span
+                className="text-[10px] font-bold tracking-[0.2em] uppercase"
+                style={{ color: C.mid }}
+              >
+                Makanpur Shareef · Est. 12th Century
+              </span>
+            </motion.div>
 
+            {/* Arabic calligraphy — decorative */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-4xl mb-4 opacity-20 font-serif"
+              style={{
+                color: C.cream,
+                fontFamily: "var(--font-urdu-display, serif)",
+              }}
+            >
+              قطب المدار
+            </motion.div>
+
+            {/* Main title */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.28,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className={`text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1]
+                          tracking-tight mb-6
+                          ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
+              style={{ color: C.cream }}
+            >
+              {t("heroTitle")}
+            </motion.h1>
+
+            {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
-              className="text-2xl sm:text-3xl leading-relaxed text-muted-foreground font-light max-w-4xl mx-auto"
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.45 }}
+              className="text-[15px] leading-relaxed mb-10 max-w-md"
+              style={{ color: "rgba(247,244,238,0.55)" }}
             >
-              {t("introduction")}
+              {t("introduction").slice(0, 160)}…
             </motion.p>
-            <Link
-              href="/history"
-              className="group relative inline-flex items-center gap-2 px-8 py-3 text-lg font-medium text-white rounded-lg bg-gradient-to-r from-primary via-chart-2 to-chart-3 transition-all duration-500 shadow-lg hover:shadow-xl hover:scale-105"
+
+            {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55 }}
+              className="flex flex-wrap gap-3 mb-14"
             >
-              {t("learnMore")}
-              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-            </Link>
+              <Link
+                href={loc("/history")}
+                className="inline-flex items-center gap-2 text-sm font-bold px-7 py-3.5 rounded-lg
+                           transition-all duration-200 active:scale-[0.98]"
+                style={{ background: C.cream, color: C.dark }}
+              >
+                {t("learnMore")}
+                <ChevronRight
+                  className={`w-4 h-4 ${isRtl ? "rotate-180" : ""}`}
+                />
+              </Link>
+              <Link
+                href={loc("/image-gallery")}
+                className="inline-flex items-center gap-2 text-sm font-medium px-7 py-3.5 rounded-lg
+                           border transition-all duration-200 active:scale-[0.98]"
+                style={{
+                  borderColor: "rgba(247,244,238,0.2)",
+                  color: "rgba(247,244,238,0.75)",
+                }}
+              >
+                View Gallery
+              </Link>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.7 }}
+              className="flex flex-wrap gap-8 pt-8"
+              style={{ borderTop: "1px solid rgba(247,244,238,0.1)" }}
+            >
+              {[
+                { num: "800+", label: "Years of legacy" },
+                { num: "596", label: "Years of life" },
+                { num: "4", label: "Languages" },
+              ].map(({ num, label }) => (
+                <div key={label}>
+                  <p
+                    className="text-2xl font-bold tabular-nums"
+                    style={{ color: C.cream }}
+                  >
+                    {num}
+                  </p>
+                  <p
+                    className="text-xs mt-0.5"
+                    style={{ color: "rgba(247,244,238,0.35)" }}
+                  >
+                    {label}
+                  </p>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Scroll cue */}
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity }}
+            className="absolute bottom-7 left-1/2 -translate-x-1/2 z-10"
+            style={{ color: "rgba(247,244,238,0.25)" }}
+          >
+            <ArrowDown className="w-5 h-5" />
+          </motion.div>
+        </div>
+
+        {/* RIGHT — medium green panel */}
+        <div
+          className="relative hidden lg:flex flex-col justify-between p-16"
+          style={{ background: C.mid }}
+        >
+          <motion.div
+            style={{ y: heroY }}
+            className="absolute inset-0 will-change-transform"
+          >
+            <Image
+              src="/images/image10.webp"
+              alt="Annual Urs"
+              fill
+              className="object-cover object-center opacity-30"
+              sizes="50vw"
+            />
+          </motion.div>
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(to bottom, ${C.mid}99, ${C.dark}dd)`,
+            }}
+          />
+
+          {/* Quote */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="relative z-10 mt-auto"
+          >
+            <div
+              className="text-5xl mb-4 leading-none"
+              style={{ color: "rgba(247,244,238,0.15)" }}
+            >
+              "
+            </div>
+            <blockquote
+              className="text-xl font-light leading-relaxed italic mb-4"
+              style={{ color: "rgba(247,244,238,0.85)" }}
+            >
+              A radiant sun in the realm of Wilayat whose light illuminated
+              hearts across Asia and Europe.
+            </blockquote>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-px" style={{ background: C.cream3 }} />
+              <span
+                className="text-xs font-medium"
+                style={{ color: "rgba(247,244,238,0.45)" }}
+              >
+                From the biography of Hazrat Qutbul Madar
+              </span>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* ================= KEY FEATURES WITH 3D HOVER EFFECT ================= */}
-      <section className="relative py-32 bg-chart-1/5">
-        <div className="container mx-auto px-6 lg:px-12">
+      {/* ════════════════════════════ INTRO ══════════════════════════════ */}
+      <section className="py-24 lg:py-32" style={{ background: C.cream }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-16">
+          <div className="grid lg:grid-cols-[1fr_480px] gap-16 items-center">
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-60px" }}
+            >
+              <motion.div variants={fade}>
+                <SectionLabel>{t("introTitle")}</SectionLabel>
+              </motion.div>
+              <motion.h2
+                variants={fade}
+                className={`text-4xl sm:text-5xl font-bold leading-[1.12] mb-6
+                            ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
+                style={{ color: C.dark }}
+              >
+                {t("heroTitle")}
+              </motion.h2>
+              {/* Decorative rule */}
+              <motion.div
+                variants={fade}
+                className="w-14 h-1 rounded-full mb-7"
+                style={{ background: C.mid }}
+              />
+              <motion.p
+                variants={fade}
+                className="text-[15px] leading-[1.9] mb-8"
+                style={{ color: C.muted }}
+              >
+                {t("introduction")}
+              </motion.p>
+              <motion.blockquote
+                variants={fade}
+                className="border-s-2 ps-5 mb-8 py-1"
+                style={{ borderColor: C.mid }}
+              >
+                <p
+                  className="text-base font-medium italic leading-relaxed"
+                  style={{ color: C.dark }}
+                >
+                  "It is extremely difficult to encompass the traits of a
+                  saintly life that spanned five hundred and ninety-six years."
+                </p>
+              </motion.blockquote>
+              <motion.div variants={fade}>
+                <Link
+                  href={loc("/history")}
+                  className="inline-flex items-center gap-2 text-sm font-bold
+                             hover:gap-4 transition-all duration-200"
+                  style={{ color: C.mid }}
+                >
+                  Read full history
+                  <ChevronRight
+                    className={`w-4 h-4 ${isRtl ? "rotate-180" : ""}`}
+                  />
+                </Link>
+              </motion.div>
+            </motion.div>
+
+            {/* Image stack */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="flex flex-col gap-3"
+            >
+              <div
+                className="relative h-72 rounded-2xl overflow-hidden cursor-pointer group"
+                onClick={() =>
+                  setLightbox({
+                    src: "/images/image3.webp",
+                    label: "Sajjada Nashin",
+                  })
+                }
+              >
+                <Image
+                  src="/images/image3.webp"
+                  alt="Sajjada Nashin"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div
+                  className="absolute inset-0 flex items-end p-5"
+                  style={{
+                    background:
+                      "linear-gradient(to top, rgba(26,61,43,0.75), transparent)",
+                  }}
+                >
+                  <span
+                    className="text-sm font-medium"
+                    style={{ color: C.cream }}
+                  >
+                    Sajjada Nashin
+                  </span>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { src: "/images/image8.webp", label: "Shrine illuminated" },
+                  { src: "/images/image1.webp", label: "Chadar Poshi" },
+                ].map(({ src, label }) => (
+                  <div
+                    key={src}
+                    className="relative h-40 rounded-2xl overflow-hidden cursor-pointer group"
+                    onClick={() => setLightbox({ src, label })}
+                  >
+                    <Image
+                      src={src}
+                      alt={label}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div
+                      className="absolute inset-0 flex items-end p-3"
+                      style={{
+                        background:
+                          "linear-gradient(to top, rgba(26,61,43,0.75), transparent)",
+                      }}
+                    >
+                      <span
+                        className="text-xs font-medium"
+                        style={{ color: C.cream }}
+                      >
+                        {label}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════ FEATURES ════════════════════════════ */}
+      <section className="py-24 lg:py-32" style={{ background: C.dark }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-16">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            variants={stagger}
+            initial="hidden"
+            whileInView="show"
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-20"
+            className="mb-14"
           >
-            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6">
-              {t("key-features")}
-            </h2>
-            <Separator className="w-32 h-1.5 mx-auto bg-gradient-to-r from-transparent via-primary to-transparent" />
+            <motion.div
+              variants={fade}
+              className="flex items-center gap-3 mb-5"
+            >
+              <span
+                className="text-[10px] font-bold tracking-[0.18em] uppercase"
+                style={{ color: C.light }}
+              >
+                {t("key-features")}
+              </span>
+              <div
+                className="flex-1 h-px"
+                style={{ background: "rgba(247,244,238,0.08)" }}
+              />
+            </motion.div>
+            <motion.h2
+              variants={fade}
+              className="text-4xl sm:text-5xl font-bold leading-[1.1]"
+              style={{ color: C.cream }}
+            >
+              What you&apos;ll find here
+            </motion.h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {sections.map((el, idx) => (
               <motion.div
                 key={el.title}
-                initial={{ opacity: 0, y: 80, rotateX: -15 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{
-                  duration: 0.8,
-                  delay: idx * 0.15,
-                  ease: [0.23, 1, 0.32, 1],
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.45, delay: idx * 0.07 }}
+                className="rounded-2xl p-7 border group transition-all duration-300 relative overflow-hidden"
+                style={{
+                  background: "rgba(247,244,238,0.04)",
+                  borderColor: "rgba(247,244,238,0.08)",
                 }}
-                whileHover={{
-                  y: -16,
-                  scale: 1.02,
-                  rotateY: 5,
-                  transition: { duration: 0.3 },
-                }}
-                style={{ perspective: 1000 }}
               >
-                <Card className="h-full overflow-hidden border-2 border-border/30 hover:border-primary/50 transition-all duration-500 shadow-lg hover:shadow-2xl bg-gradient-to-br from-background to-muted/20 group relative">
-                  {/* Shine effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent" />
-                  </div>
+                {/* Hover bg */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                  style={{ background: "rgba(45,122,79,0.12)" }}
+                />
 
-                  <CardHeader className="pb-6 relative">
-                    <div className="flex items-start gap-5">
-                      <motion.div
-                        whileHover={{ rotate: 360, scale: 1.1 }}
-                        transition={{ duration: 0.6 }}
-                        className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-chart-1/20 flex items-center justify-center text-primary shadow-lg group-hover:shadow-primary/20"
+                <div className="relative z-10">
+                  {/* Number */}
+                  <span
+                    className="text-xs font-bold tabular-nums mb-5 block"
+                    style={{ color: C.light }}
+                  >
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  {/* Dot accent */}
+                  <div
+                    className="w-2 h-2 rounded-full mb-5 transition-transform duration-300
+                                  group-hover:scale-125"
+                    style={{ background: C.mid }}
+                  />
+                  <h3
+                    className={`text-[15px] font-bold mb-3 leading-snug
+                                  ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
+                    style={{ color: C.cream }}
+                  >
+                    {el.title}
+                  </h3>
+                  <p
+                    className="text-sm leading-relaxed"
+                    style={{ color: "rgba(247,244,238,0.45)" }}
+                  >
+                    {el.description}
+                  </p>
+                </div>
+                {/* Bottom border on hover */}
+                <div
+                  className="absolute bottom-0 inset-x-0 h-px scale-x-0 group-hover:scale-x-100
+                                transition-transform duration-300"
+                  style={{ background: C.mid }}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════ SERVICES ═══════════════════════════ */}
+      <section className="py-24 lg:py-32" style={{ background: C.cream }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-16">
+          <div className="grid lg:grid-cols-[320px_1fr] gap-16 items-start">
+            {/* Sticky label */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="lg:sticky lg:top-28"
+            >
+              <SectionLabel>Dargah services</SectionLabel>
+              <h2
+                className="text-4xl sm:text-5xl font-bold leading-[1.1] mb-5"
+                style={{ color: C.dark }}
+              >
+                {t("qutbul-madar-services")}
+              </h2>
+              <p className="text-sm leading-relaxed" style={{ color: C.muted }}>
+                Spiritual and community services available at Makanpur Shareef
+                year-round.
+              </p>
+              {/* Dargah image */}
+              <div
+                className="relative h-48 rounded-2xl overflow-hidden mt-8 cursor-pointer group"
+                onClick={() =>
+                  setLightbox({
+                    src: "/images/image2.webp",
+                    label: "Dargah Shareef",
+                  })
+                }
+              >
+                <Image
+                  src="/images/image2.webp"
+                  alt="Dargah"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+            </motion.div>
+
+            {/* Service rows */}
+            <div
+              className="flex flex-col"
+              style={{ borderTop: `1px solid ${C.cream3}` }}
+            >
+              {services.map((el, idx) => (
+                <motion.div
+                  key={el.title}
+                  initial={{ opacity: 0, x: isRtl ? -16 : 16 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ duration: 0.4, delay: idx * 0.05 }}
+                >
+                  <Link
+                    href={loc(`/services/${servicesLinks[idx] || ""}`)}
+                    className="flex items-center justify-between gap-4 py-5 group
+                               transition-all duration-200 hover:ps-2"
+                    style={{ borderBottom: `1px solid ${C.cream3}` }}
+                  >
+                    <div className="flex items-center gap-4">
+                      <span
+                        className="text-xs font-bold tabular-nums w-6"
+                        style={{ color: C.mid }}
                       >
-                        {featureIcons[idx % featureIcons.length]}
-                      </motion.div>
-                      <div className="flex-1">
-                        <CardTitle className="text-2xl font-bold leading-tight">
-                          {el.title}
-                        </CardTitle>
-                      </div>
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      <span
+                        className={`text-[15px] font-semibold transition-colors duration-200
+                                       group-hover:text-[${C.mid}]
+                                       ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
+                        style={{ color: C.dark }}
+                      >
+                        {el.title}
+                      </span>
                     </div>
-                  </CardHeader>
-                  <CardContent className="relative">
-                    <CardDescription className="text-base leading-relaxed">
-                      {el.description}
-                    </CardDescription>
-                  </CardContent>
+                    <ChevronRight
+                      className={`w-4 h-4 flex-shrink-0 transition-colors duration-200
+                                              group-hover:text-[#2d7a4f]
+                                              ${isRtl ? "rotate-180" : ""}`}
+                      style={{ color: C.cream3 }}
+                    />
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
-                  {/* Bottom accent */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-chart-1 to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </Card>
+      {/* ═══════════════════════════ GALLERY ═════════════════════════════ */}
+      <section className="py-24 lg:py-32" style={{ background: C.cream2 }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-16">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
+              <motion.div variants={fade}>
+                <SectionLabel>Visual archive</SectionLabel>
+              </motion.div>
+              <motion.h2
+                variants={fade}
+                className="text-4xl sm:text-5xl font-bold"
+                style={{ color: C.dark }}
+              >
+                {t("image-gallery")}
+              </motion.h2>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+              <Link
+                href={loc("/image-gallery")}
+                className="text-sm font-bold inline-flex items-center gap-2
+                           hover:gap-3 transition-all duration-200"
+                style={{ color: C.mid }}
+              >
+                View all
+                <ChevronRight
+                  className={`w-4 h-4 ${isRtl ? "rotate-180" : ""}`}
+                />
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* Masonry grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 auto-rows-[200px]">
+            {[
+              {
+                src: "/images/image1.webp",
+                label: "Annual Urs night",
+                cls: "row-span-2",
+              },
+              { src: "/images/image2.webp", label: "Dargah Shareef", cls: "" },
+              {
+                src: "/images/image9.webp",
+                label: "Shrine illuminated",
+                cls: "",
+              },
+              {
+                src: "/images/image5.webp",
+                label: "Community gathering",
+                cls: "",
+              },
+              { src: "/images/image6.webp", label: "Devotees", cls: "" },
+            ].map(({ src, label, cls }, i) => (
+              <motion.div
+                key={src}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: i * 0.08 }}
+                onClick={() => setLightbox({ src, label })}
+                className={`relative rounded-2xl overflow-hidden cursor-pointer group ${cls}`}
+              >
+                <Image
+                  src={src}
+                  alt={label}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  sizes="(max-width: 768px) 50vw, 33vw"
+                />
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100
+                                transition-opacity duration-300 flex items-end p-5"
+                  style={{
+                    background: `linear-gradient(to top, ${C.dark}cc, transparent)`,
+                  }}
+                >
+                  <div>
+                    <p
+                      className="text-sm font-semibold"
+                      style={{ color: C.cream }}
+                    >
+                      {label}
+                    </p>
+                    <p className="text-xs mt-0.5" style={{ color: C.light }}>
+                      Click to enlarge
+                    </p>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ================= SERVICES WITH MAGNETIC HOVER ================= */}
-      <section className="relative py-32 bg-chart-2/5 overflow-hidden">
-        {/* Animated background shapes */}
-        <motion.div
-          animate={{
-            rotate: [0, 360],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-20 right-20 w-64 h-64 bg-chart-2/10 rounded-full blur-3xl"
-        />
-
-        <div className="container mx-auto px-6 lg:px-12 relative">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-20"
+      {/* ═════════════════════════ CHADAR POSHI ══════════════════════════ */}
+      <section className="py-24 lg:py-32" style={{ background: C.cream }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-16">
+          <div
+            className="grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden shadow-xl"
+            style={{ boxShadow: `0 24px 64px rgba(26,61,43,0.15)` }}
           >
-            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6">
-              {t("qutbul-madar-services")}
-            </h2>
-            <Separator className="w-32 h-1.5 mx-auto bg-gradient-to-r from-transparent via-chart-2 to-transparent" />
-          </motion.div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((el, idx) => (
-              <motion.div
-                key={el.title}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{
-                  duration: 0.6,
-                  delay: idx * 0.1,
-                  ease: [0.23, 1, 0.32, 1],
+            {/* Image side */}
+            <div
+              className="relative min-h-[400px] cursor-pointer group"
+              onClick={() =>
+                setLightbox({
+                  src: "/images/image1.webp",
+                  label: "Chadar Poshi",
+                })
+              }
+            >
+              <Image
+                src="/images/image1.webp"
+                alt="Chadar Poshi"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: `linear-gradient(to right, transparent, ${C.dark}33)`,
                 }}
-                whileHover={{
-                  scale: 1.05,
-                  rotateZ: idx % 2 === 0 ? 2 : -2,
-                  transition: { duration: 0.3 },
+              />
+            </div>
+
+            {/* Content side */}
+            <div
+              className="flex flex-col justify-center p-10 lg:p-14"
+              style={{ background: C.dark }}
+            >
+              <motion.div
+                variants={stagger}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+              >
+                <motion.div
+                  variants={fade}
+                  className="flex items-center gap-3 mb-6"
+                >
+                  <span
+                    className="text-[10px] font-bold tracking-[0.18em] uppercase"
+                    style={{ color: C.light }}
+                  >
+                    Sacred tradition
+                  </span>
+                  <div
+                    className="flex-1 h-px"
+                    style={{ background: "rgba(247,244,238,0.1)" }}
+                  />
+                </motion.div>
+
+                <motion.h2
+                  variants={fade}
+                  className={`text-3xl sm:text-4xl font-bold leading-[1.15] mb-2
+                              ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
+                  style={{ color: C.cream }}
+                >
+                  {t("madarTitle")}
+                </motion.h2>
+                <motion.p
+                  variants={fade}
+                  className="text-sm font-medium mb-6"
+                  style={{ color: C.light }}
+                >
+                  {t("madarSubtitle")}
+                </motion.p>
+                <motion.div
+                  variants={fade}
+                  className="w-10 h-0.5 rounded-full mb-7"
+                  style={{ background: C.mid }}
+                />
+                <motion.p
+                  variants={fade}
+                  className="text-[14px] leading-[1.85] mb-8"
+                  style={{ color: "rgba(247,244,238,0.55)" }}
+                >
+                  {t("madarShareefChadarPoshi").split("\n\n")[0]}
+                </motion.p>
+                <motion.div variants={fade} className="flex flex-wrap gap-3">
+                  <Link
+                    href={loc("/madar-shareef")}
+                    className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-xl
+                               transition-all duration-200 active:scale-[0.98]"
+                    style={{ background: C.mid, color: C.cream }}
+                  >
+                    {t("offerChadar")}
+                    <ChevronRight
+                      className={`w-4 h-4 ${isRtl ? "rotate-180" : ""}`}
+                    />
+                  </Link>
+                  <Link
+                    href={loc("/contact")}
+                    className="inline-flex items-center gap-2 text-sm font-medium px-6 py-3 rounded-xl
+                               border transition-all duration-200 active:scale-[0.98]"
+                    style={{
+                      borderColor: "rgba(247,244,238,0.15)",
+                      color: "rgba(247,244,238,0.6)",
+                    }}
+                  >
+                    {t("learnMore")}
+                  </Link>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═════════════════════════ ARTICLES ══════════════════════════════ */}
+      <section className="py-24 lg:py-32" style={{ background: C.cream2 }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-16">
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
+              <motion.div variants={fade}>
+                <SectionLabel>{t("qutbul-madar-articles")}</SectionLabel>
+              </motion.div>
+              <motion.h2
+                variants={fade}
+                className="text-4xl sm:text-5xl font-bold"
+                style={{ color: C.dark }}
+              >
+                Latest articles
+              </motion.h2>
+            </motion.div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            {articles.slice(0, 3).map((article, idx) => (
+              <motion.div
+                key={article.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: idx * 0.08 }}
+                className="rounded-2xl p-7 border group hover:border-transparent
+                           transition-all duration-300 flex flex-col"
+                style={{ background: C.white, borderColor: C.cream3 }}
+              >
+                <span
+                  className="text-xs font-bold tabular-nums mb-4 block"
+                  style={{ color: C.mid }}
+                >
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <h3
+                  className={`text-[15px] font-bold leading-snug mb-3 flex-1
+                                ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
+                  style={{ color: C.dark }}
+                >
+                  {article.title}
+                </h3>
+                <p
+                  className="text-sm leading-relaxed mb-5 line-clamp-3"
+                  style={{ color: C.muted }}
+                >
+                  {article.description}
+                </p>
+                <Link
+                  href={loc("/articles")}
+                  className="inline-flex items-center gap-2 text-sm font-bold
+                             hover:gap-3 transition-all duration-200"
+                  style={{ color: C.mid }}
+                >
+                  Read more
+                  <ChevronRight
+                    className={`w-4 h-4 ${isRtl ? "rotate-180" : ""}`}
+                  />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════ CTA ════════════════════════════════ */}
+      <section className="py-24" style={{ background: C.mid }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-16">
+          <div className="grid lg:grid-cols-[1fr_auto] gap-12 items-center">
+            <motion.div
+              variants={stagger}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
+              <motion.p
+                variants={fade}
+                className="text-[10px] font-bold tracking-[0.18em] uppercase mb-4"
+                style={{ color: "rgba(247,244,238,0.5)" }}
+              >
+                Support the shrine
+              </motion.p>
+              <motion.h2
+                variants={fade}
+                className="text-4xl sm:text-5xl font-bold leading-[1.1] mb-4"
+                style={{ color: C.cream }}
+              >
+                Preserve centuries of
+                <br />
+                sacred heritage
+              </motion.h2>
+              <motion.p
+                variants={fade}
+                className="text-[15px] leading-relaxed max-w-lg mb-6"
+                style={{ color: "rgba(247,244,238,0.55)" }}
+              >
+                Your donation helps maintain the Dargah and serves thousands of
+                pilgrims who visit Makanpur Shareef each year.
+              </motion.p>
+              <motion.div
+                variants={fade}
+                className="flex items-center gap-2 text-sm"
+                style={{ color: "rgba(247,244,238,0.55)" }}
+              >
+                <Phone className="w-3.5 h-3.5" />
+                <span>00 – 91 – 9838360930</span>
+              </motion.div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.25 }}
+              className="flex flex-col gap-3 min-w-[200px]"
+            >
+              <Link
+                href={loc("/donate")}
+                className="text-sm font-bold px-8 py-4 rounded-xl text-center
+                           transition-all duration-200 active:scale-[0.98]"
+                style={{ background: C.cream, color: C.dark }}
+              >
+                Donate now
+              </Link>
+              <Link
+                href={loc("/contact")}
+                className="text-sm font-medium px-8 py-4 rounded-xl text-center border
+                           transition-all duration-200 active:scale-[0.98]"
+                style={{
+                  borderColor: "rgba(247,244,238,0.2)",
+                  color: "rgba(247,244,238,0.7)",
                 }}
               >
-                <Card className="h-full overflow-hidden border-2 border-border/30 hover:border-chart-2/50 transition-all duration-500 shadow-lg hover:shadow-2xl bg-gradient-to-br from-background via-background to-chart-2/5 group relative">
-                  {/* Number badge with glow */}
-                  <div className="absolute top-4 right-4">
-                    <motion.div
-                      whileHover={{ scale: 1.2, rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                      className="w-12 h-12 rounded-full bg-gradient-to-br from-chart-2/80 to-chart-2 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-chart-2/30"
-                    >
-                      {idx + 1}
-                    </motion.div>
-                  </div>
-
-                  <CardHeader className="pb-4 pt-6">
-                    <CardTitle className="text-2xl font-bold pr-16">
-                      {el.title}
-                    </CardTitle>
-                  </CardHeader>
-
-                  <CardContent>
-                    <Link
-                      href={`/services/${el.title.toLowerCase().replace(/\s+/g, "-")}`}
-                      className="group/link inline-flex items-center gap-2 text-chart-2 font-semibold hover:gap-4 transition-all duration-300"
-                    >
-                      <span>{t("learnMore")}</span>
-                      <ChevronRight className="w-5 h-5 group-hover/link:translate-x-1 transition-transform" />
-                    </Link>
-                  </CardContent>
-
-                  {/* Gradient bottom border */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-chart-2 via-primary to-chart-2 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center" />
-                </Card>
-              </motion.div>
-            ))}
+                Contact us
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ================= IMAGE GALLERY WITH REVEAL ================= */}
-      {/* <ImageGallerySection images={images} t={t} /> */}
-      <section className="bg-chart-3/5">
-        <Gallery t={t} />
-      </section>
+      {/* Lightbox */}
+      {lightbox && (
+        <Lightbox
+          src={lightbox.src}
+          label={lightbox.label}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </div>
   );
 }

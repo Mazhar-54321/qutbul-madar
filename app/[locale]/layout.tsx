@@ -2,27 +2,46 @@ import type { ReactNode } from "react";
 import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
-import { Inter, Noto_Nastaliq_Urdu, Scheherazade_New } from "next/font/google";
+import {
+  Sora,
+  DM_Sans,
+  Noto_Nastaliq_Urdu,
+  Scheherazade_New,
+} from "next/font/google";
 import AppBar from "@/components/layout/Appbar";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
 // ─── fonts ────────────────────────────────────────────────────────────────────
-const inter = Inter({
+
+// Headings — EN, HI, Roman Urdu
+const sora = Sora({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["400", "600", "700", "800"],
+  variable: "--font-heading",
   display: "swap",
   preload: true,
 });
 
+// Body — EN, HI, Roman Urdu
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
+  preload: true,
+});
+
+// Urdu headings — Noto Nastaliq (all weights for proper rendering)
 const notoUrdu = Noto_Nastaliq_Urdu({
   subsets: ["arabic"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-urdu-display",
   display: "swap",
   preload: true,
 });
 
+// Urdu body — Scheherazade New (better letter connection at body sizes)
 const scheherazade = Scheherazade_New({
   subsets: ["arabic"],
   weight: ["400", "700"],
@@ -44,7 +63,7 @@ export function generateStaticParams() {
   return SUPPORTED_LOCALES.map((locale) => ({ locale }));
 }
 
-// ─── viewport — separate export (Next.js 14+ requirement) ────────────────────
+// ─── viewport ─────────────────────────────────────────────────────────────────
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -113,7 +132,12 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${inter.variable} ${scheherazade.variable} ${notoUrdu.variable}`}
+      className={`
+        ${sora.variable}
+        ${dmSans.variable}
+        ${notoUrdu.variable}
+        ${scheherazade.variable}
+      `}
       suppressHydrationWarning
     >
       <body suppressHydrationWarning>

@@ -93,7 +93,7 @@ export async function generateMetadata({
 
   // ── OG image — points to locale route since next-intl routes everything
   // through [locale]. Static PNG in public/ is the most reliable approach.
-  const ogImage = `${BASE_URL}/og-image.png`;
+  const ogImage = `${BASE_URL}/og-image.jpg`;
 
   return {
     metadataBase: new URL(BASE_URL),

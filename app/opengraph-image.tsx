@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Qutbul Madar - Sacred Heritage of the Subcontinent";
+export const alt = "Qutbul Madar - Sacred Sufi Shrine at Makanpur Shareef";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -16,62 +16,67 @@ export default async function Image() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        padding: "60px 80px",
+        padding: "50px 80px",
         position: "relative",
       }}
     >
-      {/* Decorative top border */}
+      {/* Top green border */}
       <div
         style={{
           position: "absolute",
           top: 0,
           left: 0,
           right: 0,
-          height: 6,
+          height: 8,
           background: "#2d7a4f",
           display: "flex",
         }}
       />
 
-      {/* Decorative bottom border */}
+      {/* Bottom green border */}
       <div
         style={{
           position: "absolute",
           bottom: 0,
           left: 0,
           right: 0,
-          height: 6,
+          height: 8,
           background: "#2d7a4f",
           display: "flex",
         }}
       />
 
-      {/* Eyebrow tag */}
+      {/* Eyebrow */}
       <div
         style={{
-          color: "#4aa06a",
-          fontSize: 18,
-          fontWeight: 600,
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          marginBottom: 28,
           display: "flex",
           alignItems: "center",
-          gap: 12,
+          gap: 14,
+          marginBottom: 22,
         }}
       >
         <div
           style={{
-            width: 40,
+            width: 36,
             height: 2,
             background: "#4aa06a",
             display: "flex",
           }}
         />
-        Makanpur Shareef · Est. 12th Century
         <div
           style={{
-            width: 40,
+            color: "#4aa06a",
+            fontSize: 17,
+            fontWeight: 600,
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+          }}
+        >
+          Makanpur Shareef · Est. 12th Century
+        </div>
+        <div
+          style={{
+            width: 36,
             height: 2,
             background: "#4aa06a",
             display: "flex",
@@ -79,15 +84,15 @@ export default async function Image() {
         />
       </div>
 
-      {/* Main title */}
+      {/* ── HEADLINE ── */}
       <div
         style={{
           color: "#f7f4ee",
-          fontSize: 80,
+          fontSize: 78,
           fontWeight: 800,
           textAlign: "center",
           lineHeight: 1.05,
-          marginBottom: 20,
+          marginBottom: 16,
           letterSpacing: "-0.02em",
         }}
       >
@@ -97,37 +102,30 @@ export default async function Image() {
       {/* Subtitle */}
       <div
         style={{
-          color: "rgba(247,244,238,0.6)",
-          fontSize: 30,
+          color: "rgba(247,244,238,0.65)",
+          fontSize: 28,
           textAlign: "center",
-          lineHeight: 1.5,
-          marginBottom: 48,
-          maxWidth: 700,
+          lineHeight: 1.4,
+          marginBottom: 36,
         }}
       >
-        Sacred Heritage of the Subcontinent
+        Sacred Sufi Shrine & Islamic Heritage of the Subcontinent
       </div>
 
       {/* Divider */}
       <div
         style={{
-          width: 60,
+          width: 56,
           height: 3,
           background: "#2d7a4f",
           borderRadius: 99,
-          marginBottom: 36,
+          marginBottom: 32,
           display: "flex",
         }}
       />
 
-      {/* Stats row */}
-      <div
-        style={{
-          display: "flex",
-          gap: 60,
-          alignItems: "center",
-        }}
-      >
+      {/* Stats */}
+      <div style={{ display: "flex", gap: 56, marginBottom: 40 }}>
         {[
           { num: "800+", label: "Years of Legacy" },
           { num: "596", label: "Years of Life" },
@@ -141,13 +139,13 @@ export default async function Image() {
               alignItems: "center",
             }}
           >
-            <div style={{ color: "#4aa06a", fontSize: 36, fontWeight: 800 }}>
+            <div style={{ color: "#4aa06a", fontSize: 34, fontWeight: 800 }}>
               {num}
             </div>
             <div
               style={{
                 color: "rgba(247,244,238,0.4)",
-                fontSize: 16,
+                fontSize: 15,
                 marginTop: 4,
               }}
             >
@@ -157,13 +155,29 @@ export default async function Image() {
         ))}
       </div>
 
+      {/* ── CTA BUTTON ── */}
+      <div
+        style={{
+          background: "#2d7a4f",
+          color: "#f7f4ee",
+          fontSize: 20,
+          fontWeight: 700,
+          padding: "14px 40px",
+          borderRadius: 50,
+          letterSpacing: "0.04em",
+          display: "flex",
+        }}
+      >
+        Explore History & Services →
+      </div>
+
       {/* Domain */}
       <div
         style={{
           position: "absolute",
-          bottom: 28,
-          color: "rgba(247,244,238,0.35)",
-          fontSize: 18,
+          bottom: 22,
+          color: "rgba(247,244,238,0.3)",
+          fontSize: 16,
           letterSpacing: "0.08em",
           display: "flex",
         }}

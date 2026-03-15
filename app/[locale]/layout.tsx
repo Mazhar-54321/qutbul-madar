@@ -12,6 +12,9 @@ import AppBar from "@/components/layout/Appbar";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
+// ─── constants ────────────────────────────────────────────────────────────────
+const BASE_URL = "https://qutbul-madar.in";
+
 // ─── fonts ────────────────────────────────────────────────────────────────────
 const sora = Sora({
   subsets: ["latin"],
@@ -88,7 +91,10 @@ export async function generateMetadata({
     hi: "हज़रत सैयद बदीउद्दीन ज़िंदा शाह मदार के जीवन, विरासत और मकानपुर शरीफ़ की दरगाह के बारे में जानें। इतिहास, सेवाएँ और गैलरी — 4 भाषाओं में।",
   };
 
+  const ogImage = `${BASE_URL}/opengraph-image.png`;
+
   return {
+    metadataBase: new URL(BASE_URL),
     title: titles[locale] || titles.en,
     description: descriptions[locale] || descriptions.en,
     keywords: [
@@ -104,12 +110,12 @@ export async function generateMetadata({
       type: "website",
       locale: locale,
       siteName: "Qutbul Madar",
-      url: "https://qutbul-madar.in",
+      url: BASE_URL,
       title: titles[locale] || titles.en,
       description: descriptions[locale] || descriptions.en,
       images: [
         {
-          url: "/opengraph-image.png",
+          url: ogImage,
           width: 1200,
           height: 630,
           alt: "Qutbul Madar - Sacred Sufi Shrine at Makanpur Shareef",
@@ -120,7 +126,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: titles[locale] || titles.en,
       description: descriptions[locale] || descriptions.en,
-      images: ["/opengraph-image.png"],
+      images: [ogImage],
     },
     icons: {
       icon: "/favicon.png",

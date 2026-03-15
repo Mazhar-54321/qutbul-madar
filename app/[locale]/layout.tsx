@@ -13,8 +13,6 @@ import { routing } from "@/i18n/routing";
 import "../globals.css";
 
 // ─── fonts ────────────────────────────────────────────────────────────────────
-
-// Headings — EN, HI, Roman Urdu
 const sora = Sora({
   subsets: ["latin"],
   weight: ["400", "600", "700", "800"],
@@ -23,7 +21,6 @@ const sora = Sora({
   preload: true,
 });
 
-// Body — EN, HI, Roman Urdu
 const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
@@ -32,7 +29,6 @@ const dmSans = DM_Sans({
   preload: true,
 });
 
-// Urdu headings — Noto Nastaliq (all weights for proper rendering)
 const notoUrdu = Noto_Nastaliq_Urdu({
   subsets: ["arabic"],
   weight: ["400", "500", "600", "700"],
@@ -41,7 +37,6 @@ const notoUrdu = Noto_Nastaliq_Urdu({
   preload: true,
 });
 
-// Urdu body — Scheherazade New (better letter connection at body sizes)
 const scheherazade = Scheherazade_New({
   subsets: ["arabic"],
   weight: ["400", "700"],
@@ -85,16 +80,47 @@ export async function generateMetadata({
     hi: "क़ुतुबुल मदार - इस्लामी विरासत और सेवाएं",
   };
 
+  const descriptions: Record<string, string> = {
+    en: "Qutbul Madar - Preserving Islamic heritage and serving the community",
+    ur: "قطب المدار - اسلامی ورثہ کا تحفظ اور کمیونٹی کی خدمت",
+    "ur-Latn":
+      "Qutbul Madar - Islami wirsa ka tahaffuz aur community ki khidmat",
+    hi: "क़ुतुबुल मदार - इस्लामी विरासत का संरक्षण और समुदाय की सेवा",
+  };
+
   return {
     title: titles[locale] || titles.en,
-    description:
-      "Qutbul Madar - Preserving Islamic heritage and serving the community",
-    keywords: ["Qutbul Madar", "Islamic Heritage", "Dargah", "Services"],
+    description: descriptions[locale] || descriptions.en,
+    keywords: [
+      "Qutbul Madar",
+      "Islamic Heritage",
+      "Dargah",
+      "Makanpur",
+      "Sufi",
+      "Services",
+    ],
     authors: [{ name: "Qutbul Madar Team" }],
     openGraph: {
       type: "website",
       locale: locale,
       siteName: "Qutbul Madar",
+      url: "https://qutbul-madar.in",
+      title: titles[locale] || titles.en,
+      description: descriptions[locale] || descriptions.en,
+      images: [
+        {
+          url: "https://qutbul-madar.in/opengraph-image.png",
+          width: 1200,
+          height: 630,
+          alt: "Qutbul Madar - Sacred Heritage of the Subcontinent",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: titles[locale] || titles.en,
+      description: descriptions[locale] || descriptions.en,
+      images: ["https://qutbul-madar.in/opengraph-image.png"],
     },
     icons: {
       icon: "/favicon.png",

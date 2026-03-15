@@ -2,6 +2,7 @@
 
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
+import type { Transition } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -33,19 +34,21 @@ const C = {
 };
 
 // ─── animation ────────────────────────────────────────────────────────────────
+const t1: Transition = { duration: 0.55, ease: "easeOut" };
+const t2: Transition = { duration: 0.5, ease: "easeOut" };
+
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-  },
+  show: { opacity: 1, y: 0, transition: t1 },
 };
 const fadeIn = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.5 } },
+  show: { opacity: 1, transition: t2 },
 };
-const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.09 } } };
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09 } },
+};
 
 // ─── card icons ───────────────────────────────────────────────────────────────
 const cardMeta = [
@@ -66,7 +69,6 @@ export default function DargahMannatPage() {
   const isRtl = ["ur", "ar"].includes(locale);
   const loc = (href: string) => `/${locale}${href}`;
 
-  // Split paragraphs
   const paragraphs = t("content").split("\n\n").filter(Boolean);
   const contactPara = paragraphs[paragraphs.length - 1];
   const bodyParas = paragraphs.slice(0, -1);
@@ -114,13 +116,12 @@ export default function DargahMannatPage() {
 
       {/* ══════════════════════ SPLIT HERO ════════════════════════════ */}
       <section className="grid lg:grid-cols-[360px_1fr] min-h-[calc(100vh-112px)]">
-        {/* ── LEFT — dark green sticky panel ── */}
+        {/* LEFT — dark green sticky panel */}
         <div
           className="relative flex flex-col justify-between p-8 lg:p-12
                      lg:sticky lg:top-28 lg:h-[calc(100vh-112px)] overflow-hidden"
           style={{ background: C.dark }}
         >
-          {/* Dot pattern */}
           <div
             className="absolute inset-0 opacity-[0.04]"
             style={{
@@ -128,8 +129,6 @@ export default function DargahMannatPage() {
               backgroundSize: "24px 24px",
             }}
           />
-
-          {/* Faint bg image */}
           <div className="absolute inset-0 opacity-[0.08]">
             <Image
               src="/images/image2.webp"
@@ -153,7 +152,6 @@ export default function DargahMannatPage() {
             animate="show"
             className="relative z-10"
           >
-            {/* Tag */}
             <motion.div
               variants={fadeUp}
               className="flex items-center gap-3 mb-6"
@@ -166,8 +164,6 @@ export default function DargahMannatPage() {
                 Dargah service
               </span>
             </motion.div>
-
-            {/* Title */}
             <motion.h1
               variants={fadeUp}
               className={`text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.1]
@@ -177,7 +173,6 @@ export default function DargahMannatPage() {
             >
               {t("title")}
             </motion.h1>
-
             <motion.p
               variants={fadeUp}
               className="text-base font-medium mb-8"
@@ -185,7 +180,6 @@ export default function DargahMannatPage() {
             >
               {t("subtitle")}
             </motion.p>
-
             <motion.div
               variants={fadeUp}
               className="w-10 h-0.5 rounded-full mb-8"
@@ -193,7 +187,7 @@ export default function DargahMannatPage() {
             />
           </motion.div>
 
-          {/* Arabic calligraphy — decorative centre */}
+          {/* Arabic calligraphy */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -238,7 +232,7 @@ export default function DargahMannatPage() {
           </motion.div>
         </div>
 
-        {/* ── RIGHT — cream scrollable content ── */}
+        {/* RIGHT — cream scrollable content */}
         <div
           className="flex flex-col gap-0"
           style={{ borderInlineStart: `1px solid ${C.cream3}` }}
@@ -261,7 +255,6 @@ export default function DargahMannatPage() {
                 About this service
               </span>
             </div>
-
             <div
               className="rounded-2xl p-7 relative overflow-hidden"
               style={{
@@ -278,7 +271,7 @@ export default function DargahMannatPage() {
               </div>
               <p
                 className={`text-lg font-medium leading-[1.85] relative
-                            ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
+                              ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
                 style={{ color: C.dark }}
               >
                 {introPara}
@@ -301,7 +294,6 @@ export default function DargahMannatPage() {
               </span>
               <div className="flex-1 h-px" style={{ background: C.cream3 }} />
             </div>
-
             <div className="grid sm:grid-cols-2 gap-4">
               {cardParas.map((para, idx) => (
                 <motion.div
@@ -318,10 +310,9 @@ export default function DargahMannatPage() {
                     borderColor: idx === 1 ? "transparent" : C.cream3,
                   }}
                 >
-                  {/* Icon */}
                   <div
                     className="w-9 h-9 rounded-xl flex items-center justify-center mb-4
-                               transition-colors duration-300"
+                                  transition-colors duration-300"
                     style={{
                       background:
                         idx === 1 ? "rgba(74,160,106,0.15)" : C.cream2,
@@ -330,7 +321,6 @@ export default function DargahMannatPage() {
                   >
                     {cardMeta[idx % cardMeta.length].icon}
                   </div>
-
                   <h3
                     className="text-[14px] font-bold mb-2 leading-snug"
                     style={{ color: idx === 1 ? C.cream : C.dark }}
@@ -345,11 +335,9 @@ export default function DargahMannatPage() {
                   >
                     {para}
                   </p>
-
-                  {/* Hover bottom line */}
                   <div
                     className="absolute bottom-0 inset-x-0 h-px scale-x-0
-                               group-hover:scale-x-100 transition-transform duration-400"
+                                  group-hover:scale-x-100 transition-transform duration-300"
                     style={{ background: idx === 1 ? C.light : C.mid }}
                   />
                 </motion.div>
@@ -385,7 +373,7 @@ export default function DargahMannatPage() {
                   />
                   <div
                     className="absolute inset-0 flex items-end p-3 opacity-0
-                               group-hover:opacity-100 transition-opacity duration-300"
+                                  group-hover:opacity-100 transition-opacity duration-300"
                     style={{
                       background: `linear-gradient(to top, ${C.dark}cc, transparent)`,
                     }}
@@ -432,7 +420,7 @@ export default function DargahMannatPage() {
                   </div>
                   <p
                     className={`text-[15px] leading-[1.85]
-                                ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
+                                  ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
                     style={{ color: C.muted }}
                   >
                     {contactPara}
@@ -442,8 +430,7 @@ export default function DargahMannatPage() {
                   <a
                     href="tel:00919838360930"
                     className="inline-flex items-center justify-center gap-3 px-6 py-3.5
-                               rounded-xl text-sm font-bold transition-all duration-200
-                               active:scale-[0.98]"
+                               rounded-xl text-sm font-bold transition-all duration-200 active:scale-[0.98]"
                     style={{ background: C.dark, color: C.cream }}
                   >
                     <Phone className="w-4 h-4 flex-shrink-0" />
@@ -454,8 +441,7 @@ export default function DargahMannatPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-3 px-6 py-3.5
-                               rounded-xl text-sm font-semibold border transition-all duration-200
-                               active:scale-[0.98]"
+                               rounded-xl text-sm font-semibold border transition-all duration-200 active:scale-[0.98]"
                     style={{
                       background: C.cream2,
                       color: C.dark,

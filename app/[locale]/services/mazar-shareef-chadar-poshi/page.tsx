@@ -2,6 +2,7 @@
 
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
+import type { Transition } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -20,32 +21,27 @@ const C = {
 };
 
 // ─── animation ────────────────────────────────────────────────────────────────
+const t1: Transition = { duration: 0.55, ease: "easeOut" };
+
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-  },
+  show: { opacity: 1, y: 0, transition: t1 },
 };
-const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
 
 export default function MadarShareefPage() {
   const t = useTranslations();
   const locale = useLocale();
   const router = useRouter();
   const isRtl = ["ur", "ar"].includes(locale);
-
   const loc = (href: string) => `/${locale}${href}`;
 
-  // Split full text into paragraphs
   const paragraphs = t("madarShareefChadarPoshi").split("\n\n").filter(Boolean);
-
-  // Last paragraph contains contact info — separate it
   const contactPara = paragraphs[paragraphs.length - 1];
   const contentParas = paragraphs.slice(0, -1);
-
-  // Split content into two columns
   const mid = Math.ceil(contentParas.length / 2);
   const colLeft = contentParas.slice(0, mid);
   const colRight = contentParas.slice(mid);
@@ -61,7 +57,6 @@ export default function MadarShareefPage() {
         style={{ background: C.dark }}
         className="relative overflow-hidden"
       >
-        {/* Dot pattern */}
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -71,7 +66,6 @@ export default function MadarShareefPage() {
         />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-16 pt-10 pb-0">
-          {/* Back button */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -93,7 +87,6 @@ export default function MadarShareefPage() {
             </button>
           </motion.div>
 
-          {/* Header content */}
           <motion.div
             variants={stagger}
             initial="hidden"
@@ -112,7 +105,6 @@ export default function MadarShareefPage() {
                 Sacred tradition
               </span>
             </motion.div>
-
             <motion.h1
               variants={fadeUp}
               className={`text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1]
@@ -122,7 +114,6 @@ export default function MadarShareefPage() {
             >
               {t("madarTitle")}
             </motion.h1>
-
             <motion.p
               variants={fadeUp}
               className="text-lg font-medium mb-8"
@@ -130,7 +121,6 @@ export default function MadarShareefPage() {
             >
               {t("madarSubtitle")}
             </motion.p>
-
             <motion.div
               variants={fadeUp}
               className="w-12 h-0.5 rounded-full"
@@ -138,7 +128,7 @@ export default function MadarShareefPage() {
             />
           </motion.div>
 
-          {/* ── Wide image banner — overlaps into next section ── */}
+          {/* Wide image banner */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -154,7 +144,6 @@ export default function MadarShareefPage() {
               className="object-cover object-center"
               sizes="100vw"
             />
-            {/* Gradient overlay — fade bottom into cream */}
             <div
               className="absolute inset-0"
               style={{
@@ -164,8 +153,6 @@ export default function MadarShareefPage() {
                   ${C.cream} 100%)`,
               }}
             />
-
-            {/* Floating badge */}
             <div
               className="absolute top-5 end-5 px-3 py-1.5 rounded-full text-xs font-semibold"
               style={{
@@ -192,14 +179,12 @@ export default function MadarShareefPage() {
             className="rounded-2xl p-8 lg:p-10 mb-16"
             style={{ background: C.dark }}
           >
-            {/* Decorative quote mark */}
             <div
               className="text-6xl leading-none mb-4 font-serif"
               style={{ color: "rgba(74,160,106,0.25)" }}
             >
               "
             </div>
-
             <p
               className={`text-lg sm:text-xl font-medium leading-relaxed mb-5
                            ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
@@ -207,7 +192,6 @@ export default function MadarShareefPage() {
             >
               {contentParas[4] ?? contentParas[0]}
             </p>
-
             <div className="flex items-center gap-3">
               <div className="w-8 h-px" style={{ background: C.mid }} />
               <span
@@ -219,7 +203,7 @@ export default function MadarShareefPage() {
             </div>
           </motion.div>
 
-          {/* ── Two-column body text ── */}
+          {/* Two-column body text */}
           <div className="mb-16">
             <motion.div
               initial={{ opacity: 0 }}
@@ -238,7 +222,6 @@ export default function MadarShareefPage() {
             </motion.div>
 
             <div className="grid md:grid-cols-2 gap-x-12 gap-y-6">
-              {/* Left column */}
               <div className="flex flex-col gap-6">
                 {colLeft.map((para, i) => (
                   <motion.p
@@ -254,8 +237,6 @@ export default function MadarShareefPage() {
                   </motion.p>
                 ))}
               </div>
-
-              {/* Right column */}
               <div className="flex flex-col gap-6">
                 {colRight.map((para, i) => (
                   <motion.p
@@ -270,8 +251,6 @@ export default function MadarShareefPage() {
                     {para}
                   </motion.p>
                 ))}
-
-                {/* Sticky second image in right col */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.97 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -303,17 +282,14 @@ export default function MadarShareefPage() {
             </div>
           </div>
 
-          {/* ── Contact card ── */}
+          {/* Contact card */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.55 }}
             className="rounded-2xl p-7 lg:p-8 mb-12"
-            style={{
-              background: C.cream2,
-              border: `1px solid ${C.cream3}`,
-            }}
+            style={{ background: C.cream2, border: `1px solid ${C.cream3}` }}
           >
             <div className="flex items-center gap-3 mb-5">
               <span className="w-5 h-px" style={{ background: C.mid }} />
@@ -324,7 +300,6 @@ export default function MadarShareefPage() {
                 Get in touch
               </span>
             </div>
-
             <div className="grid sm:grid-cols-2 gap-6 items-center">
               <div>
                 <p

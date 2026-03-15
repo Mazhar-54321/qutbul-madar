@@ -2,6 +2,7 @@
 
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
+import type { Transition } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
@@ -9,26 +10,27 @@ import { useScroll, useTransform } from "framer-motion";
 import { ChevronRight, ArrowDown, X, Phone } from "lucide-react";
 
 // ─── animation ────────────────────────────────────────────────────────────────
+const t1: Transition = { duration: 0.55, ease: "easeOut" };
+
 const fade = {
   hidden: { opacity: 0, y: 18 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-  },
+  show: { opacity: 1, y: 0, transition: t1 },
 };
-const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.09 } } };
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09 } },
+};
 
 // ─── theme tokens ─────────────────────────────────────────────────────────────
 const C = {
-  dark: "#1a3d2b", // deep forest green — headings, nav
-  mid: "#2d7a4f", // medium green — accents, buttons
-  light: "#4aa06a", // light green — hover states
-  cream: "#f7f4ee", // warm cream — page bg
-  cream2: "#ede9e0", // slightly darker cream — card bg, borders
-  cream3: "#e0d8c8", // border color
-  text: "#2a2a1e", // near-black warm — body text
-  muted: "#6b7c6e", // muted green-grey — descriptions
+  dark: "#1a3d2b",
+  mid: "#2d7a4f",
+  light: "#4aa06a",
+  cream: "#f7f4ee",
+  cream2: "#ede9e0",
+  cream3: "#e0d8c8",
+  text: "#2a2a1e",
+  muted: "#6b7c6e",
   white: "#ffffff",
 };
 
@@ -138,7 +140,6 @@ export default function Home() {
           className="relative flex flex-col justify-end p-8 lg:p-16 min-h-[60vh] lg:min-h-screen"
           style={{ background: C.dark }}
         >
-          {/* Background image with overlay */}
           <motion.div
             style={{ y: heroY }}
             className="absolute inset-0 will-change-transform"
@@ -152,7 +153,6 @@ export default function Home() {
               sizes="50vw"
             />
           </motion.div>
-          {/* Geometric pattern overlay — Islamic star motif using CSS */}
           <div
             className="absolute inset-0 opacity-5"
             style={{
@@ -166,7 +166,6 @@ export default function Home() {
             style={{ opacity: heroOpacity }}
             className="relative z-10"
           >
-            {/* Eyebrow */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -182,7 +181,6 @@ export default function Home() {
               </span>
             </motion.div>
 
-            {/* Arabic calligraphy — decorative */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -196,15 +194,10 @@ export default function Home() {
               قطب المدار
             </motion.div>
 
-            {/* Main title */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                delay: 0.28,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              transition={{ duration: 0.8, delay: 0.28, ease: "easeOut" }}
               className={`text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1]
                           tracking-tight mb-6
                           ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
@@ -213,7 +206,6 @@ export default function Home() {
               {t("heroTitle")}
             </motion.h1>
 
-            {/* Subtitle */}
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -224,7 +216,6 @@ export default function Home() {
               {t("introduction").slice(0, 160)}…
             </motion.p>
 
-            {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -255,7 +246,6 @@ export default function Home() {
               </Link>
             </motion.div>
 
-            {/* Stats */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -286,7 +276,6 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-          {/* Scroll cue */}
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 2.5, repeat: Infinity }}
@@ -320,8 +309,6 @@ export default function Home() {
               background: `linear-gradient(to bottom, ${C.mid}99, ${C.dark}dd)`,
             }}
           />
-
-          {/* Quote */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -375,7 +362,6 @@ export default function Home() {
               >
                 {t("heroTitle")}
               </motion.h2>
-              {/* Decorative rule */}
               <motion.div
                 variants={fade}
                 className="w-14 h-1 rounded-full mb-7"
@@ -404,8 +390,7 @@ export default function Home() {
               <motion.div variants={fade}>
                 <Link
                   href={loc("/history")}
-                  className="inline-flex items-center gap-2 text-sm font-bold
-                             hover:gap-4 transition-all duration-200"
+                  className="inline-flex items-center gap-2 text-sm font-bold hover:gap-4 transition-all duration-200"
                   style={{ color: C.mid }}
                 >
                   Read full history
@@ -416,7 +401,6 @@ export default function Home() {
               </motion.div>
             </motion.div>
 
-            {/* Image stack */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -540,24 +524,19 @@ export default function Home() {
                   borderColor: "rgba(247,244,238,0.08)",
                 }}
               >
-                {/* Hover bg */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
                   style={{ background: "rgba(45,122,79,0.12)" }}
                 />
-
                 <div className="relative z-10">
-                  {/* Number */}
                   <span
                     className="text-xs font-bold tabular-nums mb-5 block"
                     style={{ color: C.light }}
                   >
                     {String(idx + 1).padStart(2, "0")}
                   </span>
-                  {/* Dot accent */}
                   <div
-                    className="w-2 h-2 rounded-full mb-5 transition-transform duration-300
-                                  group-hover:scale-125"
+                    className="w-2 h-2 rounded-full mb-5 transition-transform duration-300 group-hover:scale-125"
                     style={{ background: C.mid }}
                   />
                   <h3
@@ -574,7 +553,6 @@ export default function Home() {
                     {el.description}
                   </p>
                 </div>
-                {/* Bottom border on hover */}
                 <div
                   className="absolute bottom-0 inset-x-0 h-px scale-x-0 group-hover:scale-x-100
                                 transition-transform duration-300"
@@ -590,7 +568,6 @@ export default function Home() {
       <section className="py-24 lg:py-32" style={{ background: C.cream }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-16">
           <div className="grid lg:grid-cols-[320px_1fr] gap-16 items-start">
-            {/* Sticky label */}
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -608,7 +585,6 @@ export default function Home() {
                 Spiritual and community services available at Makanpur Shareef
                 year-round.
               </p>
-              {/* Dargah image */}
               <div
                 className="relative h-48 rounded-2xl overflow-hidden mt-8 cursor-pointer group"
                 onClick={() =>
@@ -627,7 +603,6 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Service rows */}
             <div
               className="flex flex-col"
               style={{ borderTop: `1px solid ${C.cream3}` }}
@@ -655,7 +630,6 @@ export default function Home() {
                       </span>
                       <span
                         className={`text-[15px] font-semibold transition-colors duration-200
-                                       group-hover:text-[${C.mid}]
                                        ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
                         style={{ color: C.dark }}
                       >
@@ -664,8 +638,7 @@ export default function Home() {
                     </div>
                     <ChevronRight
                       className={`w-4 h-4 flex-shrink-0 transition-colors duration-200
-                                              group-hover:text-[#2d7a4f]
-                                              ${isRtl ? "rotate-180" : ""}`}
+                                  group-hover:text-[#2d7a4f] ${isRtl ? "rotate-180" : ""}`}
                       style={{ color: C.cream3 }}
                     />
                   </Link>
@@ -704,8 +677,7 @@ export default function Home() {
             >
               <Link
                 href={loc("/image-gallery")}
-                className="text-sm font-bold inline-flex items-center gap-2
-                           hover:gap-3 transition-all duration-200"
+                className="text-sm font-bold inline-flex items-center gap-2 hover:gap-3 transition-all duration-200"
                 style={{ color: C.mid }}
               >
                 View all
@@ -716,7 +688,6 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Masonry grid */}
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 auto-rows-[200px]">
             {[
               {
@@ -782,10 +753,9 @@ export default function Home() {
       <section className="py-24 lg:py-32" style={{ background: C.cream }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-16">
           <div
-            className="grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden shadow-xl"
+            className="grid lg:grid-cols-2 gap-0 rounded-3xl overflow-hidden"
             style={{ boxShadow: `0 24px 64px rgba(26,61,43,0.15)` }}
           >
-            {/* Image side */}
             <div
               className="relative min-h-[400px] cursor-pointer group"
               onClick={() =>
@@ -808,8 +778,6 @@ export default function Home() {
                 }}
               />
             </div>
-
-            {/* Content side */}
             <div
               className="flex flex-col justify-center p-10 lg:p-14"
               style={{ background: C.dark }}
@@ -835,7 +803,6 @@ export default function Home() {
                     style={{ background: "rgba(247,244,238,0.1)" }}
                   />
                 </motion.div>
-
                 <motion.h2
                   variants={fade}
                   className={`text-3xl sm:text-4xl font-bold leading-[1.15] mb-2
@@ -949,8 +916,7 @@ export default function Home() {
                 </p>
                 <Link
                   href={loc("/articles")}
-                  className="inline-flex items-center gap-2 text-sm font-bold
-                             hover:gap-3 transition-all duration-200"
+                  className="inline-flex items-center gap-2 text-sm font-bold hover:gap-3 transition-all duration-200"
                   style={{ color: C.mid }}
                 >
                   Read more
@@ -1039,7 +1005,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Lightbox */}
       {lightbox && (
         <Lightbox
           src={lightbox.src}

@@ -2,6 +2,7 @@
 
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -19,15 +20,18 @@ const C = {
 };
 
 // ─── animation ────────────────────────────────────────────────────────────────
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.55, ease: "easeOut" },
   },
 };
-const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
+const stagger: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
 
 // ─── section label ────────────────────────────────────────────────────────────
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -49,10 +53,8 @@ export default function HistoryPage() {
   const t = useTranslations("history");
   const locale = useLocale();
   const isRtl = ["ur", "ar"].includes(locale);
-
   const loc = (href: string) => `/${locale}${href}`;
 
-  // All 12 sections — fully typed
   interface Section {
     key: string;
     title: string;
@@ -140,7 +142,7 @@ export default function HistoryPage() {
         style={{ background: C.dark }}
         className="relative overflow-hidden"
       >
-        {/* Subtle dot pattern */}
+        {/* Dot pattern */}
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -219,14 +221,12 @@ export default function HistoryPage() {
               {t("heroSubtitle")}
             </motion.p>
 
-            {/* Divider */}
             <motion.div
               variants={fadeUp}
               className="w-14 h-0.5 rounded-full mb-8"
               style={{ background: C.mid }}
             />
 
-            {/* Intro paragraphs */}
             <motion.p
               variants={fadeUp}
               className="text-[15px] leading-[1.9] mb-4"
@@ -234,6 +234,7 @@ export default function HistoryPage() {
             >
               {t("introduction.p1")}
             </motion.p>
+
             <motion.p
               variants={fadeUp}
               className="text-[15px] leading-[1.9]"
@@ -277,9 +278,8 @@ export default function HistoryPage() {
       {/* ══════════════════════ TIMELINE BODY ════════════════════════ */}
       <section className="py-20 lg:py-28">
         <div className="max-w-7xl mx-auto px-6 lg:px-16">
-          {/* Two-col layout: sticky index | scrolling content */}
           <div className="grid lg:grid-cols-[260px_1fr] gap-12 lg:gap-20 items-start">
-            {/* ── Sticky left index ───────────────────────────────── */}
+            {/* ── Sticky left index ── */}
             <div className="hidden lg:block lg:sticky lg:top-28">
               <p
                 className="text-[10px] font-bold tracking-[0.18em] uppercase mb-5"
@@ -293,7 +293,7 @@ export default function HistoryPage() {
                     key={s.key}
                     href={`#section-${s.key}`}
                     className="flex items-center gap-3 py-2 px-3 rounded-lg text-sm
-                               transition-all duration-150 group"
+                               transition-all duration-150"
                     style={{ color: C.muted }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.background = C.cream2;
@@ -315,7 +315,7 @@ export default function HistoryPage() {
                 ))}
               </nav>
 
-              {/* Dargah image in sidebar */}
+              {/* Sidebar image */}
               <div className="mt-8 rounded-2xl overflow-hidden relative h-52">
                 <Image
                   src="/images/image10.webp"
@@ -338,7 +338,7 @@ export default function HistoryPage() {
               </div>
             </div>
 
-            {/* ── Timeline sections ────────────────────────────────── */}
+            {/* ── Timeline sections ── */}
             <div
               className="flex flex-col divide-y"
               style={{ borderColor: C.cream3 }}
@@ -356,16 +356,12 @@ export default function HistoryPage() {
                 >
                   {/* Left meta */}
                   <div className="flex sm:flex-col gap-3 sm:gap-2 items-center sm:items-start">
-                    {/* Number */}
-                    <div className="flex items-center gap-2 flex-shrink-0">
-                      <span
-                        className="text-2xl font-black tabular-nums leading-none"
-                        style={{ color: C.cream3 }}
-                      >
-                        {String(idx + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-                    {/* Dot + line */}
+                    <span
+                      className="text-2xl font-black tabular-nums leading-none"
+                      style={{ color: C.cream3 }}
+                    >
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
                     <div className="flex items-center gap-2 sm:gap-0 sm:flex-col sm:items-start">
                       <div
                         className="w-2.5 h-2.5 rounded-full flex-shrink-0"
@@ -376,7 +372,6 @@ export default function HistoryPage() {
                         style={{ background: C.cream3, minWidth: 20 }}
                       />
                     </div>
-                    {/* Year badge if exists */}
                     {section.year && (
                       <span
                         className="text-[10px] font-bold px-2 py-0.5 rounded-full"
@@ -400,14 +395,10 @@ export default function HistoryPage() {
                     >
                       {section.title}
                     </h2>
-
-                    {/* Accent line */}
                     <div
                       className="w-8 h-0.5 rounded-full mb-5"
                       style={{ background: C.mid }}
                     />
-
-                    {/* Content body */}
                     <div
                       className="text-[15px] leading-[1.9] space-y-3"
                       style={{ color: C.muted }}

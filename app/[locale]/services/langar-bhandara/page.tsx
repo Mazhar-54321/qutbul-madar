@@ -2,6 +2,7 @@
 
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
+import type { Transition } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -30,15 +31,16 @@ const C = {
 };
 
 // ─── animation ────────────────────────────────────────────────────────────────
+const t1: Transition = { duration: 0.55, ease: "easeOut" };
+
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-  },
+  show: { opacity: 1, y: 0, transition: t1 },
 };
-const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
 
 // ─── stat card ────────────────────────────────────────────────────────────────
 function StatCard({ num, label }: { num: string; label: string }) {
@@ -85,10 +87,9 @@ function ValueCard({
         boxShadow: accent ? `0 0 0 1px ${C.mid}33` : undefined,
       }}
     >
-      {/* Icon */}
       <div
         className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0
-                   transition-colors duration-300"
+                      transition-colors duration-300"
         style={{
           background: accent ? "rgba(74,160,106,0.15)" : C.cream2,
           color: accent ? C.light : C.mid,
@@ -96,7 +97,6 @@ function ValueCard({
       >
         {icon}
       </div>
-
       <div>
         <h3
           className="text-[15px] font-bold mb-2 leading-snug"
@@ -111,8 +111,6 @@ function ValueCard({
           {body}
         </p>
       </div>
-
-      {/* Bottom accent */}
       <div
         className="h-px w-0 group-hover:w-full transition-all duration-500 rounded-full mt-auto"
         style={{ background: accent ? C.light : C.mid }}
@@ -129,12 +127,12 @@ export default function LangarBhandaraPage() {
   const isRtl = ["ur", "ar"].includes(locale);
   const loc = (href: string) => `/${locale}${href}`;
 
-  // Split paragraphs
   const paragraphs = t("content").split("\n\n").filter(Boolean);
   const contactPara = paragraphs[paragraphs.length - 1];
   const bodyParas = paragraphs.slice(0, -1);
+  const heroPara = bodyParas[0] ?? "";
+  const cardParas = bodyParas.slice(1);
 
-  // Map paragraphs to value cards with icons
   const cardIcons = [
     <Heart key="1" className="w-5 h-5" />,
     <Users key="2" className="w-5 h-5" />,
@@ -144,10 +142,6 @@ export default function LangarBhandaraPage() {
     <Users key="6" className="w-5 h-5" />,
     <Globe key="7" className="w-5 h-5" />,
   ];
-
-  // First para → highlighted wide blockquote, rest → cards
-  const heroPara = bodyParas[0] ?? "";
-  const cardParas = bodyParas.slice(1);
 
   return (
     <main
@@ -160,7 +154,6 @@ export default function LangarBhandaraPage() {
         style={{ background: C.dark }}
         className="relative overflow-hidden"
       >
-        {/* Dot pattern */}
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -168,8 +161,6 @@ export default function LangarBhandaraPage() {
             backgroundSize: "28px 28px",
           }}
         />
-
-        {/* Faint image bg */}
         <div className="absolute inset-0 opacity-10">
           <Image
             src="/images/image7.webp"
@@ -187,7 +178,6 @@ export default function LangarBhandaraPage() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-16 pt-10 pb-14">
-          {/* Back */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -215,7 +205,6 @@ export default function LangarBhandaraPage() {
             animate="show"
             className="max-w-3xl"
           >
-            {/* Tag */}
             <motion.div
               variants={fadeUp}
               className="flex items-center gap-3 mb-5"
@@ -228,8 +217,6 @@ export default function LangarBhandaraPage() {
                 Dargah service
               </span>
             </motion.div>
-
-            {/* Title */}
             <motion.h1
               variants={fadeUp}
               className={`text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1]
@@ -239,7 +226,6 @@ export default function LangarBhandaraPage() {
             >
               {t("title")}
             </motion.h1>
-
             <motion.p
               variants={fadeUp}
               className="text-lg font-medium mb-8"
@@ -247,14 +233,11 @@ export default function LangarBhandaraPage() {
             >
               {t("subtitle")}
             </motion.p>
-
             <motion.div
               variants={fadeUp}
               className="w-12 h-0.5 rounded-full mb-10"
               style={{ background: C.mid }}
             />
-
-            {/* Stats row */}
             <motion.div
               variants={fadeUp}
               className="flex flex-wrap gap-10 pt-8"
@@ -284,14 +267,12 @@ export default function LangarBhandaraPage() {
               borderRadius: "0 16px 16px 0",
             }}
           >
-            {/* Big decorative quote */}
             <div
               className="text-8xl leading-none absolute top-2 end-6 font-serif select-none"
               style={{ color: `${C.mid}12` }}
             >
               "
             </div>
-
             <div className="flex items-center gap-3 mb-4">
               <span className="w-5 h-px" style={{ background: C.mid }} />
               <span
@@ -301,7 +282,6 @@ export default function LangarBhandaraPage() {
                 About this service
               </span>
             </div>
-
             <p
               className={`text-lg sm:text-xl font-medium leading-[1.85] relative
                            ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
@@ -316,7 +296,6 @@ export default function LangarBhandaraPage() {
       {/* ═══════════════════════ EDITORIAL GRID ══════════════════════ */}
       <section className="py-16 lg:py-20" style={{ background: C.cream }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-16">
-          {/* Section label */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -333,11 +312,10 @@ export default function LangarBhandaraPage() {
             <div className="flex-1 h-px" style={{ background: C.cream3 }} />
           </motion.div>
 
-          {/* Card grid */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {cardParas.map((para, idx) => {
-              const isAccent = idx === 3; // 4th card gets dark accent
-              const isWide = idx === 5; // last card spans 2 cols
+              const isAccent = idx === 3;
+              const isWide = idx === 5;
               return (
                 <motion.div
                   key={idx}
@@ -451,13 +429,11 @@ export default function LangarBhandaraPage() {
                   {contactPara}
                 </p>
               </div>
-
               <div className="flex flex-col gap-3 min-w-[200px]">
                 <a
                   href="tel:00919838360930"
                   className="inline-flex items-center justify-center gap-3 px-6 py-3.5
-                             rounded-xl text-sm font-bold transition-all duration-200
-                             active:scale-[0.98]"
+                             rounded-xl text-sm font-bold transition-all duration-200 active:scale-[0.98]"
                   style={{ background: C.dark, color: C.cream }}
                 >
                   <Phone className="w-4 h-4 flex-shrink-0" />
@@ -468,8 +444,7 @@ export default function LangarBhandaraPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-3 px-6 py-3.5
-                             rounded-xl text-sm font-semibold border transition-all duration-200
-                             active:scale-[0.98]"
+                             rounded-xl text-sm font-semibold border transition-all duration-200 active:scale-[0.98]"
                   style={{
                     background: C.cream2,
                     color: C.dark,

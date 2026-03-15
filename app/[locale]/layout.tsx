@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { Inter, Noto_Nastaliq_Urdu, Scheherazade_New } from "next/font/google";
@@ -7,7 +7,7 @@ import AppBar from "@/components/layout/Appbar";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
-// Font configurations
+// ─── fonts ────────────────────────────────────────────────────────────────────
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -31,22 +31,27 @@ const scheherazade = Scheherazade_New({
   preload: true,
 });
 
-// Locale configuration
+// ─── locale config ────────────────────────────────────────────────────────────
 const SUPPORTED_LOCALES = routing.locales;
 const RTL_LOCALES = ["ur", "ar"] as const;
 
-// Type-safe locale check
 function isRTLLocale(locale: string): boolean {
-  console.log(RTL_LOCALES.includes(locale as any), "check");
   return RTL_LOCALES.includes(locale as any);
 }
 
-// Generate static params for all supported locales
+// ─── static params ────────────────────────────────────────────────────────────
 export function generateStaticParams() {
   return SUPPORTED_LOCALES.map((locale) => ({ locale }));
 }
 
-// Generate metadata with locale support
+// ─── viewport — separate export (Next.js 14+ requirement) ────────────────────
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
+// ─── metadata ─────────────────────────────────────────────────────────────────
 export async function generateMetadata({
   params,
 }: {
@@ -54,7 +59,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
 
-  // You can load translations here for dynamic metadata
   const titles: Record<string, string> = {
     en: "Qutbul Madar - Islamic Heritage & Services",
     ur: "قطب المدار - اسلامی ورثہ اور خدمات",
@@ -73,18 +77,15 @@ export async function generateMetadata({
       locale: locale,
       siteName: "Qutbul Madar",
     },
-    viewport: {
-      width: "device-width",
-      initialScale: 1,
-      maximumScale: 5,
-    },
     icons: {
-      icon: "/favicon.ico",
+      icon: "/favicon.png",
+      shortcut: "/favicon.png",
+      apple: "/favicon.png",
     },
   };
 }
 
-// Root layout for locale-specific routes
+// ─── layout ───────────────────────────────────────────────────────────────────
 export default async function LocaleLayout({
   children,
   params,
@@ -92,14 +93,12 @@ export default async function LocaleLayout({
   children: ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-  // Await and validate locale
   const { locale } = await params;
 
   if (!SUPPORTED_LOCALES.includes(locale as any)) {
     notFound();
   }
 
-  // Load locale-specific messages
   let messages;
   try {
     messages = (await import(`../../messages/${locale}.json`)).default;
@@ -108,14 +107,13 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  // Determine text direction
   const dir = isRTLLocale(locale) ? "rtl" : "ltr";
 
   return (
     <html
       lang={locale}
       dir={dir}
-      className={`${inter.variable} ${scheherazade.variable} ${notoUrdu.variable} `}
+      className={`${inter.variable} ${scheherazade.variable} ${notoUrdu.variable}`}
       suppressHydrationWarning
     >
       <body suppressHydrationWarning>

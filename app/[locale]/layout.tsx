@@ -91,7 +91,9 @@ export async function generateMetadata({
     hi: "हज़रत सैयद बदीउद्दीन ज़िंदा शाह मदार के जीवन, विरासत और मकानपुर शरीफ़ की दरगाह के बारे में जानें। इतिहास, सेवाएँ और गैलरी — 4 भाषाओं में।",
   };
 
-  const ogImage = `${BASE_URL}/opengraph-image.png`;
+  // ── OG image — points to locale route since next-intl routes everything
+  // through [locale]. Static PNG in public/ is the most reliable approach.
+  const ogImage = `${BASE_URL}/og-image.png`;
 
   return {
     metadataBase: new URL(BASE_URL),
@@ -110,7 +112,7 @@ export async function generateMetadata({
       type: "website",
       locale: locale,
       siteName: "Qutbul Madar",
-      url: BASE_URL,
+      url: `${BASE_URL}/${locale}`,
       title: titles[locale] || titles.en,
       description: descriptions[locale] || descriptions.en,
       images: [

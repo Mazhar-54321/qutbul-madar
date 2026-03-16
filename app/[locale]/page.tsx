@@ -125,6 +125,7 @@ export default function Home() {
     "special-dua",
     "full-ghilaf",
     "big-deg",
+    "live-ziyarat",
   ];
 
   return (

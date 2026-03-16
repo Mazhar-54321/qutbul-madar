@@ -126,7 +126,7 @@ export default function BigDegPage() {
               ) : (
                 <ChevronLeft className="w-3.5 h-3.5" />
               )}
-              {t("back")}
+              Back
             </button>
           </motion.div>
 

@@ -122,6 +122,9 @@ export default function Home() {
     "mazar-shareef-chadar-poshi",
     "langar-bhandara",
     "dargah-mannat",
+    "special-dua",
+    "full-ghilaf",
+    "big-deg",
   ];
 
   return (
@@ -296,7 +299,7 @@ export default function Home() {
             className="absolute inset-0 will-change-transform"
           >
             <Image
-              src="/images/image10.webp"
+              src="/images/image8.webp"
               alt="Annual Urs"
               fill
               className="object-cover object-center opacity-30"
@@ -697,7 +700,7 @@ export default function Home() {
               },
               { src: "/images/image2.webp", label: "Dargah Shareef", cls: "" },
               {
-                src: "/images/image9.webp",
+                src: "/images/image8.webp",
                 label: "Shrine illuminated",
                 cls: "",
               },

@@ -82,7 +82,7 @@ function BookCard({
   idx: number;
   isRtl: boolean;
 }) {
-  const pdfPath = `/books/urdu/${file}`;
+  const pdfPath = `https://github.com/Mazhar-54321/qutbul-madar/releases/download/Urdu-Books/${file}`;
 
   return (
     <motion.div

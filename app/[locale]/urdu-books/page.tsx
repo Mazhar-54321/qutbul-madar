@@ -157,16 +157,14 @@ function PdfModal({ url, downloadUrl, title, onClose }: { url: string; downloadU
             onLoadError={() => setLoading(false)}
             loading=""
           >
-            {Array.from({ length: numPages }, (_, i) => (
-              <div key={i + 1} className="mb-3 shadow-lg">
-                <Page
-                  pageNumber={i + 1}
-                  scale={scale}
-                  renderTextLayer={true}
-                  renderAnnotationLayer={true}
-                />
-              </div>
-            ))}
+            <div className="shadow-lg">
+              <Page
+                pageNumber={pageNumber}
+                scale={scale}
+                renderTextLayer={true}
+                renderAnnotationLayer={true}
+              />
+            </div>
           </Document>
         </div>
 

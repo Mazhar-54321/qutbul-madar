@@ -3,7 +3,7 @@
 import { useLocale } from "next-intl";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -11,7 +11,15 @@ import {
   Download,
   Search,
   FileText,
+  X,
+  ZoomIn,
+  ZoomOut,
 } from "lucide-react";
+import { Document, Page, pdfjs } from "react-pdf";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 // ─── theme ────────────────────────────────────────────────────────────────────
 const C = {
@@ -70,6 +78,128 @@ const BOOKS = [
   { title: "Kundo Ki Niyaaz Ka Sharaye Hukm",              file: "Kundo-ki-niyaaz-ka-sharaye-Hukm-pdfurdu.pdf" },
 ];
 
+// ─── pdf modal ────────────────────────────────────────────────────────────────
+function PdfModal({ url, title, onClose }: { url: string; title: string; onClose: () => void }) {
+  const [numPages, setNumPages] = useState<number>(0);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [scale, setScale] = useState(1.0);
+  const [loading, setLoading] = useState(true);
+
+  const onDocumentLoadSuccess = useCallback(({ numPages }: { numPages: number }) => {
+    setNumPages(numPages);
+    setLoading(false);
+  }, []);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: "rgba(0,0,0,0.75)" }}
+      onClick={onClose}
+    >
+      <div
+        className="relative flex flex-col w-full max-w-4xl max-h-[92vh] rounded-2xl overflow-hidden shadow-2xl"
+        style={{ background: C.cream }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div
+          className="flex items-center justify-between px-5 py-3 flex-shrink-0"
+          style={{ background: C.dark, color: C.cream }}
+        >
+          <span className="text-sm font-bold truncate max-w-[60%]">{title}</span>
+          <div className="flex items-center gap-3">
+            {/* Zoom controls */}
+            <button
+              onClick={() => setScale((s) => Math.max(0.5, s - 0.2))}
+              className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
+            >
+              <ZoomOut className="w-4 h-4" />
+            </button>
+            <span className="text-xs tabular-nums w-10 text-center">{Math.round(scale * 100)}%</span>
+            <button
+              onClick={() => setScale((s) => Math.min(2.5, s + 0.2))}
+              className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
+            >
+              <ZoomIn className="w-4 h-4" />
+            </button>
+            {/* Download */}
+            <a
+              href={url}
+              download={title}
+              className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
+              title="Download"
+            >
+              <Download className="w-4 h-4" />
+            </a>
+            {/* Close */}
+            <button
+              onClick={onClose}
+              className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* PDF viewer */}
+        <div className="flex-1 overflow-auto flex flex-col items-center py-4 px-2 gap-3"
+          style={{ background: "#525659" }}
+        >
+          {loading && (
+            <div className="flex flex-col items-center justify-center h-48 gap-3" style={{ color: C.cream }}>
+              <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <span className="text-sm">Loading PDF…</span>
+            </div>
+          )}
+          <Document
+            file={url}
+            onLoadSuccess={onDocumentLoadSuccess}
+            onLoadError={() => setLoading(false)}
+            loading=""
+          >
+            {Array.from({ length: numPages }, (_, i) => (
+              <div key={i + 1} className="mb-3 shadow-lg">
+                <Page
+                  pageNumber={i + 1}
+                  scale={scale}
+                  renderTextLayer={true}
+                  renderAnnotationLayer={true}
+                />
+              </div>
+            ))}
+          </Document>
+        </div>
+
+        {/* Footer pagination */}
+        {numPages > 0 && (
+          <div
+            className="flex items-center justify-center gap-4 px-5 py-2.5 flex-shrink-0 text-sm font-medium"
+            style={{ background: C.dark, color: C.cream }}
+          >
+            <button
+              onClick={() => setPageNumber((p) => Math.max(1, p - 1))}
+              disabled={pageNumber <= 1}
+              className="p-1 rounded hover:bg-white/10 disabled:opacity-30 transition-colors"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <span className="tabular-nums text-xs">
+              Page {pageNumber} of {numPages}
+            </span>
+            <button
+              onClick={() => setPageNumber((p) => Math.min(numPages, p + 1))}
+              disabled={pageNumber >= numPages}
+              className="p-1 rounded hover:bg-white/10 disabled:opacity-30 transition-colors"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── book card ────────────────────────────────────────────────────────────────
 function BookCard({
   title,
@@ -82,10 +212,12 @@ function BookCard({
   idx: number;
   isRtl: boolean;
 }) {
+  const [open, setOpen] = useState(false);
   const pdfPath = `https://github.com/Mazhar-54321/qutbul-madar/releases/download/Urdu-Books/${file}`;
-  const readPath = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfPath)}`;
 
   return (
+    <>
+      {open && <PdfModal url={pdfPath} title={title} onClose={() => setOpen(false)} />}
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -141,17 +273,15 @@ function BookCard({
 
         {/* Action buttons */}
         <div className="flex gap-2 pt-2" style={{ borderTop: `1px solid ${C.cream3}` }}>
-          <a
-            href={readPath}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={() => setOpen(true)}
             className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold
                        px-3 py-2.5 rounded-xl transition-all duration-200 active:scale-[0.97]"
             style={{ background: C.dark, color: C.cream }}
           >
             <BookOpen className="w-3.5 h-3.5" />
             Read
-          </a>
+          </button>
           <a
             href={pdfPath}
             download={title}
@@ -169,6 +299,7 @@ function BookCard({
         </div>
       </div>
     </motion.div>
+    </>
   );
 }
 

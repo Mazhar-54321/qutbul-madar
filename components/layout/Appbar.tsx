@@ -20,13 +20,15 @@ import {
 
 // ─── theme ────────────────────────────────────────────────────────────────────
 const C = {
-  dark: "#1a3d2b",
-  mid: "#2d7a4f",
-  light: "#4aa06a",
-  cream: "#f7f4ee",
-  cream2: "#ede9e0",
-  cream3: "#e0d8c8",
-  muted: "#6b7c6e",
+  dark:    "#0f2419",
+  mid:     "#2d7a4f",
+  light:   "#4aa06a",
+  gold:    "#c9a84c",
+  goldDim: "rgba(201,168,76,0.15)",
+  cream:   "#f7f4ee",
+  cream2:  "#ede9e0",
+  cream3:  "#e0d8c8",
+  muted:   "#6b7c6e",
 };
 
 const navItems = [
@@ -34,7 +36,7 @@ const navItems = [
   {
     label: "About",
     children: [
-      { label: "About Us", href: "/about-us" },
+      { label: "About Us",     href: "/about-us" },
       { label: "Qutbul Madar", href: "/qutbul-madar" },
       { label: "Our Services", href: "/our-services" },
     ],
@@ -42,7 +44,7 @@ const navItems = [
   {
     label: "Books",
     children: [
-      { label: "Urdu Books", href: "/urdu-books" },
+      { label: "Urdu Books",  href: "/urdu-books" },
       { label: "Farsi Books", href: "/farsi-books" },
       { label: "Hindi Books", href: "/hindi-books" },
     ],
@@ -50,14 +52,14 @@ const navItems = [
   {
     label: "Articles",
     children: [
-      { label: "Urdu Articles", href: "/urdu-articles" },
+      { label: "Urdu Articles",    href: "/urdu-articles" },
       { label: "English Articles", href: "/english-articles" },
     ],
   },
   {
     label: "Gallery",
     children: [
-      { label: "Image Gallery", href: "/image-gallery" },
+      { label: "Image Gallery",  href: "/image-gallery" },
       { label: "Dargah Gallery", href: "/dargah-gallery" },
     ],
   },
@@ -80,18 +82,14 @@ export default function AppBar() {
   }, []);
 
   useEffect(() => {
-    const onResize = () => {
-      if (window.innerWidth >= 768) setMobileOpen(false);
-    };
+    const onResize = () => { if (window.innerWidth >= 768) setMobileOpen(false); };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
   const loc = (href: string) => `/${locale}${href}`;
@@ -99,80 +97,89 @@ export default function AppBar() {
   return (
     <header
       dir={isRtl ? "rtl" : "ltr"}
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300
-                  ${scrolled ? "shadow-md shadow-[#1a3d2b]/10" : ""}`}
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500
+                  ${scrolled ? "shadow-lg shadow-black/10" : ""}`}
       style={{ height: scrolled ? "56px" : "68px" }}
     >
-      {/* ── Split panel wrapper ─────────────────────────────────────── */}
       <div
         className="flex h-full"
-        style={{ borderBottom: `1px solid ${C.cream3}` }}
+        style={{
+          borderBottom: scrolled
+            ? `1px solid rgba(201,168,76,0.15)`
+            : `1px solid rgba(201,168,76,0.08)`,
+        }}
       >
-        {/* LEFT — dark green logo panel */}
+        {/* ── Logo panel ──────────────────────────────────────────────── */}
         <Link
           href={loc("/")}
-          className="flex items-center gap-3 flex-shrink-0 px-6 transition-colors duration-200"
-          style={{ background: C.dark, minWidth: isRtl ? "auto" : 220 }}
+          className="flex items-center gap-3.5 flex-shrink-0 px-6 transition-all duration-300 group"
+          style={{ background: C.dark, minWidth: isRtl ? "auto" : 224 }}
         >
-          {/* Monogram mark */}
+          {/* Gold-rimmed monogram */}
           <div
-            className="flex items-center justify-center flex-shrink-0 rounded-lg text-xs font-black"
+            className="flex items-center justify-center flex-shrink-0 rounded-lg text-[11px] font-black
+                       transition-all duration-300 group-hover:shadow-[0_0_12px_rgba(201,168,76,0.3)]"
             style={{
-              width: 32,
-              height: 32,
-              background: "rgba(247,244,238,0.12)",
-              border: "1px solid rgba(247,244,238,0.2)",
-              color: C.cream,
-              letterSpacing: "0.05em",
+              width: 34, height: 34,
+              background: "rgba(201,168,76,0.08)",
+              border: `1px solid rgba(201,168,76,0.35)`,
+              color: C.gold,
+              letterSpacing: "0.06em",
             }}
           >
             QM
           </div>
           <div>
-            <p
-              className="text-sm font-bold leading-tight"
-              style={{ color: C.cream }}
-            >
+            <p className="text-[13px] font-bold leading-tight tracking-wide" style={{ color: C.cream }}>
               Qutbul Madar
             </p>
-            <p
-              className="text-[10px] leading-tight"
-              style={{ color: "rgba(247,244,238,0.45)" }}
-            >
+            <p className="text-[9px] leading-tight tracking-[0.12em] uppercase"
+               style={{ color: "rgba(201,168,76,0.55)" }}>
               Makanpur Shareef
             </p>
           </div>
+          {/* Gold bottom accent line on hover */}
+          <div
+            className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0
+                       group-hover:scale-x-100 transition-transform duration-300"
+            style={{ background: C.gold }}
+          />
         </Link>
 
-        {/* RIGHT — cream nav panel */}
+        {/* ── Nav panel ───────────────────────────────────────────────── */}
         <div
-          className="flex flex-1 items-center justify-between px-5 transition-all duration-300"
+          className="flex flex-1 items-center justify-between px-6 transition-all duration-500"
           style={{
-            background: scrolled ? "rgba(247,244,238,0.97)" : C.cream,
-            backdropFilter: scrolled ? "blur(12px)" : "none",
+            background: scrolled
+              ? "rgba(247,244,238,0.96)"
+              : C.cream,
+            backdropFilter: scrolled ? "blur(16px)" : "none",
           }}
         >
-          {/* Desktop nav links */}
-          <nav className="hidden md:flex items-center gap-1">
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-0.5">
             {navItems.map((item) => {
               if (!item.children) {
                 return (
                   <Link
                     key={item.label}
                     href={loc(item.href!)}
-                    className="px-3 py-2 text-sm rounded-lg transition-all duration-150 font-medium"
+                    className="relative px-3.5 py-2 text-[13px] rounded-lg transition-all duration-200
+                               font-medium group overflow-hidden"
                     style={{ color: C.muted }}
                     onMouseEnter={(e) => {
-                      (e.target as HTMLElement).style.color = C.dark;
-                      (e.target as HTMLElement).style.background = C.cream2;
+                      (e.currentTarget as HTMLElement).style.color = C.dark;
                     }}
                     onMouseLeave={(e) => {
-                      (e.target as HTMLElement).style.color = C.muted;
-                      (e.target as HTMLElement).style.background =
-                        "transparent";
+                      (e.currentTarget as HTMLElement).style.color = C.muted;
                     }}
                   >
                     {t(item.label)}
+                    <span
+                      className="absolute bottom-1 left-3.5 right-3.5 h-px origin-left scale-x-0
+                                 group-hover:scale-x-100 transition-transform duration-300"
+                      style={{ background: C.gold }}
+                    />
                   </Link>
                 );
               }
@@ -187,19 +194,24 @@ export default function AppBar() {
                     <button
                       onMouseEnter={() => setOpenMenu(item.label)}
                       onMouseLeave={() => setOpenMenu(null)}
-                      className="flex items-center gap-1 px-3 py-2 text-sm rounded-lg
-                                 transition-all duration-150 font-medium"
+                      className="relative flex items-center gap-1 px-3.5 py-2 text-[13px] rounded-lg
+                                 transition-all duration-200 font-medium group"
                       style={{ color: C.muted }}
                     >
                       {t(item.label)}
                       <ChevronDown
-                        className="w-3.5 h-3.5 mt-0.5 transition-transform duration-200"
+                        className="w-3 h-3 mt-0.5 transition-transform duration-200"
                         style={{
-                          transform:
-                            openMenu === item.label
-                              ? "rotate(180deg)"
-                              : "rotate(0deg)",
-                          color: C.muted,
+                          transform: openMenu === item.label ? "rotate(180deg)" : "rotate(0deg)",
+                          color: openMenu === item.label ? C.gold : C.muted,
+                        }}
+                      />
+                      <span
+                        className="absolute bottom-1 left-3.5 right-3.5 h-px origin-left
+                                   transition-transform duration-300"
+                        style={{
+                          background: C.gold,
+                          transform: openMenu === item.label ? "scaleX(1)" : "scaleX(0)",
                         }}
                       />
                     </button>
@@ -210,39 +222,36 @@ export default function AppBar() {
                     onMouseLeave={() => setOpenMenu(null)}
                     side="bottom"
                     align={isRtl ? "end" : "start"}
-                    sideOffset={8}
+                    sideOffset={10}
                     className="w-52 p-2 rounded-2xl"
                     style={{
-                      background: C.cream,
-                      border: `1px solid ${C.cream3}`,
-                      boxShadow: "0 8px 32px rgba(26,61,43,0.12)",
+                      background: "#faf8f4",
+                      border: `1px solid rgba(201,168,76,0.2)`,
+                      boxShadow: "0 12px 40px rgba(15,36,25,0.14)",
                     }}
                   >
-                    {/* Dropdown header */}
-                    <p
-                      className="text-[10px] font-bold tracking-[0.12em] uppercase px-3 pb-2 pt-1"
-                      style={{ color: C.mid }}
-                    >
-                      {t(item.label)}
-                    </p>
-                    <div
-                      style={{
-                        height: 1,
-                        background: C.cream3,
-                        marginBottom: 6,
-                      }}
-                    />
+                    <div className="flex items-center gap-2 px-3 pb-2.5 pt-1">
+                      <span
+                        className="w-3 h-px"
+                        style={{ background: C.gold }}
+                      />
+                      <p className="text-[10px] font-bold tracking-[0.14em] uppercase"
+                         style={{ color: C.gold }}>
+                        {t(item.label)}
+                      </p>
+                    </div>
+                    <div style={{ height: 1, background: "rgba(201,168,76,0.12)", marginBottom: 6 }} />
                     {item.children.map((child) => (
                       <Link
                         key={child.href}
                         href={loc(child.href)}
                         onClick={() => setOpenMenu(null)}
-                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm
-                                   transition-colors duration-150 group"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px]
+                                   transition-all duration-150 group"
                         style={{ color: C.muted }}
                         onMouseEnter={(e) => {
                           const el = e.currentTarget;
-                          el.style.background = C.cream2;
+                          el.style.background = "rgba(201,168,76,0.08)";
                           el.style.color = C.dark;
                         }}
                         onMouseLeave={(e) => {
@@ -252,7 +261,7 @@ export default function AppBar() {
                         }}
                       >
                         <span
-                          className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                          className="w-1 h-1 rounded-full flex-shrink-0 transition-colors duration-150"
                           style={{ background: C.mid }}
                         />
                         {t(child.label)}
@@ -264,18 +273,27 @@ export default function AppBar() {
             })}
           </nav>
 
-          {/* Desktop right — language + donate */}
-          <div className="hidden md:flex items-center gap-3">
+          {/* Desktop right */}
+          <div className="hidden md:flex items-center gap-4">
             <LanguageSwitcher />
             <Link
               href={loc("/donate")}
-              className="text-sm font-bold px-5 py-2 rounded-lg transition-all duration-200
-                         active:scale-[0.98]"
+              className="text-[13px] font-bold px-5 py-2 rounded-lg transition-all duration-200
+                         active:scale-[0.97] relative overflow-hidden group"
               style={{ background: C.dark, color: C.cream }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = C.mid)}
-              onMouseLeave={(e) => (e.currentTarget.style.background = C.dark)}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = C.mid;
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = C.dark;
+              }}
             >
-              {t("Donate")}
+              <span className="relative z-10">{t("Donate")}</span>
+              {/* Gold shimmer line */}
+              <span
+                className="absolute inset-x-0 bottom-0 h-px"
+                style={{ background: `linear-gradient(to right, transparent, ${C.gold}, transparent)` }}
+              />
             </Link>
           </div>
 
@@ -288,24 +306,18 @@ export default function AppBar() {
           >
             <AnimatePresence mode="wait" initial={false}>
               {mobileOpen ? (
-                <motion.div
-                  key="x"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
+                <motion.div key="x"
+                  initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </motion.div>
               ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
+                <motion.div key="menu"
+                  initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}
                 >
-                  <Menu className="w-6 h-6" />
+                  <Menu className="w-5 h-5" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -317,37 +329,37 @@ export default function AppBar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -6 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
+            exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="md:hidden absolute top-full inset-x-0 px-4 py-4 z-50"
             style={{
-              background: C.cream,
-              borderBottom: `1px solid ${C.cream3}`,
-              boxShadow: "0 16px 40px rgba(26,61,43,0.12)",
+              background: "#faf8f4",
+              borderBottom: `1px solid rgba(201,168,76,0.15)`,
+              boxShadow: "0 20px 48px rgba(15,36,25,0.15)",
             }}
           >
-            {/* Green top accent strip */}
+            {/* Gold accent strip */}
             <div
-              className="h-0.5 rounded-full mb-4"
-              style={{ background: C.mid }}
+              className="h-px rounded-full mb-4"
+              style={{ background: `linear-gradient(to right, ${C.gold}, transparent)` }}
             />
 
-            <div className="flex flex-col gap-1 mb-4">
+            <div className="flex flex-col gap-0.5 mb-4">
               {navItems.map((item) =>
                 !item.children ? (
                   <Link
                     key={item.label}
                     href={loc(item.href!)}
                     onClick={() => setMobileOpen(false)}
-                    className="px-4 py-3 rounded-xl text-sm font-medium transition-colors"
+                    className="px-4 py-3 rounded-xl text-[13px] font-medium transition-colors"
                     style={{ color: C.dark }}
                     onMouseEnter={(e) =>
-                      (e.currentTarget.style.background = C.cream2)
+                      ((e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.08)")
                     }
                     onMouseLeave={(e) =>
-                      (e.currentTarget.style.background = "transparent")
+                      ((e.currentTarget as HTMLElement).style.background = "transparent")
                     }
                   >
                     {t(item.label)}
@@ -356,8 +368,7 @@ export default function AppBar() {
                   <Accordion key={item.label} type="single" collapsible>
                     <AccordionItem value={item.label} className="border-none">
                       <AccordionTrigger
-                        className="px-4 py-3 rounded-xl text-sm font-medium hover:no-underline
-                                   transition-colors"
+                        className="px-4 py-3 rounded-xl text-[13px] font-medium hover:no-underline transition-colors"
                         style={{ color: C.dark }}
                       >
                         {t(item.label)}
@@ -369,23 +380,18 @@ export default function AppBar() {
                               key={child.href}
                               href={loc(child.href)}
                               onClick={() => setMobileOpen(false)}
-                              className="flex items-center gap-3 px-4 py-2.5 rounded-xl
-                                         text-sm transition-colors"
+                              className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[13px] transition-colors"
                               style={{ color: C.muted }}
                               onMouseEnter={(e) => {
-                                e.currentTarget.style.background = C.cream2;
-                                e.currentTarget.style.color = C.dark;
+                                (e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.08)";
+                                (e.currentTarget as HTMLElement).style.color = C.dark;
                               }}
                               onMouseLeave={(e) => {
-                                e.currentTarget.style.background =
-                                  "transparent";
-                                e.currentTarget.style.color = C.muted;
+                                (e.currentTarget as HTMLElement).style.background = "transparent";
+                                (e.currentTarget as HTMLElement).style.color = C.muted;
                               }}
                             >
-                              <span
-                                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                                style={{ background: C.mid }}
-                              />
+                              <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: C.gold }} />
                               {t(child.label)}
                             </Link>
                           ))}
@@ -397,16 +403,15 @@ export default function AppBar() {
               )}
             </div>
 
-            {/* Mobile footer row */}
             <div
               className="flex items-center justify-between pt-4"
-              style={{ borderTop: `1px solid ${C.cream3}` }}
+              style={{ borderTop: `1px solid rgba(201,168,76,0.12)` }}
             >
               <LanguageSwitcher />
               <Link
                 href={loc("/donate")}
                 onClick={() => setMobileOpen(false)}
-                className="text-sm font-bold px-6 py-2.5 rounded-xl transition-all active:scale-[0.98]"
+                className="text-[13px] font-bold px-6 py-2.5 rounded-xl transition-all active:scale-[0.97]"
                 style={{ background: C.dark, color: C.cream }}
               >
                 {t("Donate")}

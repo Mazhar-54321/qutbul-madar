@@ -9,6 +9,7 @@ import {
   Scheherazade_New,
 } from "next/font/google";
 import AppBar from "@/components/layout/Appbar";
+import Footer from "@/components/layout/Footer";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -182,6 +183,7 @@ export default async function LocaleLayout({
         >
           <AppBar />
           <main className="pt-16 min-h-screen">{children}</main>
+          <Footer />
         </NextIntlClientProvider>
       </body>
     </html>

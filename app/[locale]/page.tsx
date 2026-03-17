@@ -23,13 +23,14 @@ const stagger = {
 
 // ─── theme tokens ─────────────────────────────────────────────────────────────
 const C = {
-  dark: "#1a3d2b",
-  mid: "#2d7a4f",
+  dark:  "#0f2419",
+  mid:   "#2d7a4f",
   light: "#4aa06a",
+  gold:  "#c9a84c",
   cream: "#f7f4ee",
-  cream2: "#ede9e0",
-  cream3: "#e0d8c8",
-  text: "#2a2a1e",
+  cream2:"#ede9e0",
+  cream3:"#e0d8c8",
+  text:  "#2a2a1e",
   muted: "#6b7c6e",
   white: "#ffffff",
 };
@@ -79,13 +80,13 @@ function Lightbox({
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex items-center gap-3 mb-5">
+      <span className="w-5 h-px" style={{ background: C.gold }} />
       <span
         className="text-[10px] font-bold tracking-[0.18em] uppercase"
-        style={{ color: C.mid }}
+        style={{ color: C.gold }}
       >
         {children}
       </span>
-      <div className="flex-1 h-px" style={{ background: C.cream3 }} />
     </div>
   );
 }
@@ -176,10 +177,10 @@ export default function Home() {
               transition={{ delay: 0.15 }}
               className="flex items-center gap-3 mb-8"
             >
-              <div className="w-8 h-px" style={{ background: C.mid }} />
+              <div className="w-8 h-px" style={{ background: C.gold }} />
               <span
                 className="text-[10px] font-bold tracking-[0.2em] uppercase"
-                style={{ color: C.mid }}
+                style={{ color: C.gold }}
               >
                 Makanpur Shareef · Est. 12th Century
               </span>
@@ -265,13 +266,13 @@ export default function Home() {
                 <div key={label}>
                   <p
                     className="text-2xl font-bold tabular-nums"
-                    style={{ color: C.cream }}
+                    style={{ color: C.gold }}
                   >
                     {num}
                   </p>
                   <p
                     className="text-xs mt-0.5"
-                    style={{ color: "rgba(247,244,238,0.35)" }}
+                    style={{ color: "rgba(247,244,238,0.45)" }}
                   >
                     {label}
                   </p>
@@ -494,16 +495,13 @@ export default function Home() {
               variants={fade}
               className="flex items-center gap-3 mb-5"
             >
+              <span className="w-5 h-px" style={{ background: C.gold }} />
               <span
                 className="text-[10px] font-bold tracking-[0.18em] uppercase"
-                style={{ color: C.light }}
+                style={{ color: C.gold }}
               >
                 {t("key-features")}
               </span>
-              <div
-                className="flex-1 h-px"
-                style={{ background: "rgba(247,244,238,0.08)" }}
-              />
             </motion.div>
             <motion.h2
               variants={fade}
@@ -796,16 +794,13 @@ export default function Home() {
                   variants={fade}
                   className="flex items-center gap-3 mb-6"
                 >
+                  <span className="w-5 h-px" style={{ background: C.gold }} />
                   <span
                     className="text-[10px] font-bold tracking-[0.18em] uppercase"
-                    style={{ color: C.light }}
+                    style={{ color: C.gold }}
                   >
                     Sacred tradition
                   </span>
-                  <div
-                    className="flex-1 h-px"
-                    style={{ background: "rgba(247,244,238,0.1)" }}
-                  />
                 </motion.div>
                 <motion.h2
                   variants={fade}
@@ -944,13 +939,13 @@ export default function Home() {
               whileInView="show"
               viewport={{ once: true }}
             >
-              <motion.p
-                variants={fade}
-                className="text-[10px] font-bold tracking-[0.18em] uppercase mb-4"
-                style={{ color: "rgba(247,244,238,0.5)" }}
-              >
-                Support the shrine
-              </motion.p>
+              <motion.div variants={fade} className="flex items-center gap-2 mb-4">
+                <span className="w-5 h-px" style={{ background: C.gold }} />
+                <p className="text-[10px] font-bold tracking-[0.18em] uppercase"
+                   style={{ color: C.gold }}>
+                  Support the shrine
+                </p>
+              </motion.div>
               <motion.h2
                 variants={fade}
                 className="text-4xl sm:text-5xl font-bold leading-[1.1] mb-4"

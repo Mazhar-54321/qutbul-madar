@@ -3,7 +3,7 @@
 import { useLocale } from "next-intl";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import {
   ChevronLeft,
   ChevronRight,
@@ -84,6 +84,17 @@ function PdfModal({ url, downloadUrl, title, onClose }: { url: string; downloadU
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0);
   const [loading, setLoading] = useState(true);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setContainerWidth(el.clientWidth));
+    ro.observe(el);
+    setContainerWidth(el.clientWidth);
+    return () => ro.disconnect();
+  }, []);
 
   const onDocumentLoadSuccess = useCallback(({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
@@ -142,7 +153,9 @@ function PdfModal({ url, downloadUrl, title, onClose }: { url: string; downloadU
         </div>
 
         {/* PDF viewer */}
-        <div className="flex-1 overflow-auto flex flex-col items-center py-4 px-2 gap-3"
+        <div
+          ref={containerRef}
+          className="flex-1 overflow-auto flex flex-col items-center py-4 px-2 gap-3"
           style={{ background: "#525659" }}
         >
           {loading && (
@@ -160,7 +173,7 @@ function PdfModal({ url, downloadUrl, title, onClose }: { url: string; downloadU
             <div className="shadow-lg">
               <Page
                 pageNumber={pageNumber}
-                scale={scale}
+                width={containerWidth ? containerWidth * scale - 32 : undefined}
                 renderTextLayer={true}
                 renderAnnotationLayer={true}
               />

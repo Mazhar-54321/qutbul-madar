@@ -83,6 +83,7 @@ function BookCard({
   isRtl: boolean;
 }) {
   const pdfPath = `https://github.com/Mazhar-54321/qutbul-madar/releases/download/Urdu-Books/${file}`;
+  const readPath = `https://docs.google.com/viewer?url=${encodeURIComponent(pdfPath)}`;
 
   return (
     <motion.div
@@ -141,7 +142,7 @@ function BookCard({
         {/* Action buttons */}
         <div className="flex gap-2 pt-2" style={{ borderTop: `1px solid ${C.cream3}` }}>
           <a
-            href={pdfPath}
+            href={readPath}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold

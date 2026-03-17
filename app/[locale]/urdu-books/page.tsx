@@ -79,7 +79,7 @@ const BOOKS = [
 ];
 
 // ─── pdf modal ────────────────────────────────────────────────────────────────
-function PdfModal({ url, title, onClose }: { url: string; title: string; onClose: () => void }) {
+function PdfModal({ url, downloadUrl, title, onClose }: { url: string; downloadUrl: string; title: string; onClose: () => void }) {
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0);
@@ -124,7 +124,7 @@ function PdfModal({ url, title, onClose }: { url: string; title: string; onClose
             </button>
             {/* Download */}
             <a
-              href={url}
+              href={downloadUrl}
               download={title}
               className="p-1.5 rounded-lg hover:bg-white/10 transition-colors"
               title="Download"
@@ -214,10 +214,11 @@ function BookCard({
 }) {
   const [open, setOpen] = useState(false);
   const pdfPath = `https://github.com/Mazhar-54321/qutbul-madar/releases/download/Urdu-Books/${file}`;
+  const proxyPath = `/api/pdf?file=${encodeURIComponent(file)}`;
 
   return (
     <>
-      {open && <PdfModal url={pdfPath} title={title} onClose={() => setOpen(false)} />}
+      {open && <PdfModal url={proxyPath} downloadUrl={pdfPath} title={title} onClose={() => setOpen(false)} />}
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}

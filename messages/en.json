@@ -235,7 +235,25 @@
   "madarTitle": "Madar e Shareef",
   "madarSubtitle": "Chadar Poshi – A Sacred Expression of Devotion",
   "offerChadar": "Offer Chadar",
-  "back": "Back"
+  "back": "Back",
+  "aboutUs": {
+    "metaTitle": "About Us – Qutbul Madar",
+    "heroTitle": "About Us",
+    "heroSubtitle": "The Legacy of Qutbul Madar",
+    "welcomeTitle": "Welcome to the Qutbul Madar Official Website",
+    "welcomeQuote": "Qutbul Madar is such a shining sun in wilayat that his divine light illuminates both the east and the west.",
+    "welcomeText": "Qutbul Madar represents a luminous spiritual figure whose influence spans centuries and continents. His teachings have guided millions of devotees across South Asia, the Middle East, and beyond, with Khanqahs and Madarsas established in his name across Europe and Africa. Historians and scholars have acknowledged his extraordinary lifespan and the depth of his spiritual contributions. Documenting all aspects of a five-hundred-ninety-six-year lifespan and the immense spiritual legacy left behind is an enormous undertaking, and this website is a humble effort to present that legacy to the world.",
+    "boardTitle": "Board of Directors",
+    "boardDesc": "The Dargah of Qutbul Madar is located in Makanpur near Kanpur in Uttar Pradesh, India. The Board of Directors oversees the day-to-day operations of the shrine and its affiliated institutions, including the organisation of religious events, maintenance of the sacred site, and management of educational programs. The board works to preserve the spiritual heritage of Qutbul Madar while serving the needs of pilgrims and devotees who visit from across the country and abroad.",
+    "directors": [
+      { "name": "Sadrul Mashaikh Syed Mujeebul Baqi Madari", "title": "Religious Director" },
+      { "name": "Chief Sajjada Nasheen Khanqahe Madariya Makanpur", "title": "Chief Sadr" },
+      { "name": "Syed Akhtar Mujeeb Arguni Madari", "title": "Youth Director" }
+    ],
+    "contactCta": "Get in Touch",
+    "jalsaLabel": "Monthly Jalsa",
+    "jalsaText": "Held on the 17th of every Hijri month at Makanpur Shareef."
+  }
 
 
 

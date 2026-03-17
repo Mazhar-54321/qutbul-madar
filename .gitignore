@@ -39,5 +39,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-public/books/urdu/Maarif-e-Qutbulmadar-pdf-urdu.pdf
-public/books/urdu/Silsilay-Madariya-pdf-New-addition.pdf
+public/books/

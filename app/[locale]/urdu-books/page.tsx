@@ -188,8 +188,8 @@ function PdfModal({ url, downloadUrl, title, onClose }: { url: string; downloadU
             style={{ background: C.dark, color: C.cream }}
           >
             <button
-              onClick={() => setPageNumber((p) => Math.max(1, p - 1))}
-              disabled={pageNumber <= 1}
+              onClick={() => setPageNumber((p) => Math.min(numPages, p + 1))}
+              disabled={pageNumber >= numPages}
               className="p-1 rounded hover:bg-white/10 disabled:opacity-30 transition-colors"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -198,8 +198,8 @@ function PdfModal({ url, downloadUrl, title, onClose }: { url: string; downloadU
               Page {pageNumber} of {numPages}
             </span>
             <button
-              onClick={() => setPageNumber((p) => Math.min(numPages, p + 1))}
-              disabled={pageNumber >= numPages}
+              onClick={() => setPageNumber((p) => Math.max(1, p - 1))}
+              disabled={pageNumber <= 1}
               className="p-1 rounded hover:bg-white/10 disabled:opacity-30 transition-colors"
             >
               <ChevronRight className="w-4 h-4" />

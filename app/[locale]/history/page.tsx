@@ -6,22 +6,8 @@ import type { Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useC } from "@/hooks/useThemeColors";
 
-// ─── theme ────────────────────────────────────────────────────────────────────
-const C = {
-  dark:    "#0a1f12",
-  mid:     "#1a3d2b",
-  green:   "#2d7a4f",
-  light:   "#4aa06a",
-  gold:    "#c9a84c",
-  goldHi:  "#e8c96b",
-  goldDim: "rgba(201,168,76,0.10)",
-  cream:   "#f7f4ee",
-  cream2:  "#ede9e0",
-  cream3:  "#e0d8c8",
-  muted:   "#6b7c6e",
-  text:    "#1a1a12",
-};
 
 // ─── animation ────────────────────────────────────────────────────────────────
 const fadeUp: Variants = {
@@ -37,9 +23,9 @@ const stagger: Variants = {
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: C.gold }} />
+      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? C.goldHi : C.gold }}>
+            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>
         {children}
       </span>
     </div>
@@ -48,6 +34,7 @@ function Tag({ children, light = false }: { children: React.ReactNode; light?: b
 
 // ─── page ─────────────────────────────────────────────────────────────────────
 export default function HistoryPage() {
+  const C = useC();
   const t = useTranslations("history");
   const locale = useLocale();
   const isRtl = ["ur", "ar"].includes(locale);
@@ -197,7 +184,7 @@ export default function HistoryPage() {
                      style={{ color: C.muted }}
                      onMouseEnter={(e) => {
                        e.currentTarget.style.background = "rgba(201,168,76,0.07)";
-                       e.currentTarget.style.color = C.dark;
+                       e.currentTarget.style.color = C.ink;
                      }}
                      onMouseLeave={(e) => {
                        e.currentTarget.style.background = "transparent";
@@ -265,7 +252,7 @@ export default function HistoryPage() {
                   <div>
                     <h2 className={`text-xl sm:text-2xl font-bold mb-3 leading-snug
                                     ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-                        style={{ color: C.dark }}>
+                        style={{ color: C.ink }}>
                       {section.title}
                     </h2>
                     <div className="w-8 h-0.5 rounded-full mb-5"

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ChevronDown, Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X, Sun, Moon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
@@ -17,19 +17,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-// ─── theme ────────────────────────────────────────────────────────────────────
-const C = {
-  dark:    "#0f2419",
-  mid:     "#2d7a4f",
-  light:   "#4aa06a",
-  gold:    "#c9a84c",
-  goldDim: "rgba(201,168,76,0.15)",
-  cream:   "#f7f4ee",
-  cream2:  "#ede9e0",
-  cream3:  "#e0d8c8",
-  muted:   "#6b7c6e",
-};
+import { useTheme } from "@/context/ThemeProvider";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -70,10 +58,24 @@ export default function AppBar() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { dark, toggle } = useTheme();
 
   const t = useTranslations("Navigation");
   const locale = useLocale();
   const isRtl = ["ur", "ar"].includes(locale);
+
+  // Derived colours — kept inside component so they react to theme
+  const navBg    = dark ? (scrolled ? "rgba(10,31,18,0.97)" : "#0a1f12") : (scrolled ? "rgba(247,244,238,0.97)" : "#f7f4ee");
+  const navText  = dark ? "rgba(247,244,238,0.55)" : "#6b7c6e";
+  const navHover = dark ? "#f0ede7" : "#0a1f12";
+  const popBg    = dark ? "#0f2419" : "#faf8f4";
+  const mobileBg = dark ? "#0a1f12" : "#faf8f4";
+
+  const C = {
+    dark:    "#0f2419",
+    gold:    "#c9a84c",
+    cream:   "#f7f4ee",
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -112,10 +114,9 @@ export default function AppBar() {
         {/* ── Logo panel ──────────────────────────────────────────────── */}
         <Link
           href={loc("/")}
-          className="flex items-center gap-3.5 flex-shrink-0 px-6 transition-all duration-300 group"
+          className="flex items-center gap-3.5 flex-shrink-0 px-6 transition-all duration-300 group relative"
           style={{ background: C.dark, minWidth: isRtl ? "auto" : 224 }}
         >
-          {/* Gold-rimmed monogram */}
           <div
             className="flex items-center justify-center flex-shrink-0 rounded-lg text-[11px] font-black
                        transition-all duration-300 group-hover:shadow-[0_0_12px_rgba(201,168,76,0.3)]"
@@ -138,7 +139,6 @@ export default function AppBar() {
               Makanpur Shareef
             </p>
           </div>
-          {/* Gold bottom accent line on hover */}
           <div
             className="absolute bottom-0 left-0 h-px w-full origin-left scale-x-0
                        group-hover:scale-x-100 transition-transform duration-300"
@@ -148,11 +148,9 @@ export default function AppBar() {
 
         {/* ── Nav panel ───────────────────────────────────────────────── */}
         <div
-          className="flex flex-1 items-center justify-between px-6 transition-all duration-500"
+          className="flex flex-1 items-center justify-between px-6 transition-all duration-300"
           style={{
-            background: scrolled
-              ? "rgba(247,244,238,0.96)"
-              : C.cream,
+            background: navBg,
             backdropFilter: scrolled ? "blur(16px)" : "none",
           }}
         >
@@ -166,13 +164,9 @@ export default function AppBar() {
                     href={loc(item.href!)}
                     className="relative px-3.5 py-2 text-[13px] rounded-lg transition-all duration-200
                                font-medium group overflow-hidden"
-                    style={{ color: C.muted }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = C.dark;
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.color = C.muted;
-                    }}
+                    style={{ color: navText }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = navHover; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = navText; }}
                   >
                     {t(item.label)}
                     <span
@@ -196,14 +190,14 @@ export default function AppBar() {
                       onMouseLeave={() => setOpenMenu(null)}
                       className="relative flex items-center gap-1 px-3.5 py-2 text-[13px] rounded-lg
                                  transition-all duration-200 font-medium group"
-                      style={{ color: C.muted }}
+                      style={{ color: navText }}
                     >
                       {t(item.label)}
                       <ChevronDown
                         className="w-3 h-3 mt-0.5 transition-transform duration-200"
                         style={{
                           transform: openMenu === item.label ? "rotate(180deg)" : "rotate(0deg)",
-                          color: openMenu === item.label ? C.gold : C.muted,
+                          color: openMenu === item.label ? C.gold : navText,
                         }}
                       />
                       <span
@@ -225,16 +219,13 @@ export default function AppBar() {
                     sideOffset={10}
                     className="w-52 p-2 rounded-2xl"
                     style={{
-                      background: "#faf8f4",
+                      background: popBg,
                       border: `1px solid rgba(201,168,76,0.2)`,
                       boxShadow: "0 12px 40px rgba(15,36,25,0.14)",
                     }}
                   >
                     <div className="flex items-center gap-2 px-3 pb-2.5 pt-1">
-                      <span
-                        className="w-3 h-px"
-                        style={{ background: C.gold }}
-                      />
+                      <span className="w-3 h-px" style={{ background: C.gold }} />
                       <p className="text-[10px] font-bold tracking-[0.14em] uppercase"
                          style={{ color: C.gold }}>
                         {t(item.label)}
@@ -248,22 +239,20 @@ export default function AppBar() {
                         onClick={() => setOpenMenu(null)}
                         className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px]
                                    transition-all duration-150 group"
-                        style={{ color: C.muted }}
+                        style={{ color: navText }}
                         onMouseEnter={(e) => {
                           const el = e.currentTarget;
                           el.style.background = "rgba(201,168,76,0.08)";
-                          el.style.color = C.dark;
+                          el.style.color = navHover;
                         }}
                         onMouseLeave={(e) => {
                           const el = e.currentTarget;
                           el.style.background = "transparent";
-                          el.style.color = C.muted;
+                          el.style.color = navText;
                         }}
                       >
-                        <span
-                          className="w-1 h-1 rounded-full flex-shrink-0 transition-colors duration-150"
-                          style={{ background: C.mid }}
-                        />
+                        <span className="w-1 h-1 rounded-full flex-shrink-0 transition-colors duration-150"
+                              style={{ background: "#1a5c38" }} />
                         {t(child.label)}
                       </Link>
                     ))}
@@ -274,22 +263,54 @@ export default function AppBar() {
           </nav>
 
           {/* Desktop right */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-3">
             <LanguageSwitcher />
+
+            {/* Dark mode toggle */}
+            <button
+              onClick={toggle}
+              aria-label="Toggle dark mode"
+              className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200"
+              style={{
+                background: dark ? "rgba(201,168,76,0.1)" : "rgba(10,31,18,0.06)",
+                border: `1px solid ${dark ? "rgba(201,168,76,0.25)" : "rgba(10,31,18,0.1)"}`,
+                color: dark ? C.gold : "#0a1f12",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.15)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.background = dark
+                  ? "rgba(201,168,76,0.1)"
+                  : "rgba(10,31,18,0.06)";
+              }}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {dark ? (
+                  <motion.div key="sun"
+                    initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.18 }}>
+                    <Sun className="w-3.5 h-3.5" />
+                  </motion.div>
+                ) : (
+                  <motion.div key="moon"
+                    initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.18 }}>
+                    <Moon className="w-3.5 h-3.5" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </button>
+
             <Link
               href={loc("/donate")}
               className="text-[13px] font-bold px-5 py-2 rounded-lg transition-all duration-200
                          active:scale-[0.97] relative overflow-hidden group"
               style={{ background: C.dark, color: C.cream }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = C.mid;
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.background = C.dark;
-              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#1a5c38"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = C.dark; }}
             >
               <span className="relative z-10">{t("Donate")}</span>
-              {/* Gold shimmer line */}
               <span
                 className="absolute inset-x-0 bottom-0 h-px"
                 style={{ background: `linear-gradient(to right, transparent, ${C.gold}, transparent)` }}
@@ -297,31 +318,44 @@ export default function AppBar() {
             </Link>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            className="md:hidden p-2 rounded-lg transition-colors"
-            style={{ color: C.dark }}
-            onClick={() => setMobileOpen((v) => !v)}
-            aria-label="Toggle menu"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              {mobileOpen ? (
-                <motion.div key="x"
-                  initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}
-                >
-                  <X className="w-5 h-5" />
-                </motion.div>
-              ) : (
-                <motion.div key="menu"
-                  initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}
-                >
-                  <Menu className="w-5 h-5" />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </button>
+          {/* Mobile right — toggle + hamburger */}
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={toggle}
+              aria-label="Toggle dark mode"
+              className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200"
+              style={{
+                background: dark ? "rgba(201,168,76,0.1)" : "rgba(10,31,18,0.06)",
+                border: `1px solid ${dark ? "rgba(201,168,76,0.25)" : "rgba(10,31,18,0.1)"}`,
+                color: dark ? C.gold : "#0a1f12",
+              }}
+            >
+              {dark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+            </button>
+
+            <button
+              className="p-2 rounded-lg transition-colors"
+              style={{ color: dark ? C.cream : "#0a1f12" }}
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label="Toggle menu"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {mobileOpen ? (
+                  <motion.div key="x"
+                    initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <X className="w-5 h-5" />
+                  </motion.div>
+                ) : (
+                  <motion.div key="menu"
+                    initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
+                    <Menu className="w-5 h-5" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -335,12 +369,11 @@ export default function AppBar() {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="md:hidden absolute top-full inset-x-0 px-4 py-4 z-50"
             style={{
-              background: "#faf8f4",
+              background: mobileBg,
               borderBottom: `1px solid rgba(201,168,76,0.15)`,
               boxShadow: "0 20px 48px rgba(15,36,25,0.15)",
             }}
           >
-            {/* Gold accent strip */}
             <div
               className="h-px rounded-full mb-4"
               style={{ background: `linear-gradient(to right, ${C.gold}, transparent)` }}
@@ -354,7 +387,7 @@ export default function AppBar() {
                     href={loc(item.href!)}
                     onClick={() => setMobileOpen(false)}
                     className="px-4 py-3 rounded-xl text-[13px] font-medium transition-colors"
-                    style={{ color: C.dark }}
+                    style={{ color: navHover }}
                     onMouseEnter={(e) =>
                       ((e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.08)")
                     }
@@ -369,7 +402,7 @@ export default function AppBar() {
                     <AccordionItem value={item.label} className="border-none">
                       <AccordionTrigger
                         className="px-4 py-3 rounded-xl text-[13px] font-medium hover:no-underline transition-colors"
-                        style={{ color: C.dark }}
+                        style={{ color: navHover }}
                       >
                         {t(item.label)}
                       </AccordionTrigger>
@@ -381,14 +414,14 @@ export default function AppBar() {
                               href={loc(child.href)}
                               onClick={() => setMobileOpen(false)}
                               className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[13px] transition-colors"
-                              style={{ color: C.muted }}
+                              style={{ color: navText }}
                               onMouseEnter={(e) => {
                                 (e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.08)";
-                                (e.currentTarget as HTMLElement).style.color = C.dark;
+                                (e.currentTarget as HTMLElement).style.color = navHover;
                               }}
                               onMouseLeave={(e) => {
                                 (e.currentTarget as HTMLElement).style.background = "transparent";
-                                (e.currentTarget as HTMLElement).style.color = C.muted;
+                                (e.currentTarget as HTMLElement).style.color = navText;
                               }}
                             >
                               <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: C.gold }} />

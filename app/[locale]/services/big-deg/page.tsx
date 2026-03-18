@@ -7,21 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, Phone, MessageCircle } from "lucide-react";
+import { useC } from "@/hooks/useThemeColors";
 
-const C = {
-  dark:    "#0a1f12",
-  mid:     "#1a3d2b",
-  green:   "#2d7a4f",
-  light:   "#4aa06a",
-  gold:    "#c9a84c",
-  goldHi:  "#e8c96b",
-  cream:   "#f7f4ee",
-  cream2:  "#ede9e0",
-  cream3:  "#e0d8c8",
-  muted:   "#6b7c6e",
-  text:    "#1a1a12",
-  white:   "#ffffff",
-};
 
 const t1: Transition = { duration: 0.55, ease: "easeOut" };
 const fadeUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: t1 } };
@@ -30,15 +17,16 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: C.gold }} />
+      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? C.goldHi : C.gold }}>{children}</span>
+            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>{children}</span>
     </div>
   );
 }
 
-function PillarCard({ heading, body, isRtl, index }: {
+function PillarCard({ heading, body, isRtl, index, C }: {
   heading: string; body: string; isRtl: boolean; index: number;
+  C: { white: string; ink: string; muted: string; gold: string };
 }) {
   return (
     <motion.div
@@ -56,7 +44,7 @@ function PillarCard({ heading, body, isRtl, index }: {
     >
       <div className="w-6 h-0.5 rounded-full mb-3"
            style={{ background: `linear-gradient(to right, ${C.gold}, transparent)` }} />
-      <h3 className="text-sm font-bold mb-2" style={{ color: C.dark }}>{heading}</h3>
+      <h3 className="text-sm font-bold mb-2" style={{ color: C.ink }}>{heading}</h3>
       <p className={`text-[13px] leading-[1.8] ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
          style={{ color: C.muted }}>
         {body}
@@ -66,6 +54,7 @@ function PillarCard({ heading, body, isRtl, index }: {
 }
 
 export default function BigDegPage() {
+  const C = useC();
   const t = useTranslations("big-deg");
   const locale = useLocale();
   const router = useRouter();
@@ -153,7 +142,7 @@ export default function BigDegPage() {
             <div className="absolute top-2 end-4 text-8xl leading-none font-serif select-none"
                  style={{ color: "rgba(201,168,76,0.08)" }}>&quot;</div>
             <p className={`text-lg font-medium leading-[1.85] relative ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-               style={{ color: C.dark }}>
+               style={{ color: C.ink }}>
               {t("intro")}
             </p>
           </motion.div>
@@ -181,7 +170,7 @@ export default function BigDegPage() {
             <div className="flex-1 h-px" style={{ background: C.cream3 }} />
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-            {pillars.map((p, i) => <PillarCard key={p.heading} {...p} isRtl={isRtl} index={i} />)}
+            {pillars.map((p, i) => <PillarCard key={p.heading} {...p} isRtl={isRtl} index={i} C={C} />)}
           </div>
 
           <div className="h-px mb-12"

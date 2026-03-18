@@ -7,21 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, Phone, MessageCircle, Heart, Users, Soup, Globe } from "lucide-react";
+import { useC } from "@/hooks/useThemeColors";
 
-const C = {
-  dark:    "#0a1f12",
-  mid:     "#1a3d2b",
-  green:   "#2d7a4f",
-  light:   "#4aa06a",
-  gold:    "#c9a84c",
-  goldHi:  "#e8c96b",
-  cream:   "#f7f4ee",
-  cream2:  "#ede9e0",
-  cream3:  "#e0d8c8",
-  muted:   "#6b7c6e",
-  text:    "#1a1a12",
-  white:   "#ffffff",
-};
 
 const t1: Transition = { duration: 0.55, ease: "easeOut" };
 const fadeUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: t1 } };
@@ -30,40 +17,42 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: C.gold }} />
+      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? C.goldHi : C.gold }}>{children}</span>
+            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>{children}</span>
     </div>
   );
 }
 
-function ValueCard({ icon, title, body, accent = false, wide = false }: {
+function ValueCard({ icon, title, body, accent = false, wide = false, ink, white, muted, cream, cream2, green }: {
   icon: React.ReactNode; title: string; body: string; accent?: boolean; wide?: boolean;
+  ink: string; white: string; muted: string; cream: string; cream2: string; green: string;
 }) {
   return (
     <div className={`group rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-0.5
                      ${wide ? "sm:col-span-2" : ""}`}
          style={{
-           background: accent ? C.dark : C.white,
+           background: accent ? "#0a1f12" : white,
            border: accent ? "1px solid rgba(201,168,76,0.2)" : `1px solid rgba(201,168,76,0.1)`,
            boxShadow: accent ? "0 0 0 1px rgba(201,168,76,0.05)" : "0 4px 16px rgba(10,31,18,0.04)",
          }}>
       <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-           style={{ background: accent ? "rgba(201,168,76,0.12)" : C.cream2, color: accent ? C.gold : C.green }}>
+           style={{ background: accent ? "rgba(201,168,76,0.12)" : cream2, color: accent ? "#c9a84c" : green }}>
         {icon}
       </div>
       <div>
         <h3 className="text-[15px] font-bold mb-2 leading-snug"
-            style={{ color: accent ? C.cream : C.dark }}>{title}</h3>
-        <p className="text-sm leading-[1.8]" style={{ color: accent ? "rgba(247,244,238,0.5)" : C.muted }}>{body}</p>
+            style={{ color: accent ? cream : ink }}>{title}</h3>
+        <p className="text-sm leading-[1.8]" style={{ color: accent ? "rgba(247,244,238,0.5)" : muted }}>{body}</p>
       </div>
       <div className="h-px w-0 group-hover:w-full transition-all duration-500 rounded-full mt-auto"
-           style={{ background: C.gold }} />
+           style={{ background: "#c9a84c" }} />
     </div>
   );
 }
 
 export default function LangarBhandaraPage() {
+  const C = useC();
   const t = useTranslations("langar");
   const locale = useLocale();
   const router = useRouter();
@@ -153,7 +142,7 @@ export default function LangarBhandaraPage() {
             <Tag>About this service</Tag>
             <p className={`text-lg sm:text-xl font-medium leading-[1.85] relative
                            ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-               style={{ color: C.dark }}>
+               style={{ color: C.ink }}>
               {heroPara}
             </p>
           </motion.div>
@@ -185,7 +174,8 @@ export default function LangarBhandaraPage() {
                     icon={cardIcons[idx % cardIcons.length]}
                     title={["Communal dining tradition","Daily meals with devotion","Open to all, without exception",
                             "The joy of giving","A beacon of hope","Solidarity & unity"][idx] ?? `Point ${idx + 1}`}
-                    body={para} accent={isAccent} wide={isWide} />
+                    body={para} accent={isAccent} wide={isWide}
+                    ink={C.ink} white={C.white} muted={C.muted} cream={C.cream} cream2={C.cream2} green={C.green} />
                 </motion.div>
               );
             })}

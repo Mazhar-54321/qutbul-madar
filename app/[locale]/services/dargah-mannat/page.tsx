@@ -10,21 +10,8 @@ import {
   ChevronLeft, ChevronRight, Phone, MessageCircle,
   Heart, Sparkles, Wind, Globe, Star, BookOpen, Users,
 } from "lucide-react";
+import { useC } from "@/hooks/useThemeColors";
 
-const C = {
-  dark:    "#0a1f12",
-  mid:     "#1a3d2b",
-  green:   "#2d7a4f",
-  light:   "#4aa06a",
-  gold:    "#c9a84c",
-  goldHi:  "#e8c96b",
-  cream:   "#f7f4ee",
-  cream2:  "#ede9e0",
-  cream3:  "#e0d8c8",
-  muted:   "#6b7c6e",
-  text:    "#1a1a12",
-  white:   "#ffffff",
-};
 
 const t1: Transition = { duration: 0.55, ease: "easeOut" };
 const t2: Transition = { duration: 0.5,  ease: "easeOut" };
@@ -45,14 +32,15 @@ const cardMeta = [
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: C.gold }} />
+      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? C.goldHi : C.gold }}>{children}</span>
+            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>{children}</span>
     </div>
   );
 }
 
 export default function DargahMannatPage() {
+  const C = useC();
   const t = useTranslations("dargah-mannat");
   const locale = useLocale();
   const router = useRouter();
@@ -159,7 +147,7 @@ export default function DargahMannatPage() {
                    style={{ color: "rgba(201,168,76,0.07)" }}>&quot;</div>
               <p className={`text-lg font-medium leading-[1.85] relative
                              ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-                 style={{ color: C.dark }}>
+                 style={{ color: C.ink }}>
                 {introPara}
               </p>
             </div>
@@ -193,7 +181,7 @@ export default function DargahMannatPage() {
                     {cardMeta[idx % cardMeta.length].icon}
                   </div>
                   <h3 className="text-[14px] font-bold mb-2 leading-snug"
-                      style={{ color: idx === 1 ? C.cream : C.dark }}>
+                      style={{ color: idx === 1 ? C.cream : C.ink }}>
                     {cardMeta[idx % cardMeta.length].title}
                   </h3>
                   <p className="text-sm leading-[1.8]"

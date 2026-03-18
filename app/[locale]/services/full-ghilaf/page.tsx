@@ -7,21 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, Phone, MessageCircle } from "lucide-react";
+import { useC } from "@/hooks/useThemeColors";
 
-const C = {
-  dark:    "#0a1f12",
-  mid:     "#1a3d2b",
-  green:   "#2d7a4f",
-  light:   "#4aa06a",
-  gold:    "#c9a84c",
-  goldHi:  "#e8c96b",
-  cream:   "#f7f4ee",
-  cream2:  "#ede9e0",
-  cream3:  "#e0d8c8",
-  muted:   "#6b7c6e",
-  text:    "#1a1a12",
-  white:   "#ffffff",
-};
 
 const t1: Transition = { duration: 0.55, ease: "easeOut" };
 const fadeUp = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: t1 } };
@@ -30,13 +17,14 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 function Tag({ children }: { children: React.ReactNode }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: C.gold }} />
-      <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: C.gold }}>{children}</span>
+      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
+      <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: "#c9a84c" }}>{children}</span>
     </div>
   );
 }
 
 export default function FullGhilafPage() {
+  const C = useC();
   const t = useTranslations("full-ghilaf");
   const locale = useLocale();
   const router = useRouter();
@@ -132,7 +120,7 @@ export default function FullGhilafPage() {
                  style={{ color: "rgba(201,168,76,0.08)" }}>&quot;</div>
             <p className={`text-lg font-medium leading-[1.85] relative
                            ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-               style={{ color: C.dark }}>
+               style={{ color: C.ink }}>
               {leadPara}
             </p>
           </motion.div>

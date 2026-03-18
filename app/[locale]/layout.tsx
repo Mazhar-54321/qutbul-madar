@@ -10,6 +10,7 @@ import {
 } from "next/font/google";
 import AppBar from "@/components/layout/Appbar";
 import Footer from "@/components/layout/Footer";
+import { ThemeProvider } from "@/context/ThemeProvider";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -175,15 +176,21 @@ export default async function LocaleLayout({
       `}
       suppressHydrationWarning
     >
+      {/* Anti-FOUC: apply saved theme before first paint */}
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('qm-theme'),s=window.matchMedia('(prefers-color-scheme:dark)').matches;if(t==='dark'||(t===null&&s))document.documentElement.classList.add('dark')}catch(e){}` }} />
+      </head>
       <body suppressHydrationWarning>
         <NextIntlClientProvider
           locale={locale}
           messages={messages}
           timeZone="Asia/Kolkata"
         >
-          <AppBar />
-          <main className="pt-16 min-h-screen">{children}</main>
-          <Footer />
+          <ThemeProvider>
+            <AppBar />
+            <main className="pt-16 min-h-screen">{children}</main>
+            <Footer />
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

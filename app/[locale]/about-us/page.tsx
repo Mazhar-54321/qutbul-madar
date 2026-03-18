@@ -6,22 +6,8 @@ import type { Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Phone, CalendarDays } from "lucide-react";
+import { useC } from "@/hooks/useThemeColors";
 
-// ─── theme ────────────────────────────────────────────────────────────────────
-const C = {
-  dark:    "#0a1f12",
-  mid:     "#1a3d2b",
-  green:   "#2d7a4f",
-  light:   "#4aa06a",
-  gold:    "#c9a84c",
-  goldHi:  "#e8c96b",
-  cream:   "#f7f4ee",
-  cream2:  "#ede9e0",
-  cream3:  "#e0d8c8",
-  muted:   "#6b7c6e",
-  text:    "#1a1a12",
-  white:   "#ffffff",
-};
 
 // ─── animation ────────────────────────────────────────────────────────────────
 const fadeUp: Variants = {
@@ -37,9 +23,9 @@ const stagger: Variants = {
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: C.gold }} />
+      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? C.goldHi : C.gold }}>
+            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>
         {children}
       </span>
     </div>
@@ -48,8 +34,8 @@ function Tag({ children, light = false }: { children: React.ReactNode; light?: b
 
 // ─── director card ────────────────────────────────────────────────────────────
 function DirectorCard({
-  imgSrc, name, title, idx, isRtl,
-}: { imgSrc: string; name: string; title: string; idx: number; isRtl: boolean }) {
+  imgSrc, name, title, idx, isRtl, C,
+}: { imgSrc: string; name: string; title: string; idx: number; isRtl: boolean; C: { white: string; ink: string; muted: string; dark: string; gold: string; cream: string } }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 28 }}
@@ -86,7 +72,7 @@ function DirectorCard({
         <div className="w-8 h-0.5 rounded-full mb-3"
              style={{ background: `linear-gradient(to right, ${C.gold}, transparent)` }} />
         <h3 className={`text-[15px] font-bold leading-snug mb-1 ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-            style={{ color: C.dark }}>
+            style={{ color: C.ink }}>
           {name}
         </h3>
         <p className="text-xs font-semibold tracking-wide uppercase" style={{ color: C.muted }}>{title}</p>
@@ -97,6 +83,7 @@ function DirectorCard({
 
 // ─── page ─────────────────────────────────────────────────────────────────────
 export default function AboutUsPage() {
+  const C = useC();
   const t = useTranslations("aboutUs");
   const locale = useLocale();
   const isRtl = ["ur", "ar"].includes(locale);
@@ -206,7 +193,7 @@ export default function AboutUsPage() {
                 variants={fadeUp}
                 className={`text-4xl sm:text-5xl font-bold leading-[1.1] mb-5
                             ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-                style={{ color: C.dark }}
+                style={{ color: C.ink }}
               >
                 {t("welcomeTitle")}
               </motion.h2>
@@ -218,7 +205,7 @@ export default function AboutUsPage() {
                                   style={{ borderInlineStart: `2px solid ${C.gold}` }}>
                 <p className={`text-base font-semibold italic leading-relaxed
                                ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-                   style={{ color: C.dark }}>
+                   style={{ color: C.ink }}>
                   &ldquo;{t("welcomeQuote")}&rdquo;
                 </p>
               </motion.blockquote>
@@ -325,7 +312,7 @@ export default function AboutUsPage() {
         <div className="max-w-7xl mx-auto px-6 lg:px-16">
           <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }} className="mb-14">
             <motion.div variants={fadeUp}><Tag>Meet the team</Tag></motion.div>
-            <motion.h2 variants={fadeUp} className="text-4xl sm:text-5xl font-bold" style={{ color: C.dark }}>
+            <motion.h2 variants={fadeUp} className="text-4xl sm:text-5xl font-bold" style={{ color: C.ink }}>
               Our Directors
             </motion.h2>
           </motion.div>
@@ -333,7 +320,7 @@ export default function AboutUsPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {directors.map((director, idx) => (
               <DirectorCard key={idx} imgSrc={directorImages[idx]} name={director.name}
-                            title={director.title} idx={idx} isRtl={isRtl} />
+                            title={director.title} idx={idx} isRtl={isRtl} C={C} />
             ))}
           </div>
         </div>

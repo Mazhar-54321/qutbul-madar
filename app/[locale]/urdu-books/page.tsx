@@ -104,7 +104,7 @@ function PdfModal({ url, downloadUrl, title, onClose, C }: { url: string; downlo
         {/* Header */}
         <div
           className="flex items-center justify-between px-5 py-3 flex-shrink-0"
-          style={{ background: C.dark, color: C.cream }}
+          style={{ background: C.dark, color: C.onDark }}
         >
           <span className="text-sm font-bold truncate max-w-[60%]">{title}</span>
           <div className="flex items-center gap-3">
@@ -148,7 +148,7 @@ function PdfModal({ url, downloadUrl, title, onClose, C }: { url: string; downlo
           style={{ background: "#525659" }}
         >
           {loading && (
-            <div className="flex flex-col items-center justify-center h-48 gap-3" style={{ color: C.cream }}>
+            <div className="flex flex-col items-center justify-center h-48 gap-3" style={{ color: C.onDark }}>
               <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               <span className="text-sm">Loading PDF…</span>
             </div>
@@ -174,7 +174,7 @@ function PdfModal({ url, downloadUrl, title, onClose, C }: { url: string; downlo
         {numPages > 0 && (
           <div
             className="flex items-center justify-center gap-4 px-5 py-2.5 flex-shrink-0 text-sm font-medium"
-            style={{ background: C.dark, color: C.cream }}
+            style={{ background: C.dark, color: C.onDark }}
           >
             <button
               onClick={() => setPageNumber((p) => Math.min(numPages, p + 1))}
@@ -280,7 +280,7 @@ function BookCard({
             onClick={() => setOpen(true)}
             className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold
                        px-3 py-2.5 rounded-xl transition-all duration-200 active:scale-[0.97]"
-            style={{ background: C.dark, color: C.cream }}
+            style={{ background: C.dark, color: C.onDark }}
           >
             <BookOpen className="w-3.5 h-3.5" />
             Read
@@ -379,7 +379,7 @@ export default function UrduBooksPage() {
             <motion.div
               variants={fadeUp}
               className="text-3xl mb-2 opacity-10 font-serif"
-              style={{ color: C.cream, fontFamily: "var(--font-urdu-display, serif)" }}
+              style={{ color: C.onDark, fontFamily: "var(--font-urdu-display, serif)" }}
             >
               کتب اردو
             </motion.div>
@@ -387,7 +387,7 @@ export default function UrduBooksPage() {
             <motion.h1
               variants={fadeUp}
               className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-3"
-              style={{ color: C.cream }}
+              style={{ color: C.onDark }}
             >
               Urdu Books
             </motion.h1>
@@ -486,7 +486,7 @@ export default function UrduBooksPage() {
               animate={{ opacity: 1 }}
               className="text-center py-24"
             >
-              <BookOpen className="w-12 h-12 mx-auto mb-4" style={{ color: C.cream3 }} />
+              <BookOpen className="w-12 h-12 mx-auto mb-4" style={{ color: C.muted }} />
               <p className="text-lg font-semibold mb-1" style={{ color: C.ink }}>
                 No books found
               </p>
@@ -518,7 +518,7 @@ export default function UrduBooksPage() {
               <motion.h2
                 variants={fadeUp}
                 className="text-3xl sm:text-4xl font-bold leading-[1.15] mb-3"
-                style={{ color: C.cream }}
+                style={{ color: C.onDark }}
               >
                 Explore more about Qutbul Madar
               </motion.h2>
@@ -544,7 +544,7 @@ export default function UrduBooksPage() {
                 href={loc("/history")}
                 className="text-sm font-bold px-8 py-4 rounded-xl text-center
                            transition-all duration-200 active:scale-[0.98]"
-                style={{ background: C.cream, color: C.dark }}
+                style={{ background: C.onDark, color: C.dark }}
               >
                 Read History
               </Link>

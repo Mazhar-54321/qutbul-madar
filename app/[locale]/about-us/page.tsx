@@ -104,7 +104,7 @@ export default function AboutUsPage() {
         {/* Large Arabic watermark */}
         <div className="absolute inset-0 flex items-center justify-end pe-20 select-none pointer-events-none">
           <span className="text-[200px] font-bold leading-none opacity-[0.025] hidden lg:block"
-                style={{ color: C.cream, fontFamily: "var(--font-urdu-display, serif)" }}>
+                style={{ color: C.onDark, fontFamily: "var(--font-urdu-display, serif)" }}>
             المدار
           </span>
         </div>
@@ -137,7 +137,7 @@ export default function AboutUsPage() {
 
             {/* Arabic calligraphy */}
             <motion.div variants={fadeUp} className="text-4xl mb-4 leading-loose font-bold opacity-[0.08]"
-                        style={{ color: C.cream, fontFamily: "var(--font-urdu-display, serif)" }}>
+                        style={{ color: C.onDark, fontFamily: "var(--font-urdu-display, serif)" }}>
               قطب المدار
             </motion.div>
 
@@ -145,7 +145,7 @@ export default function AboutUsPage() {
               variants={fadeUp}
               className={`text-4xl sm:text-5xl lg:text-[68px] font-bold leading-[1.0]
                           mb-5 tracking-tight ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-              style={{ color: C.cream }}
+              style={{ color: C.onDark }}
             >
               {t("heroTitle")}
             </motion.h1>
@@ -234,7 +234,7 @@ export default function AboutUsPage() {
                 <div className="absolute inset-0"
                      style={{ background: `linear-gradient(to top, ${C.dark}cc 0%, transparent 45%)` }} />
                 <div className="absolute bottom-5 start-5 end-5">
-                  <p className="text-sm font-bold" style={{ color: C.cream }}>Hazrat Syed Badiuddin Ahmad</p>
+                  <p className="text-sm font-bold" style={{ color: C.onDark }}>Hazrat Syed Badiuddin Ahmad</p>
                   <p className="text-xs mt-0.5" style={{ color: C.gold }}>Zinda Shah Madar · Qutbul Madar</p>
                 </div>
               </div>
@@ -261,7 +261,7 @@ export default function AboutUsPage() {
                 variants={fadeUp}
                 className={`text-4xl sm:text-5xl font-bold leading-[1.1] mb-5
                             ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-                style={{ color: C.cream }}
+                style={{ color: C.onDark }}
               >
                 {t("boardTitle")}
               </motion.h2>
@@ -291,7 +291,7 @@ export default function AboutUsPage() {
               <p className="text-[10px] font-bold tracking-[0.18em] uppercase mb-2" style={{ color: C.gold }}>
                 {t("jalsaLabel")}
               </p>
-              <h3 className="text-xl font-bold mb-3" style={{ color: C.cream }}>
+              <h3 className="text-xl font-bold mb-3" style={{ color: C.onDark }}>
                 17th of every Hijri month
               </h3>
               <p className="text-sm leading-relaxed" style={{ color: "rgba(247,244,238,0.45)" }}>
@@ -337,7 +337,7 @@ export default function AboutUsPage() {
             <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <motion.div variants={fadeUp}><Tag light>Get involved</Tag></motion.div>
               <motion.h2 variants={fadeUp} className="text-4xl sm:text-5xl font-bold leading-[1.1] mb-5"
-                         style={{ color: C.cream }}>
+                         style={{ color: C.onDark }}>
                 Connect with us
               </motion.h2>
               <motion.p variants={fadeUp} className="text-[15px] leading-relaxed max-w-lg mb-6"

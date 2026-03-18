@@ -27,6 +27,9 @@ export function useC() {
     gold:   "#c9a84c",
     goldHi: "#e8c96b",
 
+    // ── text on always-dark sections (hero, CTA) — never flips ────────────
+    onDark: "#f7f4ee",
+
     // ── flips ─────────────────────────────────────────────────────────────
     cream:  dark ? "#091a0d" : "#f7f4ee",          // page / hero-content bg
     cream2: dark ? "#0a1f12" : "#ede9e0",          // secondary section bg

@@ -140,7 +140,7 @@ export default function Home() {
             <motion.h1 variants={fade}
               className={`text-6xl sm:text-7xl lg:text-8xl xl:text-[96px] font-black leading-[0.92] tracking-tighter mb-8
                           ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-              style={{ color: C.cream }}>
+              style={{ color: C.onDark }}>
               {t("heroTitle")}
             </motion.h1>
 
@@ -278,7 +278,7 @@ export default function Home() {
                 <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
                   <div>
                     <span className="text-[10px] font-bold tracking-[0.15em] uppercase block mb-1" style={{ color: C.gold }}>Makanpur Shareef</span>
-                    <span className="text-lg font-bold" style={{ color: C.cream }}>Sajjada Nashin</span>
+                    <span className="text-lg font-bold" style={{ color: C.onDark }}>Sajjada Nashin</span>
                   </div>
                   <div className="w-9 h-9 rounded-full flex items-center justify-center"
                        style={{ background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)" }}>
@@ -298,7 +298,7 @@ export default function Home() {
                     <Image src={src} alt={label} fill
                            className="object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,31,18,0.7) 0%, transparent 55%)" }} />
-                    <span className="absolute bottom-3 left-3 text-xs font-semibold" style={{ color: C.cream }}>{label}</span>
+                    <span className="absolute bottom-3 left-3 text-xs font-semibold" style={{ color: C.onDark }}>{label}</span>
                   </div>
                 ))}
               </div>
@@ -321,7 +321,7 @@ export default function Home() {
               <Image src={src} alt={label} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="33vw" />
               <div className="absolute inset-0 flex items-end p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                    style={{ background: `linear-gradient(to top, ${C.dark}dd, transparent 50%)` }}>
-                <span className="text-xs font-semibold" style={{ color: C.cream }}>{label}</span>
+                <span className="text-xs font-semibold" style={{ color: C.onDark }}>{label}</span>
               </div>
             </motion.div>
           ))}
@@ -344,7 +344,7 @@ export default function Home() {
                 </span>
               </div>
               <h2 className="text-6xl lg:text-7xl font-black leading-[0.92] tracking-tight"
-                  style={{ color: C.cream }}>
+                  style={{ color: C.onDark }}>
                 {t("qutbul-madar-services")}
               </h2>
             </div>
@@ -428,7 +428,7 @@ export default function Home() {
                 — Featured: Sacred Tradition
               </span>
               <h3 className={`text-4xl lg:text-5xl font-black mb-5 leading-tight ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-                  style={{ color: C.cream }}>
+                  style={{ color: C.onDark }}>
                 {t("madarTitle")}
               </h3>
               <Link href={loc("/services/mazar-shareef-chadar-poshi")}
@@ -452,7 +452,7 @@ export default function Home() {
                 <span className="text-[10px] font-bold tracking-[0.22em] uppercase" style={{ color: C.gold }}>Visual Archive</span>
               </motion.div>
               <motion.h2 variants={fade} className="text-6xl lg:text-7xl font-black leading-[0.92] tracking-tight"
-                         style={{ color: C.cream }}>
+                         style={{ color: C.onDark }}>
                 {t("image-gallery")}
               </motion.h2>
             </motion.div>
@@ -480,7 +480,7 @@ export default function Home() {
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end p-8"
                  style={{ background: `linear-gradient(to top, ${C.dark}ee, transparent 50%)` }}>
               <div>
-                <p className="text-base font-bold" style={{ color: C.cream }}>Annual Urs Night</p>
+                <p className="text-base font-bold" style={{ color: C.onDark }}>Annual Urs Night</p>
                 <p className="text-[11px] mt-1" style={{ color: C.gold }}>Click to enlarge ↗</p>
               </div>
             </div>
@@ -501,7 +501,7 @@ export default function Home() {
                        className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="25vw" />
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end p-5"
                      style={{ background: `linear-gradient(to top, ${C.dark}ee, transparent 50%)` }}>
-                  <p className="text-xs font-bold" style={{ color: C.cream }}>{label}</p>
+                  <p className="text-xs font-bold" style={{ color: C.onDark }}>{label}</p>
                 </div>
               </motion.div>
             ))}
@@ -518,7 +518,7 @@ export default function Home() {
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end p-8"
                  style={{ background: `linear-gradient(to top, ${C.dark}ee, transparent 50%)` }}>
               <div>
-                <p className="text-base font-bold" style={{ color: C.cream }}>Community Gathering</p>
+                <p className="text-base font-bold" style={{ color: C.onDark }}>Community Gathering</p>
                 <p className="text-[11px] mt-1" style={{ color: C.gold }}>Click to enlarge ↗</p>
               </div>
             </div>
@@ -654,7 +654,7 @@ export default function Home() {
 
             <motion.h2 variants={fade}
               className="font-black leading-[0.88] tracking-tighter mb-10"
-              style={{ fontSize: "clamp(56px, 9vw, 120px)", color: C.cream }}>
+              style={{ fontSize: "clamp(56px, 9vw, 120px)", color: C.onDark }}>
               Preserve<br />
               <span className="text-gradient-gold">Sacred</span><br />
               Heritage

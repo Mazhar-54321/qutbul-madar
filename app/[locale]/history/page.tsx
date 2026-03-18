@@ -86,7 +86,7 @@ export default function HistoryPage() {
         {/* Large Arabic watermark */}
         <div className="absolute inset-y-0 end-0 w-1/2 hidden lg:flex items-center justify-center select-none pointer-events-none">
           <span className="text-[260px] leading-none font-bold opacity-[0.03]"
-                style={{ color: C.cream, fontFamily: "var(--font-urdu-display, serif)" }}>
+                style={{ color: C.onDark, fontFamily: "var(--font-urdu-display, serif)" }}>
             قطب
           </span>
         </div>
@@ -125,7 +125,7 @@ export default function HistoryPage() {
               className={`text-4xl sm:text-5xl lg:text-[68px] font-bold leading-[1.0]
                           mb-5 tracking-tight
                           ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-              style={{ color: C.cream }}
+              style={{ color: C.onDark }}
             >
               {t("heroTitle")}
             </motion.h1>
@@ -206,7 +206,7 @@ export default function HistoryPage() {
                 <div className="absolute inset-0"
                      style={{ background: `linear-gradient(to top, ${C.dark}cc, transparent)` }} />
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
-                  <p className="text-xs font-medium" style={{ color: C.cream }}>Annual Urs night</p>
+                  <p className="text-xs font-medium" style={{ color: C.onDark }}>Annual Urs night</p>
                   <span className="w-4 h-px" style={{ background: C.gold }} />
                 </div>
               </div>
@@ -306,7 +306,7 @@ export default function HistoryPage() {
             <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <motion.div variants={fadeUp}><Tag light>Continue exploring</Tag></motion.div>
               <motion.h2 variants={fadeUp} className="text-4xl sm:text-5xl font-bold mb-4"
-                         style={{ color: C.cream }}>
+                         style={{ color: C.onDark }}>
                 Explore the Gallery &amp; Services
               </motion.h2>
               <motion.p variants={fadeUp} className="text-[15px] leading-relaxed max-w-lg"

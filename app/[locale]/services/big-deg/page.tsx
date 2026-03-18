@@ -94,7 +94,7 @@ export default function BigDegPage() {
             <motion.h1 variants={fadeUp}
                        className={`text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-3
                                    ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-                       style={{ color: C.cream }}>
+                       style={{ color: C.onDark }}>
               {t("title")}
             </motion.h1>
             <motion.p variants={fadeUp}
@@ -226,7 +226,7 @@ export default function BigDegPage() {
                 </a>
                 <a href="https://wa.me/919838360930" target="_blank" rel="noopener noreferrer"
                    className="inline-flex items-center justify-center gap-3 px-6 py-3.5 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-[0.98]"
-                   style={{ background: "rgba(247,244,238,0.06)", color: C.cream, border: "1px solid rgba(247,244,238,0.12)" }}>
+                   style={{ background: "rgba(247,244,238,0.06)", color: C.onDark, border: "1px solid rgba(247,244,238,0.12)" }}>
                   <MessageCircle className="w-4 h-4 shrink-0" /> WhatsApp
                 </a>
               </div>
@@ -244,7 +244,7 @@ export default function BigDegPage() {
               <motion.div variants={fadeUp}><Tag light>Sponsor a Deg</Tag></motion.div>
               <motion.h2 variants={fadeUp}
                          className={`text-3xl sm:text-4xl font-bold leading-[1.15] mb-3 ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-                         style={{ color: C.cream }}>
+                         style={{ color: C.onDark }}>
                 {t("volunteer_heading")}
               </motion.h2>
               <motion.p variants={fadeUp} className="text-[15px] leading-relaxed max-w-lg"

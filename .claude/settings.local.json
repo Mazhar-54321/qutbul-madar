@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.qutbulmadar.org)",
+      "Bash(pnpm remove:*)",
+      "Bash(pnpm tsc:*)"
+    ]
+  }
+}

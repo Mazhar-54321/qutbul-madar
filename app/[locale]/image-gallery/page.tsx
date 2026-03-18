@@ -119,11 +119,10 @@ function Lightbox({
         key={img.src}
         initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.25 }}
-        className="relative w-full max-w-5xl mx-20 rounded-2xl overflow-hidden"
-        style={{ maxHeight: "85vh", aspectRatio: "auto" }}
+        className="relative w-full max-w-5xl mx-4 sm:mx-16 rounded-xl sm:rounded-2xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative" style={{ maxHeight: "80vh" }}>
+        <div className="relative">
           <Image
             src={img.src} alt={img.label}
             width={1200} height={800}

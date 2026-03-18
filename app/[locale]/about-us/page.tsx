@@ -90,7 +90,7 @@ export default function AboutUsPage() {
   const loc = (href: string) => `/${locale}${href}`;
 
   const directors = t.raw("directors") as Array<{ name: string; title: string }>;
-  const directorImages = ["/images/director-1.jpg", "/images/director-2.jpg", "/images/director-3.jpg"];
+  const directorImages = ["/images/1-370x370.jpg", "/images/2-370x370.jpg", "/images/3-370x370.jpg"];
 
   return (
     <main className="min-h-screen" style={{ background: C.cream, color: C.text }} dir={isRtl ? "rtl" : "ltr"}>

@@ -130,7 +130,7 @@ export default function FullGhilafPage() {
                       viewport={{ once: true }} transition={{ duration: 0.6 }}
                       className="relative w-full rounded-2xl overflow-hidden mb-10"
                       style={{ aspectRatio: "16/8", border: "1px solid rgba(201,168,76,0.12)" }}>
-            <Image src="/images/full-ghilaf.webp" alt="Full Ghilaaf ceremony"
+            <Image src="/images/WhatsApp-Image-2024-04-27-at-19.59.08_3441e7a4-466x1024.jpg" alt="Full Ghilaaf ceremony"
                    fill className="object-cover object-center" sizes="100vw" />
             <div className="absolute inset-0"
                  style={{ background: `linear-gradient(to top, ${C.dark}55, transparent)` }} />

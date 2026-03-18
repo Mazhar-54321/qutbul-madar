@@ -78,7 +78,7 @@ export default function MazarShareefChadarPoshiPage() {
                       transition={{ duration: 0.7, delay: 0.4 }}
                       className="relative w-full aspect-[21/9] rounded-t-2xl overflow-hidden"
                       style={{ marginBottom: -2 }}>
-            <Image src="/images/chadar-poshi.webp" alt="Madar e Shareef — Chadar Poshi"
+            <Image src="/images/IMG-20240427-WA0018.jpg" alt="Madar e Shareef — Chadar Poshi"
                    fill priority className="object-cover object-center" sizes="100vw" />
             <div className="absolute inset-0"
                  style={{ background: `linear-gradient(to bottom, rgba(10,31,18,0.1) 0%, transparent 40%, ${C.cream} 100%)` }} />

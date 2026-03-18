@@ -85,7 +85,7 @@ export default function LiveZiyaratPage() {
                       transition={{ duration: 0.7, delay: 0.4 }}
                       className="relative w-full aspect-[21/9] rounded-t-2xl overflow-hidden"
                       style={{ marginBottom: -2 }}>
-            <Image src="/images/image2.webp" alt="Live Ziyarat and Dua"
+            <Image src="/images/WhatsApp-Image-2024-04-27-at-19.53.21_1ec0e053-1024x466.jpg" alt="Live Ziyarat and Dua"
                    fill priority className="object-cover object-center" sizes="100vw" />
             <div className="absolute inset-0"
                  style={{ background: `linear-gradient(to bottom, rgba(10,31,18,0.1) 0%, transparent 40%, ${C.cream} 100%)` }} />

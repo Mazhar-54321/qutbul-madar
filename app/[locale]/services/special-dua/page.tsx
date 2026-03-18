@@ -77,7 +77,7 @@ export default function SpecialDuaPage() {
                       transition={{ duration: 0.7, delay: 0.4 }}
                       className="relative w-full rounded-t-2xl overflow-hidden"
                       style={{ aspectRatio: "16/7", marginBottom: -2 }}>
-            <Image src="/images/special-dua.webp" alt="Special Dua — Qutbul Madar Dargah"
+            <Image src="/images/IMG-20240427-WA0021-1024x730.jpg" alt="Special Dua — Qutbul Madar Dargah"
                    fill priority className="object-cover object-center" sizes="100vw" />
             <div className="absolute inset-0"
                  style={{ background: `linear-gradient(to bottom, rgba(10,31,18,0.1) 0%, transparent 40%, ${C.cream} 100%)` }} />

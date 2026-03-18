@@ -109,7 +109,7 @@ export default function BigDegPage() {
                       transition={{ duration: 0.7, delay: 0.4 }}
                       className="relative w-full rounded-t-2xl overflow-hidden"
                       style={{ aspectRatio: "16/7", marginBottom: -2 }}>
-            <Image src="/images/big-deg.webp" alt={t("title")} fill priority
+            <Image src="/images/IMG-20240427-WA0005-1024x466.jpg" alt={t("title")} fill priority
                    className="object-cover object-center" sizes="100vw" />
             <div className="absolute inset-0"
                  style={{ background: `linear-gradient(to bottom, rgba(10,31,18,0.1) 0%, transparent 40%, ${C.cream} 100%)` }} />
@@ -185,8 +185,8 @@ export default function BigDegPage() {
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
             {[
-              { src: "/images/image1.webp", caption: "Devotees at Dargah Shareef" },
-              { src: "/images/deg-preparation.webp", caption: "Deg preparation in progress" },
+              { src: "/images/IMG-20240427-WA0004-1024x466.jpg", caption: "Deg distribution at Dargah" },
+              { src: "/images/IMG-20240427-WA0007-1024x683.jpg", caption: "Deg preparation in progress" },
             ].map((img, i) => (
               <motion.div key={img.src} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }} transition={{ duration: 0.55, delay: i * 0.1 }}

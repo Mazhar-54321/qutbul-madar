@@ -271,8 +271,8 @@ export default function Home() {
 
               <div className="relative overflow-hidden rounded-2xl cursor-pointer group shadow-xl"
                    style={{ height: "400px" }}
-                   onClick={() => setLightbox({ src: "/images/image3.webp", label: "Sajjada Nashin" })}>
-                <Image src="/images/image3.webp" alt="Sajjada Nashin" fill
+                   onClick={() => setLightbox({ src: "/images/Qutbul-Madar.jpg", label: "Sajjada Nashin" })}>
+                <Image src="/images/Qutbul-Madar.jpg" alt="Sajjada Nashin" fill
                        className="object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,31,18,0.8) 0%, transparent 55%)" }} />
                 <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
@@ -289,8 +289,8 @@ export default function Home() {
 
               <div className="grid grid-cols-2 gap-3">
                 {[
-                  { src: "/images/image8.webp", label: "Shrine Illuminated" },
-                  { src: "/images/image1.webp", label: "Annual Urs Night" },
+                  { src: "/images/IMG-20240227-WA0020.jpg", label: "Urs Mubarak" },
+                  { src: "/images/IMG_20231223_154037-scaled.jpg", label: "Dua at Dargah" },
                 ].map(({ src, label }) => (
                   <div key={src} className="relative overflow-hidden rounded-xl cursor-pointer group shadow-md"
                        style={{ height: "180px" }}
@@ -309,9 +309,9 @@ export default function Home() {
         {/* Full-bleed bottom image strip — touches both edges */}
         <div className="grid grid-cols-3" style={{ height: "220px" }}>
           {[
-            { src: "/images/image2.webp", label: "Dargah Shareef" },
-            { src: "/images/image5.webp", label: "Community Gathering" },
-            { src: "/images/image6.webp", label: "Langar Preparation" },
+            { src: "/images/IMG-20231203-WA0030.jpg", label: "Gaddi Nasheen" },
+            { src: "/images/IMG-20240227-WA0021.jpg", label: "Qutbul Madar Family" },
+            { src: "/images/IMG_20230915_170248-scaled.jpg", label: "Dargah Shareef" },
           ].map(({ src, label }, i) => (
             <motion.div key={src}
               initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
@@ -417,7 +417,7 @@ export default function Home() {
 
         {/* Featured service image */}
         <div className="relative mt-20 overflow-hidden" style={{ height: "360px" }}>
-          <Image src="/images/chadar-poshi.webp" alt="Chadar Poshi" fill
+          <Image src="/images/IMG-20240427-WA0018.jpg" alt="Chadar Poshi" fill
                  className="object-cover" sizes="100vw" />
           <div className="absolute inset-0"
                style={{ background: `linear-gradient(to right, ${C.dark}f0 0%, transparent 60%)` }} />
@@ -474,8 +474,8 @@ export default function Home() {
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
             viewport={{ once: true }} transition={{ duration: 0.7 }}
             className="relative flex-[2] overflow-hidden cursor-pointer group"
-            onClick={() => setLightbox({ src: "/images/image1.webp", label: "Annual Urs Night" })}>
-            <Image src="/images/image1.webp" alt="Annual Urs Night" fill
+            onClick={() => setLightbox({ src: "/images/20231201014935_IMG_7875-rotated.jpg", label: "Annual Urs Night" })}>
+            <Image src="/images/20231201014935_IMG_7875-rotated.jpg" alt="Annual Urs Night" fill
                    className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="40vw" />
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end p-8"
                  style={{ background: `linear-gradient(to top, ${C.dark}ee, transparent 50%)` }}>
@@ -489,8 +489,8 @@ export default function Home() {
           {/* Middle column — 2 stacked */}
           <div className="flex flex-col gap-1 flex-[1.2]">
             {[
-              { src: "/images/image2.webp", label: "Dargah Shareef" },
-              { src: "/images/image8.webp", label: "Shrine Illuminated" },
+              { src: "/images/IMG_20240207_161713-scaled.jpg", label: "Dam Madar Bedar Par" },
+              { src: "/images/IMG_20231202_150718-scaled.jpg", label: "Dargah Event" },
             ].map(({ src, label }, i) => (
               <motion.div key={src}
                 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
@@ -512,8 +512,8 @@ export default function Home() {
             initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
             viewport={{ once: true }} transition={{ duration: 0.7, delay: 0.2 }}
             className="relative flex-[1.5] overflow-hidden cursor-pointer group"
-            onClick={() => setLightbox({ src: "/images/image5.webp", label: "Community Gathering" })}>
-            <Image src="/images/image5.webp" alt="Community Gathering" fill
+            onClick={() => setLightbox({ src: "/images/20231201023639_IMG_7928.jpg", label: "Community Gathering" })}>
+            <Image src="/images/20231201023639_IMG_7928.jpg" alt="Community Gathering" fill
                    className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="30vw" />
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-end p-8"
                  style={{ background: `linear-gradient(to top, ${C.dark}ee, transparent 50%)` }}>
@@ -559,7 +559,7 @@ export default function Home() {
                 <div className="h-1 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
                      style={{ background: `linear-gradient(to right, ${C.gold}, transparent)` }} />
                 <div className="relative overflow-hidden" style={{ height: "280px" }}>
-                  <Image src="/images/image5.webp" alt="" fill
+                  <Image src="/images/1-760x428.jpg" alt="" fill
                          className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="60vw" />
                   <div className="absolute inset-0"
                        style={{ background: `linear-gradient(to top, ${C.white}ee, transparent 60%)` }} />
@@ -631,7 +631,7 @@ export default function Home() {
 
         {/* Full-bleed background image with heavy overlay */}
         <div className="absolute inset-0">
-          <Image src="/images/image2.webp" alt="" fill className="object-cover opacity-20" sizes="100vw" />
+          <Image src="/images/IMG_20231221_224352-scaled.jpg" alt="" fill className="object-cover opacity-20" sizes="100vw" />
         </div>
         <div className="absolute inset-0"
              style={{ background: `linear-gradient(to bottom, ${C.dark}f5, ${C.dark}dd)` }} />

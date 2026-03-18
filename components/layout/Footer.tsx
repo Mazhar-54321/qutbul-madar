@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useLocale } from "next-intl";
+import { useState } from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
+import { DonateModal } from "@/components/shared/DonateModal";
 
 const C = {
   dark:  "#0f2419",
@@ -21,7 +23,6 @@ const links = {
     { label: "Our Services",href: "/our-services" },
     { label: "Image Gallery",href: "/image-gallery" },
     { label: "Contact",     href: "/contact" },
-    { label: "Donate",      href: "/donate" },
   ],
   books: [
     { label: "Urdu Books",  href: "/urdu-books" },
@@ -36,6 +37,7 @@ export default function Footer() {
   const locale = useLocale();
   const isRtl = ["ur", "ar"].includes(locale);
   const loc = (href: string) => `/${locale}${href}`;
+  const [donateOpen, setDonateOpen] = useState(false);
 
   return (
     <footer
@@ -119,6 +121,15 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <button
+                  onClick={() => setDonateOpen(true)}
+                  className="text-[13px] transition-colors duration-200 hover:text-[#c9a84c]"
+                  style={{ color: C.muted }}
+                >
+                  Donate
+                </button>
+              </li>
             </ul>
           </div>
 
@@ -187,8 +198,8 @@ export default function Footer() {
             </ul>
 
             {/* Donate CTA */}
-            <Link
-              href={loc("/donate")}
+            <button
+              onClick={() => setDonateOpen(true)}
               className="inline-flex items-center gap-2 mt-7 text-[12px] font-bold px-5 py-2.5
                          rounded-lg transition-all duration-200 active:scale-[0.97]"
               style={{
@@ -198,7 +209,7 @@ export default function Footer() {
               }}
             >
               Donate to the Shrine
-            </Link>
+            </button>
           </div>
         </div>
 
@@ -215,6 +226,7 @@ export default function Footer() {
           </p>
         </div>
       </div>
+      <DonateModal open={donateOpen} onClose={() => setDonateOpen(false)} />
     </footer>
   );
 }

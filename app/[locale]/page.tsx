@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { ChevronRight, ArrowDown, X, Phone, Star, ArrowUpRight } from "lucide-react";
+import { DonateModal } from "@/components/shared/DonateModal";
 import { useC } from "@/hooks/useThemeColors";
 
 const t1: Transition = { duration: 0.7, ease: [0.16, 1, 0.3, 1] };
@@ -69,6 +70,7 @@ export default function Home() {
   const locale = useLocale();
   const isRtl = ["ur", "ar"].includes(locale);
   const [lightbox, setLightbox] = useState<{ src: string; label: string } | null>(null);
+  const [donateOpen, setDonateOpen] = useState(false);
 
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -673,11 +675,12 @@ export default function Home() {
             </motion.div>
 
             <motion.div variants={fade} className="flex flex-wrap gap-4">
-              <Link href={loc("/donate")}
+              <button
+                    onClick={() => setDonateOpen(true)}
                     className="text-sm font-bold px-10 py-4 rounded-full text-center transition-all duration-300 hover:scale-[1.04] active:scale-[0.97]"
                     style={{ background: C.gold, color: C.dark }}>
                 Donate Now
-              </Link>
+              </button>
               <Link href={loc("/contact")}
                     className="text-sm font-medium px-10 py-4 rounded-full text-center border transition-all duration-300"
                     style={{ borderColor: "rgba(247,244,238,0.15)", color: "rgba(247,244,238,0.5)" }}>
@@ -691,6 +694,7 @@ export default function Home() {
       <AnimatePresence>
         {lightbox && <Lightbox src={lightbox.src} label={lightbox.label} onClose={() => setLightbox(null)} />}
       </AnimatePresence>
+      <DonateModal open={donateOpen} onClose={() => setDonateOpen(false)} />
     </div>
   );
 }

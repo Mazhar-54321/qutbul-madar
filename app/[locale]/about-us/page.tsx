@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Phone, CalendarDays } from "lucide-react";
+import { DonateModal } from "@/components/shared/DonateModal";
 import { useC } from "@/hooks/useThemeColors";
 
 
@@ -89,6 +91,7 @@ export default function AboutUsPage() {
   const isRtl = ["ur", "ar"].includes(locale);
   const loc = (href: string) => `/${locale}${href}`;
 
+  const [donateOpen, setDonateOpen] = useState(false);
   const directors = t.raw("directors") as Array<{ name: string; title: string }>;
   const directorImages = ["/images/1-370x370.jpg", "/images/2-370x370.jpg", "/images/3-370x370.jpg"];
 
@@ -360,15 +363,17 @@ export default function AboutUsPage() {
                     style={{ background: C.gold, color: C.dark }}>
                 Contact Us
               </Link>
-              <Link href={loc("/donate")}
+              <button
+                    onClick={() => setDonateOpen(true)}
                     className="text-sm font-medium px-8 py-4 rounded-xl text-center transition-all duration-200 active:scale-[0.97]"
                     style={{ border: "1px solid rgba(201,168,76,0.25)", color: "rgba(247,244,238,0.6)" }}>
                 Donate
-              </Link>
+              </button>
             </motion.div>
           </div>
         </div>
       </section>
+      <DonateModal open={donateOpen} onClose={() => setDonateOpen(false)} />
     </main>
   );
 }

@@ -18,6 +18,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useTheme } from "@/context/ThemeProvider";
+import { DonateModal } from "@/components/shared/DonateModal";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -52,6 +53,7 @@ export default function AppBar() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [donateOpen, setDonateOpen] = useState(false);
   const { dark, toggle } = useTheme();
 
   const t = useTranslations("Navigation");
@@ -296,8 +298,8 @@ export default function AppBar() {
               </AnimatePresence>
             </button>
 
-            <Link
-              href={loc("/donate")}
+            <button
+              onClick={() => setDonateOpen(true)}
               className="text-[13px] font-bold px-5 py-2 rounded-lg transition-all duration-200
                          active:scale-[0.97] relative overflow-hidden group"
               style={{ background: C.dark, color: C.cream }}
@@ -309,7 +311,7 @@ export default function AppBar() {
                 className="absolute inset-x-0 bottom-0 h-px"
                 style={{ background: `linear-gradient(to right, transparent, ${C.gold}, transparent)` }}
               />
-            </Link>
+            </button>
           </div>
 
           {/* Mobile right — toggle + hamburger */}
@@ -435,18 +437,18 @@ export default function AppBar() {
               style={{ borderTop: `1px solid rgba(201,168,76,0.12)` }}
             >
               <LanguageSwitcher />
-              <Link
-                href={loc("/donate")}
-                onClick={() => setMobileOpen(false)}
+              <button
+                onClick={() => { setMobileOpen(false); setDonateOpen(true); }}
                 className="text-[13px] font-bold px-6 py-2.5 rounded-xl transition-all active:scale-[0.97]"
                 style={{ background: C.dark, color: C.cream }}
               >
                 {t("Donate")}
-              </Link>
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+      <DonateModal open={donateOpen} onClose={() => setDonateOpen(false)} />
     </header>
   );
 }

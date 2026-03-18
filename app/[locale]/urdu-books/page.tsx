@@ -18,21 +18,9 @@ import {
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
+import { useC } from "@/hooks/useThemeColors";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
-
-// ─── theme ────────────────────────────────────────────────────────────────────
-const C = {
-  dark: "#1a3d2b",
-  mid: "#2d7a4f",
-  light: "#4aa06a",
-  cream: "#f7f4ee",
-  cream2: "#ede9e0",
-  cream3: "#e0d8c8",
-  muted: "#6b7c6e",
-  text: "#2a2a1e",
-  white: "#ffffff",
-};
 
 // ─── animation ────────────────────────────────────────────────────────────────
 const fadeUp = {
@@ -79,7 +67,8 @@ const BOOKS = [
 ];
 
 // ─── pdf modal ────────────────────────────────────────────────────────────────
-function PdfModal({ url, downloadUrl, title, onClose }: { url: string; downloadUrl: string; title: string; onClose: () => void }) {
+type CType = ReturnType<typeof useC>;
+function PdfModal({ url, downloadUrl, title, onClose, C }: { url: string; downloadUrl: string; title: string; onClose: () => void; C: CType }) {
   const [numPages, setNumPages] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0);
@@ -217,11 +206,13 @@ function BookCard({
   file,
   idx,
   isRtl,
+  C,
 }: {
   title: string;
   file: string;
   idx: number;
   isRtl: boolean;
+  C: CType;
 }) {
   const [open, setOpen] = useState(false);
   const pdfPath = `https://github.com/Mazhar-54321/qutbul-madar/releases/download/Urdu-Books/${file}`;
@@ -229,7 +220,7 @@ function BookCard({
 
   return (
     <>
-      {open && <PdfModal url={proxyPath} downloadUrl={pdfPath} title={title} onClose={() => setOpen(false)} />}
+      {open && <PdfModal url={proxyPath} downloadUrl={pdfPath} title={title} onClose={() => setOpen(false)} C={C} />}
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -274,7 +265,7 @@ function BookCard({
           <h3
             className={`text-[14px] font-bold leading-snug
                         ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
-            style={{ color: C.dark }}
+            style={{ color: C.ink }}
           >
             {title}
           </h3>
@@ -317,6 +308,7 @@ function BookCard({
 
 // ─── page ─────────────────────────────────────────────────────────────────────
 export default function UrduBooksPage() {
+  const C = useC();
   const locale = useLocale();
   const isRtl = ["ur", "ar"].includes(locale);
   const loc = (href: string) => `/${locale}${href}`;
@@ -484,6 +476,7 @@ export default function UrduBooksPage() {
                   file={book.file}
                   idx={BOOKS.indexOf(book)}
                   isRtl={isRtl}
+                  C={C}
                 />
               ))}
             </div>
@@ -494,7 +487,7 @@ export default function UrduBooksPage() {
               className="text-center py-24"
             >
               <BookOpen className="w-12 h-12 mx-auto mb-4" style={{ color: C.cream3 }} />
-              <p className="text-lg font-semibold mb-1" style={{ color: C.dark }}>
+              <p className="text-lg font-semibold mb-1" style={{ color: C.ink }}>
                 No books found
               </p>
               <p className="text-sm" style={{ color: C.muted }}>

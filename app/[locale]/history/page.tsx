@@ -81,7 +81,7 @@ export default function HistoryPage() {
 
         {/* Radial green glow */}
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 80% 50%, rgba(45,122,79,0.18), transparent 60%)" }} />
+             style={{ background: "radial-gradient(ellipse at 80% 50%, rgba(200,149,108,0.18), transparent 60%)" }} />
 
         {/* Large Arabic watermark */}
         <div className="absolute inset-y-0 end-0 w-1/2 hidden lg:flex items-center justify-center select-none pointer-events-none">
@@ -299,7 +299,7 @@ export default function HistoryPage() {
       <section className="py-24 relative overflow-hidden" style={{ background: C.dark }}>
         <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.3 }} />
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 30% 50%, rgba(45,122,79,0.15), transparent 60%)" }} />
+             style={{ background: "radial-gradient(ellipse at 30% 50%, rgba(200,149,108,0.15), transparent 60%)" }} />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-16">
           <div className="grid lg:grid-cols-[1fr_auto] gap-10 items-center">

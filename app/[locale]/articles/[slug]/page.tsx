@@ -58,7 +58,7 @@ export default function ArticleDetailPage() {
       <section style={{ background: C.dark }} className="relative overflow-hidden">
         <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.35 }} />
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(45,122,79,0.14), transparent 60%)" }} />
+             style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(200,149,108,0.14), transparent 60%)" }} />
 
         {/* Faint bg image */}
         <div className="absolute inset-0 opacity-[0.08]">

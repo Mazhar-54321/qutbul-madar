@@ -48,7 +48,7 @@ function DirectorCard({
       style={{
         background: C.white,
         border: "1px solid rgba(200,149,108,0.15)",
-        boxShadow: "0 4px 24px rgba(10,31,18,0.06)",
+        boxShadow: "0 4px 24px rgba(28,18,8,0.06)",
       }}
     >
       {/* Gold top accent line — animates on hover */}
@@ -102,7 +102,7 @@ export default function AboutUsPage() {
       <section style={{ background: C.dark }} className="relative overflow-hidden">
         <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.35 }} />
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 70% 40%, rgba(45,122,79,0.16), transparent 60%)" }} />
+             style={{ background: "radial-gradient(ellipse at 70% 40%, rgba(200,149,108,0.16), transparent 60%)" }} />
 
         {/* Large Arabic watermark */}
         <div className="absolute inset-0 flex items-center justify-end pe-20 select-none pointer-events-none">
@@ -231,7 +231,7 @@ export default function AboutUsPage() {
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }} transition={{ duration: 0.65 }} className="relative">
               <div className="relative h-[520px] rounded-2xl overflow-hidden"
-                   style={{ boxShadow: `0 32px 80px rgba(10,31,18,0.22)`, border: `1px solid rgba(200,149,108,0.15)` }}>
+                   style={{ boxShadow: `0 32px 80px rgba(28,18,8,0.22)`, border: `1px solid rgba(200,149,108,0.15)` }}>
                 <Image src="/images/qutbul-madar-portrait.jpg" alt="Hazrat Qutbul Madar"
                        fill className="object-cover object-top" sizes="420px" />
                 <div className="absolute inset-0"
@@ -253,7 +253,7 @@ export default function AboutUsPage() {
       <section className="py-24 lg:py-32 relative overflow-hidden" style={{ background: C.dark }}>
         <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.3 }} />
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 20% 50%, rgba(45,122,79,0.12), transparent 60%)" }} />
+             style={{ background: "radial-gradient(ellipse at 20% 50%, rgba(200,149,108,0.12), transparent 60%)" }} />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-16">
           <div className="grid lg:grid-cols-[1fr_420px] gap-16 items-center">
@@ -333,7 +333,7 @@ export default function AboutUsPage() {
       <section className="py-24 relative overflow-hidden" style={{ background: C.dark }}>
         <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.3 }} />
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 60% 50%, rgba(45,122,79,0.12), transparent 60%)" }} />
+             style={{ background: "radial-gradient(ellipse at 60% 50%, rgba(200,149,108,0.12), transparent 60%)" }} />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-16">
           <div className="grid lg:grid-cols-[1fr_auto] gap-12 items-center">

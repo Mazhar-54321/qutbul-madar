@@ -81,7 +81,7 @@ export default function DargahMannatPage() {
              style={{ background: C.dark }}>
           <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.3 }} />
           <div className="absolute inset-0"
-               style={{ background: "radial-gradient(ellipse at 30% 70%, rgba(45,122,79,0.12), transparent 60%)" }} />
+               style={{ background: "radial-gradient(ellipse at 30% 70%, rgba(200,149,108,0.12), transparent 60%)" }} />
           <div className="absolute inset-0 opacity-[0.06]">
             <Image src="/images/image2.webp" alt="" fill className="object-cover" sizes="360px" />
             <div className="absolute inset-0"
@@ -223,7 +223,7 @@ export default function DargahMannatPage() {
                       viewport={{ once: true }} transition={{ duration: 0.55 }}
                       className="p-8 lg:p-12" style={{ borderBottom: `1px solid ${C.cream3}` }}>
             <div className="rounded-2xl p-8"
-                 style={{ background: C.dark, border: "1px solid rgba(200,149,108,0.2)", boxShadow: "0 16px 48px rgba(10,31,18,0.2)" }}>
+                 style={{ background: C.dark, border: "1px solid rgba(200,149,108,0.2)", boxShadow: "0 16px 48px rgba(28,18,8,0.2)" }}>
               <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-center">
                 <div>
                   <Tag>Get in touch</Tag>

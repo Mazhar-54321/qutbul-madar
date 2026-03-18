@@ -67,7 +67,7 @@ export default function ContactPage() {
       <section style={{ background: C.dark }} className="relative overflow-hidden">
         <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.35 }} />
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(45,122,79,0.14), transparent 60%)" }} />
+             style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(200,149,108,0.14), transparent 60%)" }} />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-16 pt-10 pb-20">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="mb-10">
@@ -113,7 +113,7 @@ export default function ContactPage() {
                 style={{
                   background: C.white,
                   border: `1px solid ${C.cream3}`,
-                  boxShadow: "0 4px 24px rgba(10,31,18,0.06)",
+                  boxShadow: "0 4px 24px rgba(28,18,8,0.06)",
                 }}
               >
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center"

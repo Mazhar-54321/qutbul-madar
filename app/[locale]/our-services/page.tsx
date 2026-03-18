@@ -77,7 +77,7 @@ export default function OurServicesPage() {
       <section style={{ background: C.dark }} className="relative overflow-hidden">
         <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.35 }} />
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(45,122,79,0.14), transparent 60%)" }} />
+             style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(200,149,108,0.14), transparent 60%)" }} />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-16 pt-10 pb-20">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="mb-10">
@@ -140,7 +140,7 @@ export default function OurServicesPage() {
                     style={{
                       background: C.white,
                       border: `1px solid ${C.cream3}`,
-                      boxShadow: "0 4px 24px rgba(10,31,18,0.06)",
+                      boxShadow: "0 4px 24px rgba(28,18,8,0.06)",
                     }}
                   >
                     {/* Image */}
@@ -151,7 +151,7 @@ export default function OurServicesPage() {
                       <div className="absolute inset-0"
                            style={{ background: `linear-gradient(to top, ${C.dark}cc, transparent 60%)` }} />
                       <div className="absolute top-3 start-3 px-2.5 py-1 rounded-full text-[10px] font-bold"
-                           style={{ background: "rgba(10,31,18,0.75)", backdropFilter: "blur(6px)", color: C.gold, border: "1px solid rgba(200,149,108,0.3)" }}>
+                           style={{ background: "rgba(28,18,8,0.75)", backdropFilter: "blur(6px)", color: C.gold, border: "1px solid rgba(200,149,108,0.3)" }}>
                         {data.tag}
                       </div>
                     </div>

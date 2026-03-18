@@ -39,7 +39,7 @@ function PillarCard({ heading, body, isRtl, index, C }: {
         background: C.white,
         border: `1px solid rgba(200,149,108,0.12)`,
         borderInlineStart: `3px solid ${C.gold}`,
-        boxShadow: "0 4px 16px rgba(10,31,18,0.05)",
+        boxShadow: "0 4px 16px rgba(28,18,8,0.05)",
       }}
     >
       <div className="w-6 h-0.5 rounded-full mb-3"
@@ -75,7 +75,7 @@ export default function BigDegPage() {
       <section style={{ background: C.dark }} className="relative overflow-hidden">
         <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.35 }} />
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(45,122,79,0.14), transparent 60%)" }} />
+             style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(200,149,108,0.14), transparent 60%)" }} />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-16 pt-10 pb-0">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="mb-10">
@@ -112,9 +112,9 @@ export default function BigDegPage() {
             <Image src="/images/IMG-20240427-WA0005-1024x466.jpg" alt={t("title")} fill priority
                    className="object-cover object-center" sizes="100vw" />
             <div className="absolute inset-0"
-                 style={{ background: `linear-gradient(to bottom, rgba(10,31,18,0.1) 0%, transparent 40%, ${C.cream} 100%)` }} />
+                 style={{ background: `linear-gradient(to bottom, rgba(28,18,8,0.1) 0%, transparent 40%, ${C.cream} 100%)` }} />
             <div className="absolute top-4 end-4 px-3 py-1.5 rounded-full text-xs font-bold"
-                 style={{ background: "rgba(10,31,18,0.7)", backdropFilter: "blur(8px)", border: "1px solid rgba(200,149,108,0.35)", color: C.gold }}>
+                 style={{ background: "rgba(28,18,8,0.7)", backdropFilter: "blur(8px)", border: "1px solid rgba(200,149,108,0.35)", color: C.gold }}>
               Makanpur Shareef
             </div>
           </motion.div>
@@ -195,7 +195,7 @@ export default function BigDegPage() {
                 <Image src={img.src} alt={img.caption} fill className="object-cover transition-transform duration-700 group-hover:scale-105"
                        sizes="(max-width: 768px) 100vw, 50vw" />
                 <div className="absolute bottom-0 inset-x-0 px-4 py-2.5 text-xs font-medium"
-                     style={{ background: "rgba(10,31,18,0.75)", backdropFilter: "blur(6px)", color: C.gold }}>
+                     style={{ background: "rgba(28,18,8,0.75)", backdropFilter: "blur(6px)", color: C.gold }}>
                   {img.caption}
                 </div>
               </motion.div>
@@ -209,7 +209,7 @@ export default function BigDegPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }} transition={{ duration: 0.55 }}
                       className="rounded-2xl p-8"
-                      style={{ background: C.dark, border: "1px solid rgba(200,149,108,0.2)", boxShadow: "0 16px 48px rgba(10,31,18,0.2)" }}>
+                      style={{ background: C.dark, border: "1px solid rgba(200,149,108,0.2)", boxShadow: "0 16px 48px rgba(28,18,8,0.2)" }}>
             <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-center">
               <div>
                 <Tag>Get in touch</Tag>

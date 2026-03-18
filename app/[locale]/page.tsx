@@ -80,7 +80,7 @@ export default function Home() {
           <Image src="/images/qutbul-madar-main.webp" alt="" fill priority
                  className="object-cover object-center" sizes="100vw" />
         </motion.div>
-        <div className="absolute inset-0" style={{ background: `linear-gradient(170deg, ${C.dark}e0 0%, ${C.dark}cc 40%, rgba(10,31,18,0.75) 100%)` }} />
+        <div className="absolute inset-0" style={{ background: `linear-gradient(170deg, ${C.dark}e0 0%, ${C.dark}cc 40%, rgba(28,18,8,0.75) 100%)` }} />
         <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.25 }} />
 
         {/* Giant Arabic watermark */}
@@ -157,7 +157,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85 }}
           className="relative z-10 border-t"
-          style={{ background: "rgba(10,31,18,0.6)", backdropFilter: "blur(16px)", borderColor: "rgba(200,149,108,0.12)" }}>
+          style={{ background: "rgba(28,18,8,0.6)", backdropFilter: "blur(16px)", borderColor: "rgba(200,149,108,0.12)" }}>
           <div className="max-w-7xl mx-auto px-8 lg:px-16 grid grid-cols-3 lg:grid-cols-6 divide-x"
                style={{ borderColor: "rgba(200,149,108,0.1)" }}>
             {[
@@ -194,7 +194,7 @@ export default function Home() {
              style={{
                fontSize: "clamp(200px, 35vw, 480px)",
                color: "transparent",
-               WebkitTextStroke: "1px rgba(10,31,18,0.05)",
+               WebkitTextStroke: "1px rgba(28,18,8,0.05)",
                lineHeight: 0.85,
                transform: "translateY(-10%)",
              }}>
@@ -257,7 +257,7 @@ export default function Home() {
                    onClick={() => setLightbox({ src: "/images/Qutbul-Madar.jpg", label: "Sajjada Nashin" })}>
                 <Image src="/images/Qutbul-Madar.jpg" alt="Sajjada Nashin" fill
                        className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,31,18,0.8) 0%, transparent 55%)" }} />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(28,18,8,0.8) 0%, transparent 55%)" }} />
                 <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
                   <div>
                     <span className="text-[10px] font-bold tracking-[0.15em] uppercase block mb-1" style={{ color: C.gold }}>Makanpur Shareef</span>
@@ -280,7 +280,7 @@ export default function Home() {
                        onClick={() => setLightbox({ src, label })}>
                     <Image src={src} alt={label} fill
                            className="object-cover transition-transform duration-700 group-hover:scale-105" />
-                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(10,31,18,0.7) 0%, transparent 55%)" }} />
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(28,18,8,0.7) 0%, transparent 55%)" }} />
                     <span className="absolute bottom-3 left-3 text-xs font-semibold" style={{ color: C.onDark }}>{label}</span>
                   </div>
                 ))}
@@ -315,7 +315,7 @@ export default function Home() {
       <section className="relative overflow-hidden" style={{ background: C.dark }}>
         <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.2 }} />
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 80% 20%, rgba(45,122,79,0.12), transparent 55%)" }} />
+             style={{ background: "radial-gradient(ellipse at 80% 20%, rgba(200,149,108,0.12), transparent 55%)" }} />
 
         <div className="max-w-7xl mx-auto px-8 lg:px-16 pt-32 pb-0 relative z-10">
           <div className="flex items-end justify-between mb-20 flex-wrap gap-4">
@@ -361,7 +361,7 @@ export default function Home() {
                          className="object-cover" sizes="100vw" />
                 </div>
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                     style={{ background: "rgba(10,31,18,0.85)" }} />
+                     style={{ background: "rgba(28,18,8,0.85)" }} />
 
                 <div className="relative z-10 flex items-center gap-8 lg:gap-16 min-w-0">
                   <span className="text-[12px] font-black tabular-nums flex-shrink-0 w-8 text-center"

@@ -32,9 +32,9 @@ function ValueCard({ icon, title, body, accent = false, wide = false, ink, white
     <div className={`group rounded-2xl p-6 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-0.5
                      ${wide ? "sm:col-span-2" : ""}`}
          style={{
-           background: accent ? "#0a1f12" : white,
+           background: accent ? "#1c1208" : white,
            border: accent ? "1px solid rgba(200,149,108,0.2)" : `1px solid rgba(200,149,108,0.1)`,
-           boxShadow: accent ? "0 0 0 1px rgba(200,149,108,0.05)" : "0 4px 16px rgba(10,31,18,0.04)",
+           boxShadow: accent ? "0 0 0 1px rgba(200,149,108,0.05)" : "0 4px 16px rgba(28,18,8,0.04)",
          }}>
       <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
            style={{ background: accent ? "rgba(200,149,108,0.12)" : cream2, color: accent ? "#c8956c" : green }}>
@@ -84,7 +84,7 @@ export default function LangarBhandaraPage() {
                style={{ background: `linear-gradient(to bottom, ${C.dark}aa, ${C.dark})` }} />
         </div>
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 30% 50%, rgba(45,122,79,0.12), transparent 60%)" }} />
+             style={{ background: "radial-gradient(ellipse at 30% 50%, rgba(200,149,108,0.12), transparent 60%)" }} />
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-16 pt-10 pb-14">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="mb-10">
@@ -215,7 +215,7 @@ export default function LangarBhandaraPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }} transition={{ duration: 0.55 }}
                       className="rounded-2xl p-8 lg:p-10"
-                      style={{ background: C.dark, border: "1px solid rgba(200,149,108,0.2)", boxShadow: "0 16px 48px rgba(10,31,18,0.2)" }}>
+                      style={{ background: C.dark, border: "1px solid rgba(200,149,108,0.2)", boxShadow: "0 16px 48px rgba(28,18,8,0.2)" }}>
             <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-center">
               <div>
                 <Tag>Get in touch</Tag>

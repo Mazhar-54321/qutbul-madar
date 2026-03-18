@@ -40,7 +40,7 @@ export default function QutbulMadarPage() {
       <section style={{ background: C.dark }} className="relative overflow-hidden">
         <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.35 }} />
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(45,122,79,0.14), transparent 60%)" }} />
+             style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(200,149,108,0.14), transparent 60%)" }} />
 
         {/* Faint portrait */}
         <div className="absolute inset-y-0 end-0 w-2/5 hidden lg:block opacity-[0.12]">
@@ -134,7 +134,7 @@ export default function QutbulMadarPage() {
               className="sticky top-24"
             >
               <div className="relative rounded-2xl overflow-hidden"
-                   style={{ height: 480, border: "1px solid rgba(200,149,108,0.15)", boxShadow: "0 24px 60px rgba(10,31,18,0.18)" }}>
+                   style={{ height: 480, border: "1px solid rgba(200,149,108,0.15)", boxShadow: "0 24px 60px rgba(28,18,8,0.18)" }}>
                 <Image src="/images/Qutbul-Madar.jpg" alt="Hazrat Qutbul Madar"
                        fill className="object-cover object-top" sizes="380px" />
                 <div className="absolute inset-0"

@@ -178,7 +178,7 @@ export default function ImageGalleryPage() {
       <section style={{ background: C.dark }} className="relative overflow-hidden">
         <div className="absolute inset-0 pattern-dots" style={{ opacity: 0.3 }} />
         <div className="absolute inset-0"
-             style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(45,122,79,0.14), transparent 60%)" }} />
+             style={{ background: "radial-gradient(ellipse at 70% 50%, rgba(200,149,108,0.14), transparent 60%)" }} />
 
         {/* Background mosaic of images */}
         <div className="absolute inset-0 grid grid-cols-4 opacity-[0.06] overflow-hidden">
@@ -314,7 +314,7 @@ export default function ImageGalleryPage() {
                   {/* Index badge */}
                   <div className="absolute top-2 start-2 px-2 py-0.5 rounded-full text-[9px] font-black
                                   opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                       style={{ background: "rgba(10,31,18,0.7)", color: C.gold, backdropFilter: "blur(4px)" }}>
+                       style={{ background: "rgba(28,18,8,0.7)", color: C.gold, backdropFilter: "blur(4px)" }}>
                     {idx + 1}
                   </div>
                 </motion.div>

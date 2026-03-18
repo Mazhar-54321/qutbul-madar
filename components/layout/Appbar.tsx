@@ -44,13 +44,7 @@ const navItems = [
       { label: "English Articles", href: "/english-articles" },
     ],
   },
-  {
-    label: "Gallery",
-    children: [
-      { label: "Image Gallery",  href: "/image-gallery" },
-      { label: "Dargah Gallery", href: "/dargah-gallery" },
-    ],
-  },
+  { label: "Gallery", href: "/image-gallery" },
   { label: "Contact", href: "/contact" },
 ];
 

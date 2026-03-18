@@ -56,7 +56,6 @@ const IMAGES: GalleryImage[] = [
   { src: "/images/IMG-20240427-WA0021-1024x730.jpg",  label: "Special Dua",                 category: "services" },
   { src: "/images/WhatsApp-Image-2024-04-27-at-19.53.21_1ec0e053-1024x466.jpg", label: "Live Ziyarat", category: "services" },
   { src: "/images/WhatsApp-Image-2024-04-27-at-19.59.08_3441e7a4-466x1024.jpg", label: "Full Ghilaaf", category: "services" },
-  { src: "/images/WhatsApp-Image-2024-04-27-at-20.24.14_d00fbbfe-512x1024.jpg", label: "Dargah Service", category: "services" },
 ];
 
 const TABS = [

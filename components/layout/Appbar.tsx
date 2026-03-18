@@ -61,16 +61,16 @@ export default function AppBar() {
   const isRtl = ["ur", "ar"].includes(locale);
 
   // Derived colours — kept inside component so they react to theme
-  const navBg    = dark ? (scrolled ? "rgba(10,31,18,0.97)" : "#0a1f12") : (scrolled ? "rgba(247,244,238,0.97)" : "#f7f4ee");
-  const navText  = dark ? "rgba(247,244,238,0.55)" : "#6b7c6e";
-  const navHover = dark ? "#f0ede7" : "#0a1f12";
-  const popBg    = dark ? "#0f2419" : "#faf8f4";
-  const mobileBg = dark ? "#0a1f12" : "#faf8f4";
+  const navBg    = dark ? (scrolled ? "rgba(28,18,8,0.97)" : "#1c1208") : (scrolled ? "rgba(250,246,239,0.97)" : "#faf6ef");
+  const navText  = dark ? "rgba(250,246,239,0.55)" : "#7a6045";
+  const navHover = dark ? "#f0e8d8" : "#1c1208";
+  const popBg    = dark ? "#231608" : "#f5edd8";
+  const mobileBg = dark ? "#1c1208" : "#f5edd8";
 
   const C = {
-    dark:    "#0f2419",
-    gold:    "#c9a84c",
-    cream:   "#f7f4ee",
+    dark:    "#231608",
+    gold:    "#c8956c",
+    cream:   "#faf6ef",
   };
 
   useEffect(() => {
@@ -103,8 +103,8 @@ export default function AppBar() {
         className="flex h-full"
         style={{
           borderBottom: scrolled
-            ? `1px solid rgba(201,168,76,0.15)`
-            : `1px solid rgba(201,168,76,0.08)`,
+            ? `1px solid rgba(200,149,108,0.15)`
+            : `1px solid rgba(200,149,108,0.08)`,
         }}
       >
         {/* ── Logo panel ──────────────────────────────────────────────── */}
@@ -115,11 +115,11 @@ export default function AppBar() {
         >
           <div
             className="flex items-center justify-center flex-shrink-0 rounded-lg text-[11px] font-black
-                       transition-all duration-300 group-hover:shadow-[0_0_12px_rgba(201,168,76,0.3)]"
+                       transition-all duration-300 group-hover:shadow-[0_0_12px_rgba(200,149,108,0.3)]"
             style={{
               width: 34, height: 34,
-              background: "rgba(201,168,76,0.08)",
-              border: `1px solid rgba(201,168,76,0.35)`,
+              background: "rgba(200,149,108,0.08)",
+              border: `1px solid rgba(200,149,108,0.35)`,
               color: C.gold,
               letterSpacing: "0.06em",
             }}
@@ -131,7 +131,7 @@ export default function AppBar() {
               Qutbul Madar
             </p>
             <p className="text-[9px] leading-tight tracking-[0.12em] uppercase"
-               style={{ color: "rgba(201,168,76,0.55)" }}>
+               style={{ color: "rgba(200,149,108,0.55)" }}>
               Makanpur Shareef
             </p>
           </div>
@@ -216,8 +216,8 @@ export default function AppBar() {
                     className="w-52 p-2 rounded-2xl"
                     style={{
                       background: popBg,
-                      border: `1px solid rgba(201,168,76,0.2)`,
-                      boxShadow: "0 12px 40px rgba(15,36,25,0.14)",
+                      border: `1px solid rgba(200,149,108,0.2)`,
+                      boxShadow: "0 12px 40px rgba(28,18,8,0.18)",
                     }}
                   >
                     <div className="flex items-center gap-2 px-3 pb-2.5 pt-1">
@@ -227,7 +227,7 @@ export default function AppBar() {
                         {t(item.label)}
                       </p>
                     </div>
-                    <div style={{ height: 1, background: "rgba(201,168,76,0.12)", marginBottom: 6 }} />
+                    <div style={{ height: 1, background: "rgba(200,149,108,0.12)", marginBottom: 6 }} />
                     {item.children.map((child) => (
                       <Link
                         key={child.href}
@@ -238,7 +238,7 @@ export default function AppBar() {
                         style={{ color: navText }}
                         onMouseEnter={(e) => {
                           const el = e.currentTarget;
-                          el.style.background = "rgba(201,168,76,0.08)";
+                          el.style.background = "rgba(200,149,108,0.08)";
                           el.style.color = navHover;
                         }}
                         onMouseLeave={(e) => {
@@ -248,7 +248,7 @@ export default function AppBar() {
                         }}
                       >
                         <span className="w-1 h-1 rounded-full flex-shrink-0 transition-colors duration-150"
-                              style={{ background: "#1a5c38" }} />
+                              style={{ background: "#5c3d1a" }} />
                         {t(child.label)}
                       </Link>
                     ))}
@@ -268,17 +268,17 @@ export default function AppBar() {
               aria-label="Toggle dark mode"
               className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200"
               style={{
-                background: dark ? "rgba(201,168,76,0.1)" : "rgba(10,31,18,0.06)",
-                border: `1px solid ${dark ? "rgba(201,168,76,0.25)" : "rgba(10,31,18,0.1)"}`,
-                color: dark ? C.gold : "#0a1f12",
+                background: dark ? "rgba(200,149,108,0.1)" : "rgba(28,18,8,0.06)",
+                border: `1px solid ${dark ? "rgba(200,149,108,0.25)" : "rgba(28,18,8,0.1)"}`,
+                color: dark ? C.gold : "#1c1208",
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.15)";
+                (e.currentTarget as HTMLElement).style.background = "rgba(200,149,108,0.15)";
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.background = dark
-                  ? "rgba(201,168,76,0.1)"
-                  : "rgba(10,31,18,0.06)";
+                  ? "rgba(200,149,108,0.1)"
+                  : "rgba(28,18,8,0.06)";
               }}
             >
               <AnimatePresence mode="wait" initial={false}>
@@ -303,7 +303,7 @@ export default function AppBar() {
               className="text-[13px] font-bold px-5 py-2 rounded-lg transition-all duration-200
                          active:scale-[0.97] relative overflow-hidden group"
               style={{ background: C.dark, color: C.cream }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#1a5c38"; }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "#5c3d1a"; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = C.dark; }}
             >
               <span className="relative z-10">{t("Donate")}</span>
@@ -321,9 +321,9 @@ export default function AppBar() {
               aria-label="Toggle dark mode"
               className="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200"
               style={{
-                background: dark ? "rgba(201,168,76,0.1)" : "rgba(10,31,18,0.06)",
-                border: `1px solid ${dark ? "rgba(201,168,76,0.25)" : "rgba(10,31,18,0.1)"}`,
-                color: dark ? C.gold : "#0a1f12",
+                background: dark ? "rgba(200,149,108,0.1)" : "rgba(28,18,8,0.06)",
+                border: `1px solid ${dark ? "rgba(200,149,108,0.25)" : "rgba(28,18,8,0.1)"}`,
+                color: dark ? C.gold : "#1c1208",
               }}
             >
               {dark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
@@ -331,7 +331,7 @@ export default function AppBar() {
 
             <button
               className="p-2 rounded-lg transition-colors"
-              style={{ color: dark ? C.cream : "#0a1f12" }}
+              style={{ color: dark ? C.cream : "#1c1208" }}
               onClick={() => setMobileOpen((v) => !v)}
               aria-label="Toggle menu"
             >
@@ -366,8 +366,8 @@ export default function AppBar() {
             className="md:hidden absolute top-full inset-x-0 px-4 py-4 z-50"
             style={{
               background: mobileBg,
-              borderBottom: `1px solid rgba(201,168,76,0.15)`,
-              boxShadow: "0 20px 48px rgba(15,36,25,0.15)",
+              borderBottom: `1px solid rgba(200,149,108,0.15)`,
+              boxShadow: "0 20px 48px rgba(28,18,8,0.18)",
             }}
           >
             <div
@@ -385,7 +385,7 @@ export default function AppBar() {
                     className="px-4 py-3 rounded-xl text-[13px] font-medium transition-colors"
                     style={{ color: navHover }}
                     onMouseEnter={(e) =>
-                      ((e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.08)")
+                      ((e.currentTarget as HTMLElement).style.background = "rgba(200,149,108,0.08)")
                     }
                     onMouseLeave={(e) =>
                       ((e.currentTarget as HTMLElement).style.background = "transparent")
@@ -412,7 +412,7 @@ export default function AppBar() {
                               className="flex items-center gap-3 px-4 py-2.5 rounded-xl text-[13px] transition-colors"
                               style={{ color: navText }}
                               onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLElement).style.background = "rgba(201,168,76,0.08)";
+                                (e.currentTarget as HTMLElement).style.background = "rgba(200,149,108,0.08)";
                                 (e.currentTarget as HTMLElement).style.color = navHover;
                               }}
                               onMouseLeave={(e) => {
@@ -434,7 +434,7 @@ export default function AppBar() {
 
             <div
               className="flex items-center justify-between pt-4"
-              style={{ borderTop: `1px solid rgba(201,168,76,0.12)` }}
+              style={{ borderTop: `1px solid rgba(200,149,108,0.12)` }}
             >
               <LanguageSwitcher />
               <button

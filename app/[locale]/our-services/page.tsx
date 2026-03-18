@@ -54,9 +54,9 @@ const SERVICE_DATA = [
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
+      <span className="w-6 h-px" style={{ background: "#c8956c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>{children}</span>
+            style={{ color: light ? "#e8b48a" : "#c8956c" }}>{children}</span>
     </div>
   );
 }
@@ -102,7 +102,7 @@ export default function OurServicesPage() {
               Spiritual &amp; community services at Makanpur Shareef, available year-round to all devotees.
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-wrap gap-10 pt-8"
-                        style={{ borderTop: "1px solid rgba(201,168,76,0.1)" }}>
+                        style={{ borderTop: "1px solid rgba(200,149,108,0.1)" }}>
               <div>
                 <p className="text-2xl font-black animate-shimmer">7</p>
                 <p className="text-[11px] mt-1 tracking-wide" style={{ color: "rgba(247,244,238,0.3)" }}>Services</p>
@@ -151,7 +151,7 @@ export default function OurServicesPage() {
                       <div className="absolute inset-0"
                            style={{ background: `linear-gradient(to top, ${C.dark}cc, transparent 60%)` }} />
                       <div className="absolute top-3 start-3 px-2.5 py-1 rounded-full text-[10px] font-bold"
-                           style={{ background: "rgba(10,31,18,0.75)", backdropFilter: "blur(6px)", color: C.gold, border: "1px solid rgba(201,168,76,0.3)" }}>
+                           style={{ background: "rgba(10,31,18,0.75)", backdropFilter: "blur(6px)", color: C.gold, border: "1px solid rgba(200,149,108,0.3)" }}>
                         {data.tag}
                       </div>
                     </div>
@@ -168,7 +168,7 @@ export default function OurServicesPage() {
                         </h3>
                       </div>
                       <div className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-110"
-                           style={{ background: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.25)" }}>
+                           style={{ background: "rgba(200,149,108,0.1)", border: "1px solid rgba(200,149,108,0.25)" }}>
                         <ArrowUpRight className="w-4 h-4" style={{ color: C.gold }} />
                       </div>
                     </div>
@@ -207,7 +207,7 @@ export default function OurServicesPage() {
             </Link>
             <a href="tel:+919838360930"
                className="text-sm font-medium px-8 py-4 rounded-xl text-center transition-all duration-200 active:scale-[0.97]"
-               style={{ border: "1px solid rgba(201,168,76,0.25)", color: "rgba(247,244,238,0.6)" }}>
+               style={{ border: "1px solid rgba(200,149,108,0.25)", color: "rgba(247,244,238,0.6)" }}>
               Call now
             </a>
           </motion.div>

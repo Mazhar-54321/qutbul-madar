@@ -23,9 +23,9 @@ const stagger: Variants = {
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
+      <span className="w-6 h-px" style={{ background: "#c8956c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>
+            style={{ color: light ? "#e8b48a" : "#c8956c" }}>
         {children}
       </span>
     </div>
@@ -149,7 +149,7 @@ export default function HistoryPage() {
 
             {/* Gold stats */}
             <motion.div variants={fadeUp} className="flex flex-wrap gap-10 pt-10"
-                        style={{ borderTop: "1px solid rgba(201,168,76,0.12)" }}>
+                        style={{ borderTop: "1px solid rgba(200,149,108,0.12)" }}>
               {[
                 { num: "596", label: "Years of life" },
                 { num: "242", label: "Birth year (AH)" },
@@ -183,7 +183,7 @@ export default function HistoryPage() {
                      className="flex items-center gap-3 py-2 px-3 rounded-lg text-sm transition-all duration-150 group"
                      style={{ color: C.muted }}
                      onMouseEnter={(e) => {
-                       e.currentTarget.style.background = "rgba(201,168,76,0.07)";
+                       e.currentTarget.style.background = "rgba(200,149,108,0.07)";
                        e.currentTarget.style.color = C.ink;
                      }}
                      onMouseLeave={(e) => {
@@ -201,7 +201,7 @@ export default function HistoryPage() {
 
               {/* Sidebar image */}
               <div className="mt-8 rounded-2xl overflow-hidden relative h-52"
-                   style={{ border: `1px solid rgba(201,168,76,0.15)` }}>
+                   style={{ border: `1px solid rgba(200,149,108,0.15)` }}>
                 <Image src="/images/image10.webp" alt="Annual Urs" fill className="object-cover" />
                 <div className="absolute inset-0"
                      style={{ background: `linear-gradient(to top, ${C.dark}cc, transparent)` }} />
@@ -227,7 +227,7 @@ export default function HistoryPage() {
                   {/* Left meta */}
                   <div className="flex sm:flex-col gap-3 sm:gap-2 items-center sm:items-start">
                     <span className="text-3xl font-black tabular-nums leading-none"
-                          style={{ color: "rgba(201,168,76,0.12)" }}>
+                          style={{ color: "rgba(200,149,108,0.12)" }}>
                       {String(idx + 1).padStart(2, "0")}
                     </span>
                     <div className="flex items-center gap-2 sm:gap-0 sm:flex-col sm:items-start">
@@ -239,9 +239,9 @@ export default function HistoryPage() {
                     {section.year && (
                       <span className="text-[10px] font-bold px-2.5 py-1 rounded-full"
                             style={{
-                              background: "rgba(201,168,76,0.08)",
+                              background: "rgba(200,149,108,0.08)",
                               color: C.gold,
-                              border: "1px solid rgba(201,168,76,0.2)",
+                              border: "1px solid rgba(200,149,108,0.2)",
                             }}>
                         {section.year}
                       </span>
@@ -266,7 +266,7 @@ export default function HistoryPage() {
                             <div className="rounded-xl p-5"
                                  style={{
                                    background: C.cream2,
-                                   border: `1px solid rgba(201,168,76,0.15)`,
+                                   border: `1px solid rgba(200,149,108,0.15)`,
                                    borderInlineStart: `3px solid ${C.gold}`,
                                  }}>
                               <p className="text-xs font-bold mb-2" style={{ color: C.gold }}>Father&apos;s lineage</p>
@@ -277,7 +277,7 @@ export default function HistoryPage() {
                             <div className="rounded-xl p-5"
                                  style={{
                                    background: C.cream2,
-                                   border: `1px solid rgba(201,168,76,0.15)`,
+                                   border: `1px solid rgba(200,149,108,0.15)`,
                                    borderInlineStart: `3px solid ${C.gold}`,
                                  }}>
                               <p className="text-xs font-bold mb-2" style={{ color: C.gold }}>Mother&apos;s lineage</p>
@@ -326,7 +326,7 @@ export default function HistoryPage() {
               </Link>
               <Link href={loc("/our-services")}
                     className="text-sm font-medium px-8 py-4 rounded-xl text-center transition-all duration-200 active:scale-[0.97]"
-                    style={{ border: "1px solid rgba(201,168,76,0.25)", color: "rgba(247,244,238,0.6)" }}>
+                    style={{ border: "1px solid rgba(200,149,108,0.25)", color: "rgba(247,244,238,0.6)" }}>
                 Our Services
               </Link>
             </motion.div>

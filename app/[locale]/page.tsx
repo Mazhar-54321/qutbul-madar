@@ -6,7 +6,7 @@ import type { Transition } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { ChevronRight, ArrowDown, X, Phone, Star, ArrowUpRight } from "lucide-react";
+import { ChevronRight, ArrowDown, X, Phone, ArrowUpRight } from "lucide-react";
 import { DonateModal } from "@/components/shared/DonateModal";
 import { useC } from "@/hooks/useThemeColors";
 
@@ -42,27 +42,6 @@ function Lightbox({ src, label, onClose }: { src: string; label: string; onClose
   );
 }
 
-const TICKER = [
-  "Makanpur Shareef", "Est. 12th Century", "596 Years of Life",
-  "800+ Years of Legacy", "Sacred Sufi Shrine", "Dargah of Qutbul Madar",
-  "Uttar Pradesh, India", "Spiritual Heritage", "Madariya Silsila",
-];
-function Ticker() {
-  return (
-    <div className="w-full overflow-hidden py-3.5 relative z-10"
-         style={{ background: "#0d2317", borderTop: `1px solid rgba(201,168,76,0.12)`, borderBottom: `1px solid rgba(201,168,76,0.12)` }}>
-      <div className="flex animate-marquee whitespace-nowrap">
-        {[...TICKER, ...TICKER].map((item, i) => (
-          <span key={i} className="inline-flex items-center gap-4 px-6">
-            <Star className="w-2.5 h-2.5 flex-shrink-0" style={{ color: "#c9a84c" }} />
-            <span className="text-[11px] font-bold tracking-[0.18em] uppercase"
-                  style={{ color: "rgba(201,168,76,0.65)" }}>{item}</span>
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export default function Home() {
   const C = useC();
@@ -109,7 +88,7 @@ export default function Home() {
           <span className="text-[55vw] leading-none font-black"
                 style={{
                   color: "transparent",
-                  WebkitTextStroke: "1.5px rgba(201,168,76,0.055)",
+                  WebkitTextStroke: "1.5px rgba(200,149,108,0.055)",
                   fontFamily: "var(--font-urdu-display, serif)",
                   lineHeight: 1,
                 }}>
@@ -123,8 +102,8 @@ export default function Home() {
 
             {/* Badge */}
             <motion.div variants={fade}
-              className="inline-flex items-center gap-3 mb-8 px-4 py-2 rounded-full"
-              style={{ background: "rgba(201,168,76,0.1)", border: "1px solid rgba(201,168,76,0.2)" }}>
+              className="inline-flex items-center gap-3 mb-4 sm:mb-8 px-4 py-2 rounded-full"
+              style={{ background: "rgba(200,149,108,0.1)", border: "1px solid rgba(200,149,108,0.2)" }}>
               <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: C.gold }} />
               <span className="text-[11px] font-bold tracking-[0.2em] uppercase" style={{ color: C.gold }}>
                 Makanpur Shareef · Est. 12th Century
@@ -133,37 +112,41 @@ export default function Home() {
 
             {/* Arabic subtitle */}
             <motion.div variants={fade}
-              className="text-4xl mb-4 leading-relaxed"
-              style={{ color: "rgba(201,168,76,0.25)", fontFamily: "var(--font-urdu-display, serif)" }}>
+              className="hidden sm:block text-4xl mb-4 leading-relaxed"
+              style={{ color: "rgba(200,149,108,0.25)", fontFamily: "var(--font-urdu-display, serif)" }}>
               قطب المدار
             </motion.div>
 
             {/* Title — very large */}
             <motion.h1 variants={fade}
-              className={`text-6xl sm:text-7xl lg:text-8xl xl:text-[96px] font-black leading-[0.92] tracking-tighter mb-8
+              className={`text-4xl sm:text-6xl lg:text-8xl xl:text-[96px] font-black leading-[0.92] tracking-tighter mb-4 sm:mb-8
                           ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
               style={{ color: C.onDark }}>
               {t("heroTitle")}
             </motion.h1>
 
             {/* Thin divider */}
-            <motion.div variants={fade} className="w-24 h-px mb-8"
+            <motion.div variants={fade} className="w-24 h-px mb-4 sm:mb-8"
               style={{ background: `linear-gradient(to right, ${C.gold}, transparent)` }} />
 
-            <motion.p variants={fade} className="text-[15px] leading-relaxed mb-10 max-w-lg"
+            <motion.p variants={fade} className="hidden sm:block text-[15px] leading-relaxed mb-6 sm:mb-10 max-w-lg"
               style={{ color: "rgba(247,244,238,0.45)" }}>
               {t("introduction").slice(0, 140)}…
             </motion.p>
 
-            <motion.div variants={fade} className="flex flex-wrap gap-4 mb-20">
+            <motion.div variants={fade} className="flex flex-wrap gap-3 mb-6 sm:mb-16">
               <Link href={loc("/history")}
-                    className="inline-flex items-center gap-2.5 text-sm font-bold px-8 py-4 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
+                    className="inline-flex items-center gap-2.5 text-sm font-bold px-7 py-3.5 rounded-full transition-all duration-300 hover:scale-[1.03] active:scale-[0.97]"
                     style={{ background: C.gold, color: C.dark }}>
                 {t("learnMore")} <ChevronRight className={`w-4 h-4 ${isRtl ? "rotate-180" : ""}`} />
               </Link>
               <Link href={loc("/image-gallery")}
-                    className="inline-flex items-center gap-2.5 text-sm font-medium px-8 py-4 rounded-full border transition-all duration-300 hover:border-opacity-40"
-                    style={{ borderColor: "rgba(247,244,238,0.2)", color: "rgba(247,244,238,0.6)" }}>
+                    className="inline-flex items-center gap-2.5 text-sm font-semibold px-7 py-3.5 rounded-full transition-all duration-300 active:scale-[0.97]"
+                    style={{
+                      background: "rgba(247,244,238,0.12)",
+                      border: "1px solid rgba(247,244,238,0.45)",
+                      color: "rgba(247,244,238,0.92)",
+                    }}>
                 View Gallery
               </Link>
             </motion.div>
@@ -174,9 +157,9 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85 }}
           className="relative z-10 border-t"
-          style={{ background: "rgba(10,31,18,0.6)", backdropFilter: "blur(16px)", borderColor: "rgba(201,168,76,0.12)" }}>
+          style={{ background: "rgba(10,31,18,0.6)", backdropFilter: "blur(16px)", borderColor: "rgba(200,149,108,0.12)" }}>
           <div className="max-w-7xl mx-auto px-8 lg:px-16 grid grid-cols-3 lg:grid-cols-6 divide-x"
-               style={{ borderColor: "rgba(201,168,76,0.1)" }}>
+               style={{ borderColor: "rgba(200,149,108,0.1)" }}>
             {[
               { num: "800+", label: "Years of Legacy" },
               { num: "596",  label: "Years of Life" },
@@ -185,8 +168,8 @@ export default function Home() {
               { num: "365",  label: "Days Open" },
               { num: "∞",    label: "Spiritual Reach" },
             ].map(({ num, label }) => (
-              <div key={label} className="flex flex-col items-center py-5 px-4 text-center"
-                   style={{ borderColor: "rgba(201,168,76,0.1)" }}>
+              <div key={label} className="flex flex-col items-center py-3 sm:py-5 px-2 sm:px-4 text-center"
+                   style={{ borderColor: "rgba(200,149,108,0.1)" }}>
                 <span className="text-xl lg:text-2xl font-black animate-shimmer">{num}</span>
                 <span className="text-[10px] mt-0.5 tracking-wide" style={{ color: "rgba(247,244,238,0.3)" }}>{label}</span>
               </div>
@@ -197,13 +180,11 @@ export default function Home() {
         {/* Scroll hint */}
         <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2.5, repeat: Infinity }}
           className="absolute bottom-24 right-10 z-10 hidden lg:flex flex-col items-center gap-2">
-          <span className="text-[10px] tracking-[0.2em] uppercase rotate-90 mb-4" style={{ color: "rgba(201,168,76,0.35)" }}>Scroll</span>
-          <ArrowDown className="w-3.5 h-3.5" style={{ color: "rgba(201,168,76,0.35)" }} />
+          <span className="text-[10px] tracking-[0.2em] uppercase rotate-90 mb-4" style={{ color: "rgba(200,149,108,0.35)" }}>Scroll</span>
+          <ArrowDown className="w-3.5 h-3.5" style={{ color: "rgba(200,149,108,0.35)" }} />
         </motion.div>
       </section>
 
-      {/* ══════════════════════════ TICKER ════════════════════════════════════ */}
-      <Ticker />
 
       {/* ══════════════════════════ EDITORIAL ABOUT ═══════════════════════════ */}
       <section className="relative overflow-hidden" style={{ background: C.cream }}>
@@ -249,7 +230,7 @@ export default function Home() {
                 className="relative ps-8 py-6 mb-10"
                 style={{ borderInlineStart: `2px solid ${C.gold}` }}>
                 <div className="absolute top-0 start-5 text-6xl font-serif leading-none select-none"
-                     style={{ color: "rgba(201,168,76,0.15)" }}>&quot;</div>
+                     style={{ color: "rgba(200,149,108,0.15)" }}>&quot;</div>
                 <p className="text-[16px] font-semibold leading-[1.7] italic" style={{ color: C.ink }}>
                   It is extremely difficult to encompass the traits of a saintly life that spanned five hundred and ninety-six years.
                 </p>
@@ -283,7 +264,7 @@ export default function Home() {
                     <span className="text-lg font-bold" style={{ color: C.onDark }}>Sajjada Nashin</span>
                   </div>
                   <div className="w-9 h-9 rounded-full flex items-center justify-center"
-                       style={{ background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)" }}>
+                       style={{ background: "rgba(200,149,108,0.15)", border: "1px solid rgba(200,149,108,0.3)" }}>
                     <ArrowUpRight className="w-4 h-4" style={{ color: C.gold }} />
                   </div>
                 </div>
@@ -368,7 +349,7 @@ export default function Home() {
                 className="group relative flex items-center justify-between px-8 lg:px-16 py-7 overflow-hidden transition-all duration-300"
                 style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderTopColor = "rgba(201,168,76,0.15)";
+                  (e.currentTarget as HTMLElement).style.borderTopColor = "rgba(200,149,108,0.15)";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.borderTopColor = "rgba(255,255,255,0.05)";
@@ -384,7 +365,7 @@ export default function Home() {
 
                 <div className="relative z-10 flex items-center gap-8 lg:gap-16 min-w-0">
                   <span className="text-[12px] font-black tabular-nums flex-shrink-0 w-8 text-center"
-                        style={{ color: "rgba(201,168,76,0.35)" }}>
+                        style={{ color: "rgba(200,149,108,0.35)" }}>
                     {String(idx + 1).padStart(2, "0")}
                   </span>
                   <span className={`text-xl lg:text-2xl xl:text-3xl font-bold transition-colors duration-300
@@ -399,14 +380,14 @@ export default function Home() {
                         style={{ color: C.gold }}>Explore</span>
                   <div className="w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300
                                    group-hover:scale-110"
-                       style={{ borderColor: "rgba(201,168,76,0.2)", background: "transparent" }}
+                       style={{ borderColor: "rgba(200,149,108,0.2)", background: "transparent" }}
                        onMouseEnter={(e) => {
                          (e.currentTarget as HTMLElement).style.background = C.gold;
                          (e.currentTarget as HTMLElement).style.borderColor = C.gold;
                        }}
                        onMouseLeave={(e) => {
                          (e.currentTarget as HTMLElement).style.background = "transparent";
-                         (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.2)";
+                         (e.currentTarget as HTMLElement).style.borderColor = "rgba(200,149,108,0.2)";
                        }}>
                     <ArrowUpRight className="w-4 h-4" style={{ color: C.gold }} />
                   </div>
@@ -461,7 +442,7 @@ export default function Home() {
             <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
               <Link href={loc("/image-gallery")}
                     className="inline-flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-full border transition-all duration-200"
-                    style={{ borderColor: "rgba(201,168,76,0.25)", color: C.gold }}>
+                    style={{ borderColor: "rgba(200,149,108,0.25)", color: C.gold }}>
                 View all <ArrowUpRight className="w-4 h-4" />
               </Link>
             </motion.div>
@@ -642,7 +623,7 @@ export default function Home() {
         <div className="absolute bottom-0 left-0 right-0 overflow-hidden select-none pointer-events-none leading-none"
              style={{ fontSize: "clamp(80px, 18vw, 260px)" }}>
           <span className="font-black block"
-                style={{ color: "transparent", WebkitTextStroke: "1px rgba(201,168,76,0.04)", lineHeight: 0.85 }}>
+                style={{ color: "transparent", WebkitTextStroke: "1px rgba(200,149,108,0.04)", lineHeight: 0.85 }}>
             Heritage
           </span>
         </div>
@@ -668,8 +649,8 @@ export default function Home() {
             </motion.p>
 
             <motion.div variants={fade} className="flex items-center gap-2.5 mb-12">
-              <Phone className="w-3.5 h-3.5" style={{ color: "rgba(201,168,76,0.5)" }} />
-              <span className="text-sm font-medium" style={{ color: "rgba(201,168,76,0.6)" }}>
+              <Phone className="w-3.5 h-3.5" style={{ color: "rgba(200,149,108,0.5)" }} />
+              <span className="text-sm font-medium" style={{ color: "rgba(200,149,108,0.6)" }}>
                 00 – 91 – 9838360930
               </span>
             </motion.div>

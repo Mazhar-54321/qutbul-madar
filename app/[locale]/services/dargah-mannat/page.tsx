@@ -32,9 +32,9 @@ const cardMeta = [
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
+      <span className="w-6 h-px" style={{ background: "#c8956c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>{children}</span>
+            style={{ color: light ? "#e8b48a" : "#c8956c" }}>{children}</span>
     </div>
   );
 }
@@ -58,7 +58,7 @@ export default function DargahMannatPage() {
 
       {/* ── Sticky top nav bar ───────────────────────────────────────── */}
       <div className="sticky top-16 z-40 flex items-center justify-between px-6 lg:px-16 h-12"
-           style={{ background: C.dark, borderBottom: "1px solid rgba(201,168,76,0.1)" }}>
+           style={{ background: C.dark, borderBottom: "1px solid rgba(200,149,108,0.1)" }}>
         <button onClick={() => router.back()}
                 className="inline-flex items-center gap-2 text-xs font-semibold transition-colors duration-200 cursor-pointer"
                 style={{ color: "rgba(247,244,238,0.4)" }}>
@@ -110,7 +110,7 @@ export default function DargahMannatPage() {
                       style={{
                         fontFamily: "var(--font-urdu-display, serif)",
                         fontSize: "clamp(60px, 8vw, 90px)",
-                        color: "rgba(201,168,76,0.08)",
+                        color: "rgba(200,149,108,0.08)",
                         lineHeight: 1,
                       }}>
             مناّت
@@ -119,7 +119,7 @@ export default function DargahMannatPage() {
           {/* Gold stats */}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}
                       className="relative z-10 grid grid-cols-3 gap-4 pt-6"
-                      style={{ borderTop: "1px solid rgba(201,168,76,0.1)" }}>
+                      style={{ borderTop: "1px solid rgba(200,149,108,0.1)" }}>
             {[
               { num: "Daily", label: "Prayers offered" },
               { num: "All",   label: "Faiths welcome" },
@@ -134,7 +134,7 @@ export default function DargahMannatPage() {
         </div>
 
         {/* RIGHT — scrollable cream content */}
-        <div className="flex flex-col gap-0" style={{ borderInlineStart: `1px solid rgba(201,168,76,0.12)` }}>
+        <div className="flex flex-col gap-0" style={{ borderInlineStart: `1px solid rgba(200,149,108,0.12)` }}>
 
           {/* Intro blockquote */}
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
@@ -144,7 +144,7 @@ export default function DargahMannatPage() {
             <div className="rounded-r-2xl p-7 relative overflow-hidden"
                  style={{ background: C.cream2, borderInlineStart: `3px solid ${C.gold}` }}>
               <div className="absolute top-2 end-4 text-8xl leading-none font-serif select-none"
-                   style={{ color: "rgba(201,168,76,0.07)" }}>&quot;</div>
+                   style={{ color: "rgba(200,149,108,0.07)" }}>&quot;</div>
               <p className={`text-lg font-medium leading-[1.85] relative
                              ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
                  style={{ color: C.ink }}>
@@ -171,11 +171,11 @@ export default function DargahMannatPage() {
                                         relative overflow-hidden ${idx === 2 ? "sm:col-span-2" : ""}`}
                             style={{
                               background: idx === 1 ? C.dark : C.white,
-                              border: idx === 1 ? "1px solid rgba(201,168,76,0.2)" : `1px solid rgba(201,168,76,0.1)`,
+                              border: idx === 1 ? "1px solid rgba(200,149,108,0.2)" : `1px solid rgba(200,149,108,0.1)`,
                             }}>
                   <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-4 transition-colors duration-300"
                        style={{
-                         background: idx === 1 ? "rgba(201,168,76,0.12)" : C.cream2,
+                         background: idx === 1 ? "rgba(200,149,108,0.12)" : C.cream2,
                          color: idx === 1 ? C.gold : C.green,
                        }}>
                     {cardMeta[idx % cardMeta.length].icon}
@@ -206,7 +206,7 @@ export default function DargahMannatPage() {
                 <motion.div key={src} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
                             viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
                             className="relative rounded-xl overflow-hidden group cursor-pointer"
-                            style={{ border: "1px solid rgba(201,168,76,0.1)" }}>
+                            style={{ border: "1px solid rgba(200,149,108,0.1)" }}>
                   <Image src={src} alt={label} fill
                          className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="33vw" />
                   <div className="absolute inset-0 flex items-end p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -223,7 +223,7 @@ export default function DargahMannatPage() {
                       viewport={{ once: true }} transition={{ duration: 0.55 }}
                       className="p-8 lg:p-12" style={{ borderBottom: `1px solid ${C.cream3}` }}>
             <div className="rounded-2xl p-8"
-                 style={{ background: C.dark, border: "1px solid rgba(201,168,76,0.2)", boxShadow: "0 16px 48px rgba(10,31,18,0.2)" }}>
+                 style={{ background: C.dark, border: "1px solid rgba(200,149,108,0.2)", boxShadow: "0 16px 48px rgba(10,31,18,0.2)" }}>
               <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-center">
                 <div>
                   <Tag>Get in touch</Tag>
@@ -278,7 +278,7 @@ export default function DargahMannatPage() {
               </a>
               <Link href={loc("/contact")}
                     className="text-sm font-medium px-8 py-4 rounded-xl text-center transition-all duration-200 active:scale-[0.97]"
-                    style={{ border: "1px solid rgba(201,168,76,0.25)", color: "rgba(247,244,238,0.6)" }}>
+                    style={{ border: "1px solid rgba(200,149,108,0.25)", color: "rgba(247,244,238,0.6)" }}>
                 Contact us
               </Link>
             </motion.div>

@@ -15,9 +15,9 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
+      <span className="w-6 h-px" style={{ background: "#c8956c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>{children}</span>
+            style={{ color: light ? "#e8b48a" : "#c8956c" }}>{children}</span>
     </div>
   );
 }
@@ -117,7 +117,7 @@ export default function ContactPage() {
                 }}
               >
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-                     style={{ background: "rgba(201,168,76,0.1)", color: C.gold }}>
+                     style={{ background: "rgba(200,149,108,0.1)", color: C.gold }}>
                   <Icon className="w-5 h-5" />
                 </div>
                 <div className="flex-1">
@@ -146,7 +146,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }} transition={{ duration: 0.5 }}
               className="rounded-2xl p-8"
-              style={{ background: C.dark, border: "1px solid rgba(201,168,76,0.2)" }}
+              style={{ background: C.dark, border: "1px solid rgba(200,149,108,0.2)" }}
             >
               <div className="flex items-center gap-3 mb-5">
                 <Clock className="w-5 h-5" style={{ color: C.gold }} />
@@ -159,7 +159,7 @@ export default function ContactPage() {
                   { day: "Monthly Jalsa", time: "17th of every Hijri month" },
                 ].map(({ day, time }) => (
                   <li key={day} className="flex items-center justify-between py-2.5"
-                      style={{ borderBottom: "1px solid rgba(201,168,76,0.08)" }}>
+                      style={{ borderBottom: "1px solid rgba(200,149,108,0.08)" }}>
                     <span className="text-sm" style={{ color: "rgba(247,244,238,0.55)" }}>{day}</span>
                     <span className="text-sm font-semibold" style={{ color: C.onDark }}>{time}</span>
                   </li>

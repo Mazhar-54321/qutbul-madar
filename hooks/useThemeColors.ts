@@ -17,26 +17,26 @@ export function useC() {
 
   return {
     // ── always-dark (section backgrounds that stay dark in both modes) ─────
-    dark:   "#0a1f12",
-    dark2:  "#0d2317",
-    mid:    "#1a5c38",
-    green:  "#2d7a4f",
-    light:  "#4aa06a",
+    dark:   "#1c1208",
+    dark2:  "#231608",
+    mid:    "#5c3d1a",
+    green:  "#8b5e2a",
+    light:  "#b07d44",
 
-    // ── always gold ───────────────────────────────────────────────────────
-    gold:   "#c9a84c",
-    goldHi: "#e8c96b",
+    // ── always rose-gold ──────────────────────────────────────────────────
+    gold:   "#c8956c",
+    goldHi: "#e8b48a",
 
     // ── text on always-dark sections (hero, CTA) — never flips ────────────
-    onDark: "#f7f4ee",
+    onDark: "#faf6ef",
 
     // ── flips ─────────────────────────────────────────────────────────────
-    cream:  dark ? "#091a0d" : "#f7f4ee",          // page / hero-content bg
-    cream2: dark ? "#0a1f12" : "#ede9e0",          // secondary section bg
-    cream3: dark ? "rgba(201,168,76,0.12)" : "#e0d8c8",  // borders / dividers
-    text:   dark ? "#f0ede7" : "#1a1a10",          // primary body text
-    muted:  dark ? "#8fa896" : "#6b7c6e",          // secondary / muted text
-    white:  dark ? "#0f2419" : "#ffffff",          // card / article bg
-    ink:    dark ? "#f0ede7" : "#0a1f12",          // headings on light bg
+    cream:  dark ? "#1c1208" : "#faf6ef",                     // page bg
+    cream2: dark ? "#231608" : "#f0e8d8",                     // secondary section bg
+    cream3: dark ? "rgba(200,149,108,0.13)" : "#e0d0b8",      // borders / dividers
+    text:   dark ? "#f0e8d8" : "#1c1208",                     // primary body text
+    muted:  dark ? "#a89070" : "#7a6045",                     // secondary / muted text
+    white:  dark ? "#281a0a" : "#ffffff",                     // card / article bg
+    ink:    dark ? "#f0e8d8" : "#1c1208",                     // headings on light bg
   } as const;
 }

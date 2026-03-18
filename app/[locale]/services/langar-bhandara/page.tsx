@@ -17,9 +17,9 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
+      <span className="w-6 h-px" style={{ background: "#c8956c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>{children}</span>
+            style={{ color: light ? "#e8b48a" : "#c8956c" }}>{children}</span>
     </div>
   );
 }
@@ -33,11 +33,11 @@ function ValueCard({ icon, title, body, accent = false, wide = false, ink, white
                      ${wide ? "sm:col-span-2" : ""}`}
          style={{
            background: accent ? "#0a1f12" : white,
-           border: accent ? "1px solid rgba(201,168,76,0.2)" : `1px solid rgba(201,168,76,0.1)`,
-           boxShadow: accent ? "0 0 0 1px rgba(201,168,76,0.05)" : "0 4px 16px rgba(10,31,18,0.04)",
+           border: accent ? "1px solid rgba(200,149,108,0.2)" : `1px solid rgba(200,149,108,0.1)`,
+           boxShadow: accent ? "0 0 0 1px rgba(200,149,108,0.05)" : "0 4px 16px rgba(10,31,18,0.04)",
          }}>
       <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-           style={{ background: accent ? "rgba(201,168,76,0.12)" : cream2, color: accent ? "#c9a84c" : green }}>
+           style={{ background: accent ? "rgba(200,149,108,0.12)" : cream2, color: accent ? "#c8956c" : green }}>
         {icon}
       </div>
       <div>
@@ -46,7 +46,7 @@ function ValueCard({ icon, title, body, accent = false, wide = false, ink, white
         <p className="text-sm leading-[1.8]" style={{ color: accent ? "rgba(247,244,238,0.5)" : muted }}>{body}</p>
       </div>
       <div className="h-px w-0 group-hover:w-full transition-all duration-500 rounded-full mt-auto"
-           style={{ background: "#c9a84c" }} />
+           style={{ background: "#c8956c" }} />
     </div>
   );
 }
@@ -113,7 +113,7 @@ export default function LangarBhandaraPage() {
                         style={{ background: `linear-gradient(to right, ${C.gold}, transparent)` }} />
             {/* Gold stats */}
             <motion.div variants={fadeUp} className="flex flex-wrap gap-10 pt-8"
-                        style={{ borderTop: "1px solid rgba(201,168,76,0.1)" }}>
+                        style={{ borderTop: "1px solid rgba(200,149,108,0.1)" }}>
               {[
                 { num: "Daily", label: "Meals served" },
                 { num: "Free",  label: "No charge ever" },
@@ -138,7 +138,7 @@ export default function LangarBhandaraPage() {
                       className="rounded-r-2xl p-8 lg:p-10 relative overflow-hidden"
                       style={{ background: C.cream2, borderInlineStart: `3px solid ${C.gold}` }}>
             <div className="text-8xl leading-none absolute top-2 end-6 font-serif select-none"
-                 style={{ color: "rgba(201,168,76,0.07)" }}>&quot;</div>
+                 style={{ color: "rgba(200,149,108,0.07)" }}>&quot;</div>
             <Tag>About this service</Tag>
             <p className={`text-lg sm:text-xl font-medium leading-[1.85] relative
                            ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
@@ -195,7 +195,7 @@ export default function LangarBhandaraPage() {
               <motion.div key={src} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.1 }}
                           className="relative rounded-2xl overflow-hidden group"
-                          style={{ border: "1px solid rgba(201,168,76,0.1)" }}>
+                          style={{ border: "1px solid rgba(200,149,108,0.1)" }}>
                 <Image src={src} alt={label} fill
                        className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="33vw" />
                 <div className="absolute inset-0 flex items-end p-4"
@@ -215,7 +215,7 @@ export default function LangarBhandaraPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }} transition={{ duration: 0.55 }}
                       className="rounded-2xl p-8 lg:p-10"
-                      style={{ background: C.dark, border: "1px solid rgba(201,168,76,0.2)", boxShadow: "0 16px 48px rgba(10,31,18,0.2)" }}>
+                      style={{ background: C.dark, border: "1px solid rgba(200,149,108,0.2)", boxShadow: "0 16px 48px rgba(10,31,18,0.2)" }}>
             <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-center">
               <div>
                 <Tag>Get in touch</Tag>
@@ -269,7 +269,7 @@ export default function LangarBhandaraPage() {
               </a>
               <Link href={loc("/contact")}
                     className="text-sm font-medium px-8 py-4 rounded-xl text-center transition-all duration-200 active:scale-[0.97]"
-                    style={{ border: "1px solid rgba(201,168,76,0.25)", color: "rgba(247,244,238,0.6)" }}>
+                    style={{ border: "1px solid rgba(200,149,108,0.25)", color: "rgba(247,244,238,0.6)" }}>
                 Contact us
               </Link>
             </motion.div>

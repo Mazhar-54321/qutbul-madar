@@ -17,9 +17,9 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
+      <span className="w-6 h-px" style={{ background: "#c8956c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>{children}</span>
+            style={{ color: light ? "#e8b48a" : "#c8956c" }}>{children}</span>
     </div>
   );
 }

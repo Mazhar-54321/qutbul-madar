@@ -101,7 +101,7 @@ function Lightbox({
 
       {/* Counter */}
       <div className="absolute top-5 left-1/2 -translate-x-1/2 text-xs font-bold tracking-widest uppercase"
-           style={{ color: "rgba(201,168,76,0.7)" }}>
+           style={{ color: "rgba(200,149,108,0.7)" }}>
         {index + 1} / {images.length}
       </div>
 
@@ -133,7 +133,7 @@ function Lightbox({
         <div className="absolute bottom-0 inset-x-0 px-6 py-4"
              style={{ background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent)" }}>
           <p className="text-sm font-semibold text-white">{img.label}</p>
-          <p className="text-[11px] mt-0.5" style={{ color: "rgba(201,168,76,0.7)" }}>
+          <p className="text-[11px] mt-0.5" style={{ color: "rgba(200,149,108,0.7)" }}>
             Dargah Qutbul Madar · Makanpur Shareef
           </p>
         </div>
@@ -204,8 +204,8 @@ export default function ImageGalleryPage() {
 
           <motion.div variants={stagger} initial="hidden" animate="show" className="max-w-3xl">
             <motion.div variants={fadeUp} className="inline-flex items-center gap-2.5 mb-5">
-              <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
-              <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: "#e8c96b" }}>
+              <span className="w-6 h-px" style={{ background: "#c8956c" }} />
+              <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: "#e8b48a" }}>
                 Visual Archive
               </span>
             </motion.div>
@@ -225,7 +225,7 @@ export default function ImageGalleryPage() {
 
             {/* Stats row */}
             <motion.div variants={fadeUp} className="flex flex-wrap gap-10 pt-8"
-                        style={{ borderTop: "1px solid rgba(201,168,76,0.1)" }}>
+                        style={{ borderTop: "1px solid rgba(200,149,108,0.1)" }}>
               {TABS.slice(1).map(({ label, count }) => (
                 <div key={label}>
                   <p className="text-2xl font-black animate-shimmer">{count}</p>
@@ -338,8 +338,8 @@ export default function ImageGalleryPage() {
           <div className="grid lg:grid-cols-[1fr_auto] gap-10 items-center">
             <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
               <motion.div variants={fadeUp} className="inline-flex items-center gap-2.5 mb-5">
-                <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
-                <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: "#e8c96b" }}>
+                <span className="w-6 h-px" style={{ background: "#c8956c" }} />
+                <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: "#e8b48a" }}>
                   Visit Makanpur Shareef
                 </span>
               </motion.div>
@@ -364,7 +364,7 @@ export default function ImageGalleryPage() {
               </Link>
               <Link href={loc("/")}
                     className="text-sm font-medium px-8 py-4 rounded-xl text-center transition-all duration-200 active:scale-[0.97]"
-                    style={{ border: "1px solid rgba(201,168,76,0.25)", color: "rgba(247,244,238,0.6)" }}>
+                    style={{ border: "1px solid rgba(200,149,108,0.25)", color: "rgba(247,244,238,0.6)" }}>
                 Back to Home
               </Link>
             </motion.div>

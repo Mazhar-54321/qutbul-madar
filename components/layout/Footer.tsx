@@ -7,13 +7,13 @@ import { Phone, Mail, MapPin } from "lucide-react";
 import { DonateModal } from "@/components/shared/DonateModal";
 
 const C = {
-  dark:  "#0f2419",
-  mid:   "#2d7a4f",
-  gold:  "#c9a84c",
-  cream: "#f7f4ee",
-  muted: "rgba(247,244,238,0.45)",
-  dim:   "rgba(247,244,238,0.08)",
-  line:  "rgba(201,168,76,0.15)",
+  dark:  "#1c1208",
+  mid:   "#5c3d1a",
+  gold:  "#c8956c",
+  cream: "#faf6ef",
+  muted: "rgba(250,246,239,0.45)",
+  dim:   "rgba(250,246,239,0.08)",
+  line:  "rgba(200,149,108,0.15)",
 };
 
 const links = {
@@ -62,8 +62,8 @@ export default function Footer() {
                 className="flex items-center justify-center rounded-lg text-[11px] font-black"
                 style={{
                   width: 36, height: 36,
-                  background: "rgba(201,168,76,0.08)",
-                  border: `1px solid rgba(201,168,76,0.35)`,
+                  background: "rgba(200,149,108,0.08)",
+                  border: `1px solid rgba(200,149,108,0.35)`,
                   color: C.gold,
                   letterSpacing: "0.06em",
                 }}
@@ -74,7 +74,7 @@ export default function Footer() {
                 <p className="text-sm font-bold leading-tight tracking-wide" style={{ color: C.cream }}>
                   Qutbul Madar
                 </p>
-                <p className="text-[9px] tracking-[0.12em] uppercase" style={{ color: "rgba(201,168,76,0.55)" }}>
+                <p className="text-[9px] tracking-[0.12em] uppercase" style={{ color: "rgba(200,149,108,0.55)" }}>
                   Makanpur Shareef
                 </p>
               </div>
@@ -84,7 +84,7 @@ export default function Footer() {
             <p
               className="text-2xl mb-4 leading-loose"
               style={{
-                color: "rgba(201,168,76,0.2)",
+                color: "rgba(200,149,108,0.2)",
                 fontFamily: "var(--font-urdu-display, serif)",
               }}
             >
@@ -114,7 +114,7 @@ export default function Footer() {
                 <li key={l.href}>
                   <Link
                     href={loc(l.href)}
-                    className="text-[13px] transition-colors duration-200 hover:text-[#c9a84c]"
+                    className="text-[13px] transition-colors duration-200 hover:text-[#c8956c]"
                     style={{ color: C.muted }}
                   >
                     {l.label}
@@ -124,7 +124,7 @@ export default function Footer() {
               <li>
                 <button
                   onClick={() => setDonateOpen(true)}
-                  className="text-[13px] transition-colors duration-200 hover:text-[#c9a84c]"
+                  className="text-[13px] transition-colors duration-200 hover:text-[#c8956c]"
                   style={{ color: C.muted }}
                 >
                   Donate
@@ -147,7 +147,7 @@ export default function Footer() {
                 <li key={l.href}>
                   <Link
                     href={loc(l.href)}
-                    className="text-[13px] transition-colors duration-200 hover:text-[#c9a84c]"
+                    className="text-[13px] transition-colors duration-200 hover:text-[#c8956c]"
                     style={{ color: C.muted }}
                   >
                     {l.label}
@@ -179,7 +179,7 @@ export default function Footer() {
                 <Phone className="w-4 h-4 shrink-0" style={{ color: C.gold, opacity: 0.7 }} />
                 <a
                   href="tel:+919838360930"
-                  className="text-[13px] transition-colors duration-200 hover:text-[#c9a84c]"
+                  className="text-[13px] transition-colors duration-200 hover:text-[#c8956c]"
                   style={{ color: C.muted }}
                 >
                   +91 98383 60930
@@ -189,7 +189,7 @@ export default function Footer() {
                 <Mail className="w-4 h-4 shrink-0" style={{ color: C.gold, opacity: 0.7 }} />
                 <a
                   href="mailto:info@qutbulmadar.org"
-                  className="text-[13px] transition-colors duration-200 hover:text-[#c9a84c]"
+                  className="text-[13px] transition-colors duration-200 hover:text-[#c8956c]"
                   style={{ color: C.muted }}
                 >
                   info@qutbulmadar.org
@@ -203,8 +203,8 @@ export default function Footer() {
               className="inline-flex items-center gap-2 mt-7 text-[12px] font-bold px-5 py-2.5
                          rounded-lg transition-all duration-200 active:scale-[0.97]"
               style={{
-                background: "rgba(201,168,76,0.12)",
-                border: `1px solid rgba(201,168,76,0.3)`,
+                background: "rgba(200,149,108,0.12)",
+                border: `1px solid rgba(200,149,108,0.3)`,
                 color: C.gold,
               }}
             >
@@ -218,10 +218,10 @@ export default function Footer() {
           className="flex flex-wrap items-center justify-between gap-4 mt-14 pt-6"
           style={{ borderTop: `1px solid ${C.line}` }}
         >
-          <p className="text-[11px]" style={{ color: "rgba(247,244,238,0.25)" }}>
+          <p className="text-[11px]" style={{ color: "rgba(250,246,239,0.25)" }}>
             © {new Date().getFullYear()} Qutbul Madar Dargah, Makanpur Shareef. All rights reserved.
           </p>
-          <p className="text-[11px]" style={{ color: "rgba(247,244,238,0.18)" }}>
+          <p className="text-[11px]" style={{ color: "rgba(250,246,239,0.18)" }}>
             Est. 12th Century · 596 Years of Spiritual Legacy
           </p>
         </div>

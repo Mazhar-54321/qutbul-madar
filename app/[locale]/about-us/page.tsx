@@ -25,9 +25,9 @@ const stagger: Variants = {
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
+      <span className="w-6 h-px" style={{ background: "#c8956c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>
+            style={{ color: light ? "#e8b48a" : "#c8956c" }}>
         {children}
       </span>
     </div>
@@ -47,7 +47,7 @@ function DirectorCard({
       className="group flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
       style={{
         background: C.white,
-        border: "1px solid rgba(201,168,76,0.15)",
+        border: "1px solid rgba(200,149,108,0.15)",
         boxShadow: "0 4px 24px rgba(10,31,18,0.06)",
       }}
     >
@@ -64,7 +64,7 @@ function DirectorCard({
              style={{ background: `linear-gradient(to top, ${C.dark}dd 0%, transparent 55%)` }} />
         {/* Gold number badge */}
         <span className="absolute top-4 start-4 text-[10px] font-black px-2.5 py-1 rounded-full"
-              style={{ background: "rgba(201,168,76,0.15)", color: C.gold, border: "1px solid rgba(201,168,76,0.35)" }}>
+              style={{ background: "rgba(200,149,108,0.15)", color: C.gold, border: "1px solid rgba(200,149,108,0.35)" }}>
           {String(idx + 1).padStart(2, "0")}
         </span>
       </div>
@@ -168,7 +168,7 @@ export default function AboutUsPage() {
 
             {/* Gold stats */}
             <motion.div variants={fadeUp} className="flex flex-wrap gap-10 pt-10"
-                        style={{ borderTop: "1px solid rgba(201,168,76,0.12)" }}>
+                        style={{ borderTop: "1px solid rgba(200,149,108,0.12)" }}>
               {[
                 { num: "596",  label: "Years of life" },
                 { num: "800+", label: "Years of legacy" },
@@ -231,7 +231,7 @@ export default function AboutUsPage() {
             <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }} transition={{ duration: 0.65 }} className="relative">
               <div className="relative h-[520px] rounded-2xl overflow-hidden"
-                   style={{ boxShadow: `0 32px 80px rgba(10,31,18,0.22)`, border: `1px solid rgba(201,168,76,0.15)` }}>
+                   style={{ boxShadow: `0 32px 80px rgba(10,31,18,0.22)`, border: `1px solid rgba(200,149,108,0.15)` }}>
                 <Image src="/images/qutbul-madar-portrait.jpg" alt="Hazrat Qutbul Madar"
                        fill className="object-cover object-top" sizes="420px" />
                 <div className="absolute inset-0"
@@ -243,7 +243,7 @@ export default function AboutUsPage() {
               </div>
               {/* Decorative gold corner */}
               <div className="absolute -bottom-3 -end-3 w-20 h-20 rounded-2xl -z-10"
-                   style={{ background: "rgba(201,168,76,0.08)", border: "1px solid rgba(201,168,76,0.2)" }} />
+                   style={{ background: "rgba(200,149,108,0.08)", border: "1px solid rgba(200,149,108,0.2)" }} />
             </motion.div>
           </div>
         </div>
@@ -283,12 +283,12 @@ export default function AboutUsPage() {
                         viewport={{ once: true }} transition={{ duration: 0.55, delay: 0.2 }}
                         className="rounded-2xl p-8"
                         style={{
-                          background: "rgba(201,168,76,0.04)",
-                          border: "1px solid rgba(201,168,76,0.2)",
-                          boxShadow: "0 0 0 1px rgba(201,168,76,0.05)",
+                          background: "rgba(200,149,108,0.04)",
+                          border: "1px solid rgba(200,149,108,0.2)",
+                          boxShadow: "0 0 0 1px rgba(200,149,108,0.05)",
                         }}>
               <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-6"
-                   style={{ background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.25)" }}>
+                   style={{ background: "rgba(200,149,108,0.12)", border: "1px solid rgba(200,149,108,0.25)" }}>
                 <CalendarDays className="w-5 h-5" style={{ color: C.gold }} />
               </div>
               <p className="text-[10px] font-bold tracking-[0.18em] uppercase mb-2" style={{ color: C.gold }}>
@@ -301,7 +301,7 @@ export default function AboutUsPage() {
                 {t("jalsaText")}
               </p>
               <div className="mt-6 pt-6 flex items-center gap-3"
-                   style={{ borderTop: "1px solid rgba(201,168,76,0.1)" }}>
+                   style={{ borderTop: "1px solid rgba(200,149,108,0.1)" }}>
                 <Phone className="w-4 h-4 flex-shrink-0" style={{ color: C.gold, opacity: 0.7 }} />
                 <span className="text-sm" style={{ color: "rgba(247,244,238,0.45)" }}>00 – 91 – 9838360930</span>
               </div>
@@ -366,7 +366,7 @@ export default function AboutUsPage() {
               <button
                     onClick={() => setDonateOpen(true)}
                     className="text-sm font-medium px-8 py-4 rounded-xl text-center transition-all duration-200 active:scale-[0.97]"
-                    style={{ border: "1px solid rgba(201,168,76,0.25)", color: "rgba(247,244,238,0.6)" }}>
+                    style={{ border: "1px solid rgba(200,149,108,0.25)", color: "rgba(247,244,238,0.6)" }}>
                 Donate
               </button>
             </motion.div>

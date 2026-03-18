@@ -17,9 +17,9 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 function Tag({ children, light = false }: { children: React.ReactNode; light?: boolean }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
+      <span className="w-6 h-px" style={{ background: "#c8956c" }} />
       <span className="text-[10px] font-bold tracking-[0.2em] uppercase"
-            style={{ color: light ? "#e8c96b" : "#c9a84c" }}>{children}</span>
+            style={{ color: light ? "#e8b48a" : "#c8956c" }}>{children}</span>
     </div>
   );
 }
@@ -37,7 +37,7 @@ function PillarCard({ heading, body, isRtl, index, C }: {
       className="group rounded-r-2xl p-6 transition-all duration-300 hover:-translate-y-0.5"
       style={{
         background: C.white,
-        border: `1px solid rgba(201,168,76,0.12)`,
+        border: `1px solid rgba(200,149,108,0.12)`,
         borderInlineStart: `3px solid ${C.gold}`,
         boxShadow: "0 4px 16px rgba(10,31,18,0.05)",
       }}
@@ -114,7 +114,7 @@ export default function BigDegPage() {
             <div className="absolute inset-0"
                  style={{ background: `linear-gradient(to bottom, rgba(10,31,18,0.1) 0%, transparent 40%, ${C.cream} 100%)` }} />
             <div className="absolute top-4 end-4 px-3 py-1.5 rounded-full text-xs font-bold"
-                 style={{ background: "rgba(10,31,18,0.7)", backdropFilter: "blur(8px)", border: "1px solid rgba(201,168,76,0.35)", color: C.gold }}>
+                 style={{ background: "rgba(10,31,18,0.7)", backdropFilter: "blur(8px)", border: "1px solid rgba(200,149,108,0.35)", color: C.gold }}>
               Makanpur Shareef
             </div>
           </motion.div>
@@ -140,7 +140,7 @@ export default function BigDegPage() {
                       className="rounded-r-2xl p-7 mb-8 relative overflow-hidden"
                       style={{ background: C.cream2, borderInlineStart: `3px solid ${C.gold}` }}>
             <div className="absolute top-2 end-4 text-8xl leading-none font-serif select-none"
-                 style={{ color: "rgba(201,168,76,0.08)" }}>&quot;</div>
+                 style={{ color: "rgba(200,149,108,0.08)" }}>&quot;</div>
             <p className={`text-lg font-medium leading-[1.85] relative ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
                style={{ color: C.ink }}>
               {t("intro")}
@@ -191,7 +191,7 @@ export default function BigDegPage() {
               <motion.div key={img.src} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }} transition={{ duration: 0.55, delay: i * 0.1 }}
                           className="relative rounded-2xl overflow-hidden group"
-                          style={{ aspectRatio: "4/3", border: "1px solid rgba(201,168,76,0.12)" }}>
+                          style={{ aspectRatio: "4/3", border: "1px solid rgba(200,149,108,0.12)" }}>
                 <Image src={img.src} alt={img.caption} fill className="object-cover transition-transform duration-700 group-hover:scale-105"
                        sizes="(max-width: 768px) 100vw, 50vw" />
                 <div className="absolute bottom-0 inset-x-0 px-4 py-2.5 text-xs font-medium"
@@ -209,7 +209,7 @@ export default function BigDegPage() {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }} transition={{ duration: 0.55 }}
                       className="rounded-2xl p-8"
-                      style={{ background: C.dark, border: "1px solid rgba(201,168,76,0.2)", boxShadow: "0 16px 48px rgba(10,31,18,0.2)" }}>
+                      style={{ background: C.dark, border: "1px solid rgba(200,149,108,0.2)", boxShadow: "0 16px 48px rgba(10,31,18,0.2)" }}>
             <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-center">
               <div>
                 <Tag>Get in touch</Tag>
@@ -262,7 +262,7 @@ export default function BigDegPage() {
               </a>
               <Link href={loc("/contact")}
                     className="text-sm font-medium px-8 py-4 rounded-xl text-center transition-all duration-200 active:scale-[0.97]"
-                    style={{ border: "1px solid rgba(201,168,76,0.25)", color: "rgba(247,244,238,0.6)" }}>
+                    style={{ border: "1px solid rgba(200,149,108,0.25)", color: "rgba(247,244,238,0.6)" }}>
                 Contact us
               </Link>
             </motion.div>

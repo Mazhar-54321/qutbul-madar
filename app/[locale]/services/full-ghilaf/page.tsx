@@ -17,8 +17,8 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 function Tag({ children }: { children: React.ReactNode }) {
   return (
     <div className="inline-flex items-center gap-2.5 mb-5">
-      <span className="w-6 h-px" style={{ background: "#c9a84c" }} />
-      <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: "#c9a84c" }}>{children}</span>
+      <span className="w-6 h-px" style={{ background: "#c8956c" }} />
+      <span className="text-[10px] font-bold tracking-[0.2em] uppercase" style={{ color: "#c8956c" }}>{children}</span>
     </div>
   );
 }
@@ -85,7 +85,7 @@ export default function FullGhilafPage() {
                  style={{
                    background: "rgba(10,31,18,0.7)",
                    backdropFilter: "blur(8px)",
-                   border: "1px solid rgba(201,168,76,0.35)",
+                   border: "1px solid rgba(200,149,108,0.35)",
                    color: C.gold,
                  }}>
               Makanpur Shareef
@@ -117,7 +117,7 @@ export default function FullGhilafPage() {
                         borderInlineStart: `3px solid ${C.gold}`,
                       }}>
             <div className="absolute top-2 end-4 text-8xl leading-none font-serif select-none"
-                 style={{ color: "rgba(201,168,76,0.08)" }}>&quot;</div>
+                 style={{ color: "rgba(200,149,108,0.08)" }}>&quot;</div>
             <p className={`text-lg font-medium leading-[1.85] relative
                            ${isRtl ? "font-[var(--font-urdu-display)]" : ""}`}
                style={{ color: C.ink }}>
@@ -129,7 +129,7 @@ export default function FullGhilafPage() {
           <motion.div initial={{ opacity: 0, scale: 0.98 }} whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }} transition={{ duration: 0.6 }}
                       className="relative w-full rounded-2xl overflow-hidden mb-10"
-                      style={{ aspectRatio: "16/8", border: "1px solid rgba(201,168,76,0.12)" }}>
+                      style={{ aspectRatio: "16/8", border: "1px solid rgba(200,149,108,0.12)" }}>
             <Image src="/images/WhatsApp-Image-2024-04-27-at-19.59.08_3441e7a4-466x1024.jpg" alt="Full Ghilaaf ceremony"
                    fill className="object-cover object-center" sizes="100vw" />
             <div className="absolute inset-0"
@@ -160,7 +160,7 @@ export default function FullGhilafPage() {
                       className="rounded-2xl p-8"
                       style={{
                         background: C.dark,
-                        border: "1px solid rgba(201,168,76,0.2)",
+                        border: "1px solid rgba(200,149,108,0.2)",
                         boxShadow: "0 16px 48px rgba(10,31,18,0.2)",
                       }}>
             <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-center">
@@ -217,7 +217,7 @@ export default function FullGhilafPage() {
               </a>
               <Link href={loc("/contact")}
                     className="text-sm font-medium px-8 py-4 rounded-xl text-center transition-all duration-200 active:scale-[0.97]"
-                    style={{ border: "1px solid rgba(201,168,76,0.25)", color: "rgba(247,244,238,0.6)" }}>
+                    style={{ border: "1px solid rgba(200,149,108,0.25)", color: "rgba(247,244,238,0.6)" }}>
                 Contact us
               </Link>
             </motion.div>

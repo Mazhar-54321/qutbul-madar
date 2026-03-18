@@ -1,0 +1,328 @@
+"use client";
+
+import { useLocale } from "next-intl";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { useState, useCallback, useRef, useEffect } from "react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  BookOpen,
+  Download,
+  Search,
+  FileText,
+  X,
+  ZoomIn,
+  ZoomOut,
+} from "lucide-react";
+import { Document, Page, pdfjs } from "react-pdf";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
+import { useC } from "@/hooks/useThemeColors";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+};
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08 } },
+};
+
+const BOOKS = [
+  { title: "Taziya Dari", file: "TAZIYA-DARI-hindi.pdf" },
+];
+
+type CType = ReturnType<typeof useC>;
+
+function PdfModal({ url, downloadUrl, title, onClose, C }: { url: string; downloadUrl: string; title: string; onClose: () => void; C: CType }) {
+  const [numPages, setNumPages] = useState<number>(0);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [scale, setScale] = useState(1.0);
+  const [loading, setLoading] = useState(true);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setContainerWidth(el.clientWidth));
+    ro.observe(el);
+    setContainerWidth(el.clientWidth);
+    return () => ro.disconnect();
+  }, []);
+
+  const onDocumentLoadSuccess = useCallback(({ numPages }: { numPages: number }) => {
+    setNumPages(numPages);
+    setLoading(false);
+  }, []);
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: "rgba(0,0,0,0.75)" }}
+      onClick={onClose}
+    >
+      <div
+        className="relative flex flex-col w-full max-w-4xl max-h-[92vh] rounded-2xl overflow-hidden shadow-2xl"
+        style={{ background: C.cream }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between px-5 py-3 flex-shrink-0"
+             style={{ background: C.dark, color: C.onDark }}>
+          <span className="text-sm font-bold truncate max-w-[60%]">{title}</span>
+          <div className="flex items-center gap-3">
+            <button onClick={() => setScale((s) => Math.max(0.5, s - 0.2))}
+                    className="p-1.5 rounded-lg hover:bg-white/10 transition-colors">
+              <ZoomOut className="w-4 h-4" />
+            </button>
+            <span className="text-xs tabular-nums w-10 text-center">{Math.round(scale * 100)}%</span>
+            <button onClick={() => setScale((s) => Math.min(2.5, s + 0.2))}
+                    className="p-1.5 rounded-lg hover:bg-white/10 transition-colors">
+              <ZoomIn className="w-4 h-4" />
+            </button>
+            <a href={downloadUrl} download={title}
+               className="p-1.5 rounded-lg hover:bg-white/10 transition-colors" title="Download">
+              <Download className="w-4 h-4" />
+            </a>
+            <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-white/10 transition-colors">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        <div ref={containerRef}
+             className="flex-1 overflow-auto flex flex-col items-center py-4 px-2 gap-3"
+             style={{ background: "#525659" }}>
+          {loading && (
+            <div className="flex flex-col items-center justify-center h-48 gap-3" style={{ color: C.onDark }}>
+              <div className="w-8 h-8 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <span className="text-sm">Loading PDF…</span>
+            </div>
+          )}
+          <Document file={url} onLoadSuccess={onDocumentLoadSuccess}
+                    onLoadError={() => setLoading(false)} loading="">
+            <div className="shadow-lg">
+              <Page pageNumber={pageNumber}
+                    width={containerWidth ? containerWidth * scale - 32 : undefined}
+                    renderTextLayer={true} renderAnnotationLayer={true} />
+            </div>
+          </Document>
+        </div>
+
+        {numPages > 0 && (
+          <div className="flex items-center justify-center gap-4 px-5 py-2.5 flex-shrink-0 text-sm font-medium"
+               style={{ background: C.dark, color: C.onDark }}>
+            <button onClick={() => setPageNumber((p) => Math.min(numPages, p + 1))}
+                    disabled={pageNumber >= numPages}
+                    className="p-1 rounded hover:bg-white/10 disabled:opacity-30 transition-colors">
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <span className="tabular-nums text-xs">Page {pageNumber} of {numPages}</span>
+            <button onClick={() => setPageNumber((p) => Math.max(1, p - 1))}
+                    disabled={pageNumber <= 1}
+                    className="p-1 rounded hover:bg-white/10 disabled:opacity-30 transition-colors">
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function BookCard({ title, file, idx, C }: { title: string; file: string; idx: number; C: CType }) {
+  const [open, setOpen] = useState(false);
+  const pdfPath = `https://github.com/Mazhar-54321/qutbul-madar/releases/download/Hindi-Books/${file}`;
+  const proxyPath = `/api/pdf?file=${encodeURIComponent(file)}&tag=Hindi-Books`;
+
+  return (
+    <>
+      {open && <PdfModal url={proxyPath} downloadUrl={pdfPath} title={title} onClose={() => setOpen(false)} C={C} />}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-20px" }}
+        transition={{ duration: 0.45, delay: (idx % 6) * 0.06 }}
+        className="group flex flex-col rounded-2xl overflow-hidden border transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
+        style={{ background: C.white, borderColor: C.cream3 }}
+      >
+        <div className="h-1.5 w-full" style={{ background: `linear-gradient(to right, ${C.dark}, ${C.mid})` }} />
+        <div className="flex flex-col flex-1 p-6 gap-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300 group-hover:bg-[#2d7a4f]"
+                 style={{ background: C.cream2 }}>
+              <BookOpen className="w-5 h-5 transition-colors duration-300 group-hover:text-white" style={{ color: C.mid }} />
+            </div>
+            <span className="text-[10px] font-bold tabular-nums px-2 py-1 rounded-full flex-shrink-0"
+                  style={{ background: C.cream2, color: C.mid }}>
+              {String(idx + 1).padStart(2, "0")}
+            </span>
+          </div>
+          <div className="flex-1">
+            <div className="w-6 h-0.5 rounded-full mb-3" style={{ background: C.mid }} />
+            <h3 className="text-[14px] font-bold leading-snug" style={{ color: C.ink }}>{title}</h3>
+            <p className="text-[11px] mt-1.5 font-medium" style={{ color: C.muted }}>Hindi · PDF</p>
+          </div>
+          <div className="flex gap-2 pt-2" style={{ borderTop: `1px solid ${C.cream3}` }}>
+            <button onClick={() => setOpen(true)}
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-bold px-3 py-2.5 rounded-xl transition-all duration-200 active:scale-[0.97]"
+                    style={{ background: C.dark, color: C.onDark }}>
+              <BookOpen className="w-3.5 h-3.5" />
+              Read
+            </button>
+            <a href={pdfPath} download={title}
+               className="flex-1 inline-flex items-center justify-center gap-1.5 text-xs font-semibold px-3 py-2.5 rounded-xl border transition-all duration-200 active:scale-[0.97]"
+               style={{ background: C.cream2, borderColor: C.cream3, color: C.text }}>
+              <Download className="w-3.5 h-3.5" />
+              Download
+            </a>
+          </div>
+        </div>
+      </motion.div>
+    </>
+  );
+}
+
+export default function HindiBooksPage() {
+  const C = useC();
+  const locale = useLocale();
+  const isRtl = ["ur", "ar"].includes(locale);
+  const loc = (href: string) => `/${locale}${href}`;
+  const [query, setQuery] = useState("");
+  const filtered = BOOKS.filter((b) => b.title.toLowerCase().includes(query.toLowerCase()));
+
+  return (
+    <main className="min-h-screen" style={{ background: C.cream, color: C.text }} dir={isRtl ? "rtl" : "ltr"}>
+
+      {/* HERO */}
+      <section style={{ background: C.dark }} className="relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.04]"
+             style={{ backgroundImage: `radial-gradient(circle, ${C.light} 1px, transparent 1px)`, backgroundSize: "28px 28px" }} />
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-16 pt-10 pb-16">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="mb-10">
+            <Link href={loc("/")}
+                  className="inline-flex items-center gap-2 text-xs font-semibold transition-colors duration-200"
+                  style={{ color: "rgba(247,244,238,0.4)" }}>
+              {isRtl ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
+              Back to home
+            </Link>
+          </motion.div>
+
+          <motion.div variants={stagger} initial="hidden" animate="show" className="max-w-3xl">
+            <motion.div variants={fadeUp} className="flex items-center gap-3 mb-5">
+              <span className="w-5 h-px" style={{ background: C.light }} />
+              <span className="text-[10px] font-bold tracking-[0.18em] uppercase" style={{ color: C.light }}>
+                Islamic & Sufi Literature
+              </span>
+            </motion.div>
+            <motion.div variants={fadeUp} className="text-3xl mb-2 opacity-10 font-serif"
+                        style={{ color: C.onDark }}>
+              हिन्दी पुस्तकें
+            </motion.div>
+            <motion.h1 variants={fadeUp}
+                       className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight mb-3"
+                       style={{ color: C.onDark }}>
+              Hindi Books
+            </motion.h1>
+            <motion.p variants={fadeUp} className="text-[15px] leading-relaxed mb-10 max-w-xl"
+                      style={{ color: "rgba(247,244,238,0.55)" }}>
+              Hindi-language books on Hazrat Qutbul Madar and the Madariya Silsilah — available to read online or download free.
+            </motion.p>
+            <motion.div variants={fadeUp} className="flex flex-wrap gap-8 pt-8"
+                        style={{ borderTop: "1px solid rgba(247,244,238,0.08)" }}>
+              {[
+                { num: String(BOOKS.length), label: "Books available" },
+                { num: "Free", label: "No charge" },
+                { num: "PDF", label: "Format" },
+                { num: "Hindi", label: "Language" },
+              ].map(({ num, label }) => (
+                <div key={label}>
+                  <p className="text-2xl font-bold tabular-nums" style={{ color: C.light }}>{num}</p>
+                  <p className="text-xs mt-0.5" style={{ color: "rgba(247,244,238,0.35)" }}>{label}</p>
+                </div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* SEARCH */}
+      <section className="py-8 sticky top-[56px] z-30"
+               style={{ background: C.cream2, borderBottom: `1px solid ${C.cream3}` }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-16">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="relative w-full sm:max-w-sm">
+              <Search className="absolute top-1/2 -translate-y-1/2 start-3.5 w-4 h-4 pointer-events-none" style={{ color: C.muted }} />
+              <input type="text" placeholder="Search books…" value={query}
+                     onChange={(e) => setQuery(e.target.value)}
+                     className="w-full ps-10 pe-4 py-2.5 rounded-xl text-sm outline-none transition-all duration-200"
+                     style={{ background: C.white, border: `1px solid ${C.cream3}`, color: C.text }}
+                     onFocus={(e) => (e.target.style.borderColor = C.mid)}
+                     onBlur={(e) => (e.target.style.borderColor = C.cream3)} />
+            </div>
+            <div className="flex items-center gap-2">
+              <FileText className="w-4 h-4" style={{ color: C.muted }} />
+              <span className="text-sm font-semibold" style={{ color: C.muted }}>
+                {filtered.length} of {BOOKS.length} books
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BOOKS GRID */}
+      <section className="py-14 lg:py-20" style={{ background: C.cream }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-16">
+          {filtered.length > 0 ? (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {filtered.map((book, idx) => (
+                <BookCard key={book.file} title={book.title} file={book.file}
+                          idx={BOOKS.indexOf(book)} C={C} />
+              ))}
+            </div>
+          ) : (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-24">
+              <BookOpen className="w-12 h-12 mx-auto mb-4" style={{ color: C.muted }} />
+              <p className="text-lg font-semibold mb-1" style={{ color: C.ink }}>No books found</p>
+              <p className="text-sm" style={{ color: C.muted }}>Try a different search term</p>
+            </motion.div>
+          )}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20" style={{ background: C.mid }}>
+        <div className="max-w-7xl mx-auto px-6 lg:px-16">
+          <div className="grid lg:grid-cols-[1fr_auto] gap-10 items-center">
+            <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true }}>
+              <motion.p variants={fadeUp} className="text-[10px] font-bold tracking-[0.18em] uppercase mb-4"
+                        style={{ color: "rgba(247,244,238,0.5)" }}>More resources</motion.p>
+              <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-bold leading-[1.15] mb-3"
+                         style={{ color: C.onDark }}>Explore more about Qutbul Madar</motion.h2>
+              <motion.p variants={fadeUp} className="text-[15px] leading-relaxed max-w-lg"
+                        style={{ color: "rgba(247,244,238,0.55)" }}>
+                Read the full history, browse articles, or visit the gallery to learn more about the life and legacy of Hazrat Syed Badiuddin Zinda Shah Madar.
+              </motion.p>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }} transition={{ delay: 0.25 }}
+                        className="flex flex-col gap-3 min-w-[180px]">
+              <Link href={loc("/history")}
+                    className="text-sm font-bold px-8 py-4 rounded-xl text-center transition-all duration-200 active:scale-[0.98]"
+                    style={{ background: C.onDark, color: C.dark }}>
+                Read History
+              </Link>
+              <Link href={loc("/image-gallery")}
+                    className="text-sm font-medium px-8 py-4 rounded-xl text-center border transition-all duration-200 active:scale-[0.98]"
+                    style={{ borderColor: "rgba(247,244,238,0.2)", color: "rgba(247,244,238,0.7)" }}>
+                View Gallery
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
